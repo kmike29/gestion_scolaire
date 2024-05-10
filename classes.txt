@@ -1,0 +1,40 @@
+Classes
+----------------------------------------------------------------
+*année scolaire : debut , fin , designation
+
+*élève: nom , prenoms , matricule , date naissance , date inscription , date départ , école de provenance
+classe actuelle* ,  parents* , freres/soeurs * 
+
+*classe : designation , niveau* , classe superieure* , classe antérieure* , frais
+
+*classeAnnée : classe* , classeAnnée , professeur
+
+*classeMatière: classe* , matière* , coefficient
+
+*tuteur; nom, prenoms , telephone , relation , metier
+
+*matière: designation , description
+
+*enseignant/personnel :  nom, prenoms , telephone , pièces , ddn , matricule
+
+*niveau: designation , classes* 
+
+inscription: etat , montant total , montant restant, montant payé , 
+
+paiement: date , montant , type
+
+emploi du temps: classeAnnée * , matiereProgramme *
+
+
+
+tranche horaire : classeAnnée , classeMatièrre , debut , fin , professeur
+
+emploi du temps
+
+----------------
+Relations
+----------------
+
+
+fonctionnalitéss 
+- paiement multiples

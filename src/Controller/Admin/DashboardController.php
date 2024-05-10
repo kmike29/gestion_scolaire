@@ -2,10 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\AnneeScolaire;
 use App\Entity\Classe;
 use App\Entity\ClasseMatiere;
+use App\Entity\Eleve;
 use App\Entity\Matiere;
 use App\Entity\Niveau;
+use App\Entity\Personnel;
+use App\Entity\Tuteur;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -54,7 +58,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Matières', 'fa fa-school', Matiere::class);
         yield MenuItem::linkToCrud('Niveaux', 'fa fa-school-lock', Niveau::class);
         yield MenuItem::linkToCrud('Assignation des matières', 'fa fa-school-lock', ClasseMatiere::class);
+        yield MenuItem::linkToCrud('Eleves', 'fa fa-school-lock', Eleve::class);
+        yield MenuItem::linkToCrud('Tuteur', 'fa fa-school-lock', Tuteur::class);
+        yield MenuItem::linkToCrud('AnneeScolaire', 'fa fa-school-lock', AnneeScolaire::class);
+        yield MenuItem::linkToCrud('Professeurs', 'fa fa-school-lock', Personnel::class);
 
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
     }
 }
