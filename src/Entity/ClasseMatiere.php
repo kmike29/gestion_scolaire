@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClasseMatiereRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Mime\Message;
@@ -26,12 +28,23 @@ class ClasseMatiere
     #[ORM\Column]
     private ?int $coefficient = null;
 
+    /**
+     * @var Collection<int, TrancheHoraire>
+     */
+    #[ORM\OneToMany(targetEntity: TrancheHoraire::class, mappedBy: 'matiere')]
+    private Collection $trancheHoraires;
+
+    public function __construct()
+    {
+        $this->trancheHoraires = new ArrayCollection();
+    }
+
     public function generateId() : void
     {
          $this->id= $this->classe->__toString(). $this->matiere->__toString();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -75,5 +88,35 @@ class ClasseMatiere
     public function __toString(): string
     {
         return $this->getMatiere()->__toString();
+    }
+
+    /**
+     * @return Collection<int, TrancheHoraire>
+     */
+    public function getTrancheHoraires(): Collection
+    {
+        return $this->trancheHoraires;
+    }
+
+    public function addTrancheHoraire(TrancheHoraire $trancheHoraire): static
+    {
+        if (!$this->trancheHoraires->contains($trancheHoraire)) {
+            $this->trancheHoraires->add($trancheHoraire);
+            $trancheHoraire->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrancheHoraire(TrancheHoraire $trancheHoraire): static
+    {
+        if ($this->trancheHoraires->removeElement($trancheHoraire)) {
+            // set the owning side to null (unless already changed)
+            if ($trancheHoraire->getMatiere() === $this) {
+                $trancheHoraire->setMatiere(null);
+            }
+        }
+
+        return $this;
     }
 }

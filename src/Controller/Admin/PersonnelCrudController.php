@@ -26,6 +26,7 @@ class PersonnelCrudController extends AbstractCrudController
             TextField::new('prenoms')->setLabel('Prénoms'),
             TextField::new('matricule')->setLabel('Numéro matricume'),
             DateField::new('dateDeNaissance')->setLabel('Date de naissance'),
+            DateField::new('dateAjout')->setLabel('Date d ajout'),
 
             FormField::addTab("documents"),
             TextField::new('cv')->setLabel('CV'),

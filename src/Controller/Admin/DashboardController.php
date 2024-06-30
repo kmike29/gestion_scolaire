@@ -4,11 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\AnneeScolaire;
 use App\Entity\Classe;
+use App\Entity\ClasseAnneeScolaire;
 use App\Entity\ClasseMatiere;
 use App\Entity\Eleve;
+use App\Entity\EmploiDuTemps;
 use App\Entity\Matiere;
 use App\Entity\Niveau;
 use App\Entity\Personnel;
+use App\Entity\TrancheHoraire;
 use App\Entity\Tuteur;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -47,22 +50,25 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTranslationDomain('admin')
-            ->setTitle('Radiance School')
+            ->setTitle('Gestion scolaire')
             ->setLocales(['fr']);
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Classes', 'fas fa-book', Classe::class);
-        yield MenuItem::linkToCrud('Matières', 'fa fa-school', Matiere::class);
-        yield MenuItem::linkToCrud('Niveaux', 'fa fa-school-lock', Niveau::class);
-        yield MenuItem::linkToCrud('Assignation des matières', 'fa fa-school-lock', ClasseMatiere::class);
-        yield MenuItem::linkToCrud('Eleves', 'fa fa-school-lock', Eleve::class);
-        yield MenuItem::linkToCrud('Tuteur', 'fa fa-school-lock', Tuteur::class);
-        yield MenuItem::linkToCrud('AnneeScolaire', 'fa fa-school-lock', AnneeScolaire::class);
-        yield MenuItem::linkToCrud('Professeurs', 'fa fa-school-lock', Personnel::class);
-
+        yield MenuItem::linkToCrud('Classes', 'fas fa-user-group', Classe::class);
+        yield MenuItem::linkToCrud('Matières', 'fa-solid fa-book', Matiere::class);
+        yield MenuItem::linkToCrud('Niveaux', 'fa fa-layer-group', Niveau::class);
+        yield MenuItem::linkToCrud('Assignation des matières', 'fa fa-book-open', ClasseMatiere::class);
+        yield MenuItem::linkToCrud('Eleves', 'fa fa-book-open-reader', Eleve::class);
+        yield MenuItem::linkToCrud('Personnel', 'fa-solid fa-user-tie', Personnel::class);
+        yield MenuItem::linkToCrud('Années scolaires', 'fa fa-calendar', AnneeScolaire::class);
+        yield MenuItem::linkToCrud('Classes actives ', 'fa fa-people-group', ClasseAnneeScolaire::class);
+        yield MenuItem::linkToCrud('Emplois du temps', 'fa fa-calendar-days', EmploiDuTemps::class);
+        yield MenuItem::linkToCrud('Parents', 'fa fa-child-reaching', Tuteur::class);
+        yield MenuItem::linkToCrud('Diplomes - inactif', 'fa fa-user-graduate', Eleve::class);
+        yield MenuItem::linkToCrud('Matières programmés', 'fa fa-clock', TrancheHoraire::class);
 
     }
 }

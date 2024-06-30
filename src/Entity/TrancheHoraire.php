@@ -19,10 +19,6 @@ class TrancheHoraire
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $jour = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?classeAnneeScolaire $classe = null;
-
     #[ORM\ManyToOne(inversedBy: 'trancheHoraires')]
     private ?EmploiDuTemps $emploiDuTemps = null;
 
@@ -34,6 +30,10 @@ class TrancheHoraire
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $fin = null;
+
+    #[ORM\ManyToOne(inversedBy: 'trancheHoraires')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ClasseMatiere $matiere = null;
 
     public function getId(): ?int
     {
@@ -48,18 +48,6 @@ class TrancheHoraire
     public function setJour(\DateTimeInterface $jour): static
     {
         $this->jour = $jour;
-
-        return $this;
-    }
-
-    public function getClasse(): ?classeAnneeScolaire
-    {
-        return $this->classe;
-    }
-
-    public function setClasse(?classeAnneeScolaire $classe): static
-    {
-        $this->classe = $classe;
 
         return $this;
     }
@@ -108,6 +96,18 @@ class TrancheHoraire
     public function setFin(\DateTimeInterface $fin): static
     {
         $this->fin = $fin;
+
+        return $this;
+    }
+
+    public function getMatiere(): ?ClasseMatiere
+    {
+        return $this->matiere;
+    }
+
+    public function setMatiere(?ClasseMatiere $matiere): static
+    {
+        $this->matiere = $matiere;
 
         return $this;
     }

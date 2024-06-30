@@ -77,4 +77,9 @@ class EmploiDuTemps
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getClasse()->__toString();
+    }
 }

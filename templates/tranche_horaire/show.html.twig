@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TrancheHoraire{% endblock %}
+
+{% block body %}
+    <h1>TrancheHoraire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tranche_horaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Jour</th>
+                <td>{{ tranche_horaire.jour ? tranche_horaire.jour|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Debut</th>
+                <td>{{ tranche_horaire.debut ? tranche_horaire.debut|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fin</th>
+                <td>{{ tranche_horaire.fin ? tranche_horaire.fin|date('H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tranche_horaire_index') }}">back to list</a>
+
+    <a href="{{ path('app_tranche_horaire_edit', {'id': tranche_horaire.id}) }}">edit</a>
+
+    {{ include('tranche_horaire/_delete_form.html.twig') }}
+{% endblock %}

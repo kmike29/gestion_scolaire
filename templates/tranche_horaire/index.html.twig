@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TrancheHoraire index{% endblock %}
+
+{% block body %}
+    <h1>TrancheHoraire index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Jour</th>
+                <th>Debut</th>
+                <th>Fin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tranche_horaire in tranche_horaires %}
+            <tr>
+                <td>{{ tranche_horaire.id }}</td>
+                <td>{{ tranche_horaire.jour ? tranche_horaire.jour|date('Y-m-d') : '' }}</td>
+                <td>{{ tranche_horaire.debut ? tranche_horaire.debut|date('H:i:s') : '' }}</td>
+                <td>{{ tranche_horaire.fin ? tranche_horaire.fin|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_tranche_horaire_showing', {'id': tranche_horaire.id}) }}">show</a>
+                    <a href="{{ path('app_tranche_horaire_edit', {'id': tranche_horaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tranche_horaire_new') }}">Create new</a>
+{% endblock %}
