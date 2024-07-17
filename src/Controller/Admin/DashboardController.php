@@ -8,6 +8,7 @@ use App\Entity\ClasseAnneeScolaire;
 use App\Entity\ClasseMatiere;
 use App\Entity\Eleve;
 use App\Entity\EmploiDuTemps;
+use App\Entity\Inscription;
 use App\Entity\Matiere;
 use App\Entity\Niveau;
 use App\Entity\Personnel;
@@ -69,6 +70,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Parents', 'fa fa-child-reaching', Tuteur::class);
         yield MenuItem::linkToCrud('Diplomes - inactif', 'fa fa-user-graduate', Eleve::class);
         yield MenuItem::linkToCrud('Matières programmés', 'fa fa-clock', TrancheHoraire::class);
+        yield MenuItem::linkToCrud('Inscription', 'fa fa-clock', Inscription::class);
 
     }
 }

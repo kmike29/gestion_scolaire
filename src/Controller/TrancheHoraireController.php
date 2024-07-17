@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/tranche/horaire')]
+#[Route('/tranche')]
 class TrancheHoraireController extends AbstractController
 {
     #[Route('/', name: 'app_tranche_horaire_index', methods: ['GET'])]

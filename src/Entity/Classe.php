@@ -30,6 +30,9 @@ class Classe
     #[ORM\OneToMany(targetEntity: ClasseMatiere::class, mappedBy: 'classe', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $matieres;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $montant = null;
+
 
     public function __construct()
     {
@@ -114,6 +117,18 @@ class Classe
                 $matiere->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMontant(): ?int
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?int $montant): static
+    {
+        $this->montant = $montant;
 
         return $this;
     }

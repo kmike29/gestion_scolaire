@@ -16,6 +16,16 @@ class AnneeScolaireRepository extends ServiceEntityRepository
         parent::__construct($registry, AnneeScolaire::class);
     }
 
+    public function findActiveYear($value): ?AnneeScolaire
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.active = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     //    /**
     //     * @return AnneeScolaire[] Returns an array of AnneeScolaire objects
     //     */

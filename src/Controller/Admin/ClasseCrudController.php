@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 
 class ClasseCrudController extends AbstractCrudController
 {
@@ -37,6 +38,7 @@ class ClasseCrudController extends AbstractCrudController
         return [
             FormField::addTab('Informations'),
             TextField::new('nom'),
+            MoneyField::new('montant')->setCurrency('XAF'),
             AssociationField::new('niveau'),
             AssociationField::new('classeSuperieure'),
             FormField::addTab('Matieres')->hideWhenCreating(),

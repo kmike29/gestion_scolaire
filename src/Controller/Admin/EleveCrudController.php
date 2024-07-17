@@ -2,9 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\AnneeScolaire;
 use App\Entity\Eleve;
+use App\Entity\Inscription;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -25,20 +29,53 @@ class EleveCrudController extends AbstractCrudController
     {
         return [
             FormField::addTab("Informations de l'élève "),
-            ImageField::new('photo')->setBasePath('public/students/photos/')->setUploadDir('public/students/photos/')->setFormTypeOptions(['attr' => [
+            ImageField::new('photo')->setBasePath('public/élèves/photos/')->setUploadDir('public/élèves/photos/')->setFormTypeOptions(['attr' => [
                 'accept' => 'image/*',
             ],
             ]),
+            TextField::new('matricule'),
             TextField::new('nom'),
             TextField::new('prenoms'),
+            ChoiceField::new('sexe')->setChoices([
+                'M' => 'masculin',
+                'F' => 'feminin',
+            ]),
             TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance'),
             TextField::new('nationalite')->setLabel('Nationalité'),
             DateField::new('dateDeNaissance')->setLabel('Date de naissance'),
             DateField::new('dateDInscription')->setLabel("Date d'inscription"),
             TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance'),
+            AssociationField::new('classeActuelle'),
+
             //FormField::addTab('Parents'),
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+            $this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
+            // let him take the natural course
+            parent::persistEntity($entityManager, $entityInstance);
+            $this->createInscription($entityManager, $entityInstance);
+
+    }
+
+    public function createInscription(EntityManagerInterface $entityManager,Eleve $eleve){
+
+        $schoolYearRepository = $entityManager->getRepository(AnneeScolaire::class);
+        $anneeEnCours = $schoolYearRepository->findActiveYear(true);
+
+        $inscription = new Inscription();
+        $inscription->setEleve($eleve);
+        $inscription->setAnneeScolaire($anneeEnCours);
+        $inscription->setClasse($eleve->getClasseActuelle());
+        $inscription->setMontantRestant($eleve->getClasseActuelle()->getClasse()->getMontant());
+        $inscription->setMontantRemis(0);
+
+        parent::persistEntity($entityManager, $inscription);
+
+
     }
     
 }
