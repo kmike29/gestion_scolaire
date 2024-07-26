@@ -449,6 +449,7 @@
       <tag name="ea.crud_controller"/>
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.3YFBJbt.App\Controller\Admin\InscriptionCrudController"/>
       </call>
@@ -467,6 +468,14 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.3YFBJbt.App\Controller\Admin\NiveauCrudController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Admin\PaiementCrudController" class="App\Controller\Admin\PaiementCrudController" public="true" autowire="true" autoconfigure="true">
+      <tag name="ea.crud_controller"/>
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.3YFBJbt.App\Controller\Admin\PaiementCrudController"/>
       </call>
     </service>
     <service id="App\Controller\Admin\PersonnelCrudController" class="App\Controller\Admin\PersonnelCrudController" public="true" autowire="true" autoconfigure="true">
@@ -493,6 +502,13 @@
         <argument type="service" id=".service_locator.3YFBJbt.App\Controller\Admin\TuteurCrudController"/>
       </call>
     </service>
+    <service id="App\Controller\PaiementController" class="App\Controller\PaiementController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\PaiementController"/>
+      </call>
+    </service>
     <service id="App\Controller\TrancheHoraireController" class="App\Controller\TrancheHoraireController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -507,6 +523,9 @@
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="App\Repository\TrancheHoraireRepository"/>
       <argument type="service" id="router.default"/>
+    </service>
+    <service id="App\Form\PaiementType" class="App\Form\PaiementType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
     </service>
     <service id="App\Form\TrancheHoraireType" class="App\Form\TrancheHoraireType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
@@ -544,6 +563,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\NiveauRepository" class="App\Repository\NiveauRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\PaiementRepository" class="App\Repository\PaiementRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -589,7 +612,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.U1iHiLo"/>
+      <argument type="service" id=".service_locator.5a5VM91"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1498,6 +1521,7 @@
         <argument>EasyCorp\Bundle\EasyAdminBundle\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\PaiementType</argument>
         <argument>App\Form\TrancheHoraireType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
@@ -3550,7 +3574,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.U1iHiLo"/>
+      <argument type="service" id=".service_locator.5a5VM91"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -4054,7 +4078,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.e1CaVb8"/>
+      <argument type="service" id=".service_locator.XrxDrI_"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5311,7 +5335,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.6bVNMSX"/>
+      <argument type="service" id=".service_locator.1.7xMcS"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7753,6 +7777,10 @@
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\NiveauCrudController" class="App\Controller\Admin\NiveauCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\NiveauCrudController" class="App\Controller\Admin\NiveauCrudController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\NiveauCrudController" class="App\Controller\Admin\NiveauCrudController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\PaiementCrudController" class="App\Controller\Admin\PaiementCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\PaiementCrudController" class="App\Controller\Admin\PaiementCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\PaiementCrudController" class="App\Controller\Admin\PaiementCrudController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\PaiementCrudController" class="App\Controller\Admin\PaiementCrudController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\PersonnelCrudController" class="App\Controller\Admin\PersonnelCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\PersonnelCrudController" class="App\Controller\Admin\PersonnelCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\PersonnelCrudController" class="App\Controller\Admin\PersonnelCrudController" autowire="true" abstract="true"/>
@@ -7765,6 +7793,9 @@
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\TuteurCrudController" class="App\Controller\Admin\TuteurCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\TuteurCrudController" class="App\Controller\Admin\TuteurCrudController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\TuteurCrudController" class="App\Controller\Admin\TuteurCrudController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PaiementController" class="App\Controller\PaiementController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PaiementController" class="App\Controller\PaiementController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\PaiementController" class="App\Controller\PaiementController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\TrancheHoraireController" class="App\Controller\TrancheHoraireController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\TrancheHoraireController" class="App\Controller\TrancheHoraireController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\TrancheHoraireController" class="App\Controller\TrancheHoraireController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7772,6 +7803,8 @@
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\EmploiDuTempsSubscriber" class="App\EventSubscriber\EmploiDuTempsSubscriber" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\EventSubscriber\EmploiDuTempsSubscriber" class="App\EventSubscriber\EmploiDuTempsSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PaiementType" class="App\Form\PaiementType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\PaiementType" class="App\Form\PaiementType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TrancheHoraireType" class="App\Form\TrancheHoraireType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\TrancheHoraireType" class="App\Form\TrancheHoraireType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AnneeScolaireRepository" class="App\Repository\AnneeScolaireRepository" autowire="true" abstract="true"/>
@@ -7792,6 +7825,8 @@
     <service id=".abstract.instanceof.App\Repository\MatiereRepository" class="App\Repository\MatiereRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\NiveauRepository" class="App\Repository\NiveauRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\NiveauRepository" class="App\Repository\NiveauRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PaiementRepository" class="App\Repository\PaiementRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\PaiementRepository" class="App\Repository\PaiementRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PersonnelRepository" class="App\Repository\PersonnelRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\PersonnelRepository" class="App\Repository\PersonnelRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TrancheHoraireRepository" class="App\Repository\TrancheHoraireRepository" autowire="true" abstract="true"/>
@@ -8378,6 +8413,40 @@
         <argument key="eleve" type="service_closure" id=".errored..service_locator.qkU5qjr.App\Entity\Eleve"/>
       </argument>
     </service>
+    <service id=".service_locator.9xTnqfF" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="context" type="service_closure" id=".errored..service_locator.9xTnqfF.EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext"/>
+        <argument key="adminUrlGenerator" type="service_closure" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.69GazA_" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="paiementRepository" type="service_closure" id="App\Repository\PaiementRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.aVvSxx6" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="iDinscription" type="service_closure" id=".errored..service_locator.aVvSxx6.App\Entity\Inscription"/>
+      </argument>
+    </service>
+    <service id=".service_locator.W6WaZsJ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="paiement" type="service_closure" id=".errored..service_locator.W6WaZsJ.App\Entity\Paiement"/>
+      </argument>
+    </service>
+    <service id=".service_locator.VxAVubp" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="paiement" type="service_closure" id=".errored..service_locator.VxAVubp.App\Entity\Paiement"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.6NHPLT_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8397,7 +8466,7 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.U1iHiLo" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.5a5VM91" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -8533,9 +8602,11 @@
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController::createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController::duplicateProduct" type="service_closure" id=".service_locator.9xTnqfF"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController::updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::index" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -8546,7 +8617,6 @@
         <argument key="App\Controller\Admin\InscriptionCrudController::autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController::updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
@@ -8596,6 +8666,27 @@
         <argument key="App\Controller\Admin\NiveauCrudController::createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\NiveauCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\NiveauCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::index" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::edit" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::new" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::delete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::batchDelete" type="service_closure" id=".service_locator.jwjltq_"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
         <argument key="App\Controller\Admin\PersonnelCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
         <argument key="App\Controller\Admin\PersonnelCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\PersonnelCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
@@ -8659,6 +8750,11 @@
         <argument key="App\Controller\Admin\TuteurCrudController::createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\TuteurCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\TuteurCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
+        <argument key="App\Controller\PaiementController::index" type="service_closure" id=".service_locator.69GazA_"/>
+        <argument key="App\Controller\PaiementController::new" type="service_closure" id=".service_locator.aVvSxx6"/>
+        <argument key="App\Controller\PaiementController::show" type="service_closure" id=".service_locator.W6WaZsJ"/>
+        <argument key="App\Controller\PaiementController::edit" type="service_closure" id=".service_locator.VxAVubp"/>
+        <argument key="App\Controller\PaiementController::delete" type="service_closure" id=".service_locator.VxAVubp"/>
         <argument key="App\Controller\TrancheHoraireController::index" type="service_closure" id=".service_locator.6NHPLT_"/>
         <argument key="App\Controller\TrancheHoraireController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\TrancheHoraireController::showing" type="service_closure" id=".service_locator._IZd479"/>
@@ -8795,9 +8891,11 @@
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController:createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController:duplicateProduct" type="service_closure" id=".service_locator.9xTnqfF"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController:updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:index" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -8808,7 +8906,6 @@
         <argument key="App\Controller\Admin\InscriptionCrudController:autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController:updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
@@ -8858,6 +8955,27 @@
         <argument key="App\Controller\Admin\NiveauCrudController:createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\NiveauCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\NiveauCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:index" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:edit" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:new" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:delete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:batchDelete" type="service_closure" id=".service_locator.jwjltq_"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\PaiementCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
         <argument key="App\Controller\Admin\PersonnelCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
         <argument key="App\Controller\Admin\PersonnelCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\PersonnelCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
@@ -8921,6 +9039,11 @@
         <argument key="App\Controller\Admin\TuteurCrudController:createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\TuteurCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\TuteurCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
+        <argument key="App\Controller\PaiementController:index" type="service_closure" id=".service_locator.69GazA_"/>
+        <argument key="App\Controller\PaiementController:new" type="service_closure" id=".service_locator.aVvSxx6"/>
+        <argument key="App\Controller\PaiementController:show" type="service_closure" id=".service_locator.W6WaZsJ"/>
+        <argument key="App\Controller\PaiementController:edit" type="service_closure" id=".service_locator.VxAVubp"/>
+        <argument key="App\Controller\PaiementController:delete" type="service_closure" id=".service_locator.VxAVubp"/>
         <argument key="App\Controller\TrancheHoraireController:index" type="service_closure" id=".service_locator.6NHPLT_"/>
         <argument key="App\Controller\TrancheHoraireController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\TrancheHoraireController:showing" type="service_closure" id=".service_locator._IZd479"/>
@@ -9097,9 +9220,10 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.e1CaVb8" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.XrxDrI_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\PaiementType" type="service_closure" id="App\Form\PaiementType"/>
         <argument key="App\Form\TrancheHoraireType" type="service_closure" id="App\Form\TrancheHoraireType"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service_closure" id="form.type.form"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
@@ -9236,7 +9360,7 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.6bVNMSX" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.1.7xMcS" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AnneeScolaireRepository" type="service_closure" id="App\Repository\AnneeScolaireRepository"/>
@@ -9248,6 +9372,7 @@
         <argument key="App\Repository\InscriptionRepository" type="service_closure" id="App\Repository\InscriptionRepository"/>
         <argument key="App\Repository\MatiereRepository" type="service_closure" id="App\Repository\MatiereRepository"/>
         <argument key="App\Repository\NiveauRepository" type="service_closure" id="App\Repository\NiveauRepository"/>
+        <argument key="App\Repository\PaiementRepository" type="service_closure" id="App\Repository\PaiementRepository"/>
         <argument key="App\Repository\PersonnelRepository" type="service_closure" id="App\Repository\PersonnelRepository"/>
         <argument key="App\Repository\TrancheHoraireRepository" type="service_closure" id="App\Repository\TrancheHoraireRepository"/>
         <argument key="App\Repository\TuteurRepository" type="service_closure" id="App\Repository\TuteurRepository"/>
@@ -9474,6 +9599,7 @@
         <argument key="App\Controller\Admin\InscriptionCrudController">App\Entity\Inscription</argument>
         <argument key="App\Controller\Admin\MatiereCrudController">App\Entity\Matiere</argument>
         <argument key="App\Controller\Admin\NiveauCrudController">App\Entity\Niveau</argument>
+        <argument key="App\Controller\Admin\PaiementCrudController">App\Entity\Paiement</argument>
         <argument key="App\Controller\Admin\PersonnelCrudController">App\Entity\Personnel</argument>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController">App\Entity\TrancheHoraire</argument>
         <argument key="App\Controller\Admin\TuteurCrudController">App\Entity\Tuteur</argument>
@@ -9488,6 +9614,7 @@
         <argument key="App\Controller\Admin\InscriptionCrudController">97aa9cb</argument>
         <argument key="App\Controller\Admin\MatiereCrudController">4ae2e7f</argument>
         <argument key="App\Controller\Admin\NiveauCrudController">e1f34dd</argument>
+        <argument key="App\Controller\Admin\PaiementCrudController">2dfa3c7</argument>
         <argument key="App\Controller\Admin\PersonnelCrudController">cce3524</argument>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController">c3c5cf9</argument>
         <argument key="App\Controller\Admin\TuteurCrudController">18e707b</argument>
@@ -9502,6 +9629,7 @@
         <argument key="App\Entity\Inscription">App\Controller\Admin\InscriptionCrudController</argument>
         <argument key="App\Entity\Matiere">App\Controller\Admin\MatiereCrudController</argument>
         <argument key="App\Entity\Niveau">App\Controller\Admin\NiveauCrudController</argument>
+        <argument key="App\Entity\Paiement">App\Controller\Admin\PaiementCrudController</argument>
         <argument key="App\Entity\Personnel">App\Controller\Admin\PersonnelCrudController</argument>
         <argument key="App\Entity\TrancheHoraire">App\Controller\Admin\TrancheHoraireCrudController</argument>
         <argument key="App\Entity\Tuteur">App\Controller\Admin\TuteurCrudController</argument>
@@ -9516,6 +9644,7 @@
         <argument key="97aa9cb">App\Controller\Admin\InscriptionCrudController</argument>
         <argument key="4ae2e7f">App\Controller\Admin\MatiereCrudController</argument>
         <argument key="e1f34dd">App\Controller\Admin\NiveauCrudController</argument>
+        <argument key="2dfa3c7">App\Controller\Admin\PaiementCrudController</argument>
         <argument key="cce3524">App\Controller\Admin\PersonnelCrudController</argument>
         <argument key="c3c5cf9">App\Controller\Admin\TrancheHoraireCrudController</argument>
         <argument key="18e707b">App\Controller\Admin\TuteurCrudController</argument>
@@ -9723,6 +9852,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.3YFBJbt" method="withContext"/>
     </service>
+    <service id=".service_locator.3YFBJbt.App\Controller\Admin\PaiementCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\PaiementCrudController"/>
+      <argument>App\Controller\Admin\PaiementCrudController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.3YFBJbt" method="withContext"/>
+    </service>
     <service id=".service_locator.3YFBJbt.App\Controller\Admin\PersonnelCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Admin\PersonnelCrudController"/>
       <argument>App\Controller\Admin\PersonnelCrudController</argument>
@@ -9756,6 +9891,12 @@
         <argument key="parameter_bag" type="service_closure" id="parameter_bag" on-invalid="ignore"/>
         <argument key="web_link.http_header_serializer" type="service_closure" id="web_link.http_header_serializer" on-invalid="ignore"/>
       </argument>
+    </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\PaiementController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\PaiementController"/>
+      <argument>App\Controller\PaiementController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\TrancheHoraireController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\TrancheHoraireController"/>
@@ -9955,9 +10096,11 @@
           <argument>App\Controller\Admin\InscriptionCrudController</argument>
           <argument>App\Controller\Admin\MatiereCrudController</argument>
           <argument>App\Controller\Admin\NiveauCrudController</argument>
+          <argument>App\Controller\Admin\PaiementCrudController</argument>
           <argument>App\Controller\Admin\PersonnelCrudController</argument>
           <argument>App\Controller\Admin\TrancheHoraireCrudController</argument>
           <argument>App\Controller\Admin\TuteurCrudController</argument>
+          <argument>App\Controller\PaiementController</argument>
           <argument>App\Controller\TrancheHoraireController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
@@ -10230,6 +10373,18 @@
     </service>
     <service id=".errored..service_locator.qkU5qjr.App\Entity\Eleve" class="App\Entity\Eleve">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.qkU5qjr&quot;: it needs an instance of &quot;App\Entity\Eleve&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.9xTnqfF.EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext" class="EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.9xTnqfF&quot;: it references class &quot;EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext&quot; but no such service exists."/>
+    </service>
+    <service id=".errored..service_locator.aVvSxx6.App\Entity\Inscription" class="App\Entity\Inscription">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.aVvSxx6&quot;: it needs an instance of &quot;App\Entity\Inscription&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.W6WaZsJ.App\Entity\Paiement" class="App\Entity\Paiement">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.W6WaZsJ&quot;: it needs an instance of &quot;App\Entity\Paiement&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.VxAVubp.App\Entity\Paiement" class="App\Entity\Paiement">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.VxAVubp&quot;: it needs an instance of &quot;App\Entity\Paiement&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator._IZd479.App\Entity\TrancheHoraire" class="App\Entity\TrancheHoraire">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator._IZd479&quot;: it needs an instance of &quot;App\Entity\TrancheHoraire&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -11423,7 +11578,7 @@
     <service id="Symfony\Component\Mercure\PublisherInterface" alias="mercure.hub.default.publisher.traceable"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.U1iHiLo"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.5a5VM91"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11483,6 +11638,11 @@
     <service id=".service_locator.57Ocp_7" alias=".service_locator..HWWlJE"/>
     <service id=".service_locator.uoBNKjJ" alias=".service_locator.t7nLwyX"/>
     <service id=".service_locator.4lAPD_T" alias=".service_locator.qkU5qjr"/>
+    <service id=".service_locator.PbKNq15" alias=".service_locator.9xTnqfF"/>
+    <service id=".service_locator.YPaucVN" alias=".service_locator.69GazA_"/>
+    <service id=".service_locator.KeU5RuA" alias=".service_locator.aVvSxx6"/>
+    <service id=".service_locator.k39SJCv" alias=".service_locator.W6WaZsJ"/>
+    <service id=".service_locator.qmzvceh" alias=".service_locator.VxAVubp"/>
     <service id=".service_locator.tPf35Ei" alias=".service_locator.6NHPLT_"/>
     <service id=".service_locator.PgsKktu" alias=".service_locator._IZd479"/>
     <service id=".service_locator.EDWtTER" alias=".service_locator.fdvg9ox"/>

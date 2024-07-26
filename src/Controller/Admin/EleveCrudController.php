@@ -54,7 +54,7 @@ class EleveCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-            $this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
+            //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
             // let him take the natural course
             parent::persistEntity($entityManager, $entityInstance);
             $this->createInscription($entityManager, $entityInstance);
@@ -68,10 +68,7 @@ class EleveCrudController extends AbstractCrudController
 
         $inscription = new Inscription();
         $inscription->setEleve($eleve);
-        $inscription->setAnneeScolaire($anneeEnCours);
         $inscription->setClasse($eleve->getClasseActuelle());
-        $inscription->setMontantRestant($eleve->getClasseActuelle()->getClasse()->getMontant());
-        $inscription->setMontantRemis(0);
 
         parent::persistEntity($entityManager, $inscription);
 

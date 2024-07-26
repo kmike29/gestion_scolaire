@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InscriptionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
@@ -19,17 +21,18 @@ class Inscription
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?AnneeScolaire $AnneeScolaire = null;
-
-    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?ClasseAnneeScolaire $Classe = null;
 
-    #[ORM\Column]
-    private ?int $montantRestant = null;
+    /**
+     * @var Collection<int, Paiement>
+     */
+    #[ORM\OneToMany(targetEntity: Paiement::class, mappedBy: 'inscription')]
+    private Collection $paiements;
 
-    #[ORM\Column]
-    private ?int $montantRemis = null;
+    public function __construct()
+    {
+        $this->paiements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -48,18 +51,6 @@ class Inscription
         return $this;
     }
 
-    public function getAnneeScolaire(): ?AnneeScolaire
-    {
-        return $this->AnneeScolaire;
-    }
-
-    public function setAnneeScolaire(?AnneeScolaire $AnneeScolaire): static
-    {
-        $this->AnneeScolaire = $AnneeScolaire;
-
-        return $this;
-    }
-
     public function getClasse(): ?ClasseAnneeScolaire
     {
         return $this->Classe;
@@ -72,27 +63,57 @@ class Inscription
         return $this;
     }
 
-    public function getMontantRestant(): ?int
+    /**
+     * @return Collection<int, Paiement>
+     */
+    public function getPaiements(): Collection
     {
-        return $this->montantRestant;
+        return $this->paiements;
     }
 
-    public function setMontantRestant(int $montantRestant): static
+    public function addPaiement(Paiement $paiement): static
     {
-        $this->montantRestant = $montantRestant;
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements->add($paiement);
+            $paiement->setInscription($this);
+        }
 
         return $this;
     }
 
-    public function getMontantRemis(): ?int
+    public function removePaiement(Paiement $paiement): static
     {
-        return $this->montantRemis;
-    }
-
-    public function setMontantRemis(int $montantRemis): static
-    {
-        $this->montantRemis = $montantRemis;
+        if ($this->paiements->removeElement($paiement)) {
+            // set the owning side to null (unless already changed)
+            if ($paiement->getInscription() === $this) {
+                $paiement->setInscription(null);
+            }
+        }
 
         return $this;
+    }
+
+    public function getTotalRemis() : int 
+    {
+        $total = 0;
+
+        if(!empty($this->paiements)){
+            foreach ($this->paiements as $paiement) {
+                $total += $paiement->getMontant();
+            }
+        }
+
+        return $total;
+    }
+
+    public function getMontantRestant() : int
+    {
+        return $this->getClasse()->getClasse()->getMontant() - $this->getTotalRemis();
+    }
+
+    public function __toString(): string
+    {
+         return strval($this->getId());
+
     }
 }

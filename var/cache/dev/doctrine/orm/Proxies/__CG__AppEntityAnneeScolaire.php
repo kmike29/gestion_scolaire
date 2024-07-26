@@ -28,14 +28,12 @@ class AnneeScolaire extends \App\Entity\AnneeScolaire implements \Doctrine\ORM\P
         "\0".parent::class."\0".'designation' => [parent::class, 'designation', null],
         "\0".parent::class."\0".'fin' => [parent::class, 'fin', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
-        "\0".parent::class."\0".'inscriptions' => [parent::class, 'inscriptions', null],
         'active' => [parent::class, 'active', null],
         'classes' => [parent::class, 'classes', null],
         'debut' => [parent::class, 'debut', null],
         'designation' => [parent::class, 'designation', null],
         'fin' => [parent::class, 'fin', null],
         'id' => [parent::class, 'id', null],
-        'inscriptions' => [parent::class, 'inscriptions', null],
     ];
 
     public function __isInitialized(): bool

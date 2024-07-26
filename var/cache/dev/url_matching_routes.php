@@ -16,6 +16,8 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'admin', '_controller' => 'App\\Controller\\Admin\\DashboardController::index'], null, null, null, false, false, null]],
+        '/paiement' => [[['_route' => 'app_paiement_index', '_controller' => 'App\\Controller\\PaiementController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/paiement/new' => [[['_route' => 'app_paiement_new', '_controller' => 'App\\Controller\\PaiementController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/tranche' => [[['_route' => 'app_tranche_horaire_index', '_controller' => 'App\\Controller\\TrancheHoraireController::index'], null, ['GET' => 0], null, true, false, null]],
         '/tranche/new' => [[['_route' => 'app_tranche_horaire_new', '_controller' => 'App\\Controller\\TrancheHoraireController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
@@ -39,10 +41,15 @@ return [
                         .')'
                     .')'
                 .')'
+                .'|/paiement/([^/]++)(?'
+                    .'|(*:223)'
+                    .'|/edit(*:236)'
+                    .'|(*:244)'
+                .')'
                 .'|/tranche/([^/]++)(?'
-                    .'|(*:222)'
-                    .'|/edit(*:235)'
-                    .'|(*:243)'
+                    .'|(*:273)'
+                    .'|/edit(*:286)'
+                    .'|(*:294)'
                 .')'
             .')/?$}sDu',
     ],
@@ -55,9 +62,12 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        222 => [[['_route' => 'app_tranche_horaire_showing', '_controller' => 'App\\Controller\\TrancheHoraireController::showing'], ['id'], ['GET' => 0], null, false, true, null]],
-        235 => [[['_route' => 'app_tranche_horaire_edit', '_controller' => 'App\\Controller\\TrancheHoraireController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        243 => [
+        223 => [[['_route' => 'app_paiement_show', '_controller' => 'App\\Controller\\PaiementController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        236 => [[['_route' => 'app_paiement_edit', '_controller' => 'App\\Controller\\PaiementController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        244 => [[['_route' => 'app_paiement_delete', '_controller' => 'App\\Controller\\PaiementController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        273 => [[['_route' => 'app_tranche_horaire_showing', '_controller' => 'App\\Controller\\TrancheHoraireController::showing'], ['id'], ['GET' => 0], null, false, true, null]],
+        286 => [[['_route' => 'app_tranche_horaire_edit', '_controller' => 'App\\Controller\\TrancheHoraireController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        294 => [
             [['_route' => 'app_tranche_horaire_delete', '_controller' => 'App\\Controller\\TrancheHoraireController::delete'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

@@ -38,7 +38,7 @@ class ClasseCrudController extends AbstractCrudController
         return [
             FormField::addTab('Informations'),
             TextField::new('nom'),
-            MoneyField::new('montant')->setCurrency('XAF'),
+            MoneyField::new('montant')->setCurrency('XAF')->setStoredAsCents(false),
             AssociationField::new('niveau'),
             AssociationField::new('classeSuperieure'),
             FormField::addTab('Matieres')->hideWhenCreating(),

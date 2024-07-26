@@ -34,16 +34,9 @@ class AnneeScolaire
     #[ORM\Column(length: 10)]
     private ?string $designation = null;
 
-    /**
-     * @var Collection<int, Inscription>
-     */
-    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'AnneeScolaire')]
-    private Collection $inscriptions;
-
     public function __construct()
     {
         $this->classes = new ArrayCollection();
-        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,33 +127,4 @@ class AnneeScolaire
         return $this->designation;
     }
 
-    /**
-     * @return Collection<int, Inscription>
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(Inscription $inscription): static
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->setAnneeScolaire($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(Inscription $inscription): static
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getAnneeScolaire() === $this) {
-                $inscription->setAnneeScolaire(null);
-            }
-        }
-
-        return $this;
-    }
 }
