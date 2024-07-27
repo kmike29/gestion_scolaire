@@ -42,9 +42,10 @@ class InscriptionCrudController extends AbstractCrudController
         return [
             AssociationField::new('Eleve'),
             AssociationField::new('Classe'),
-            MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false),
-            MoneyField::new('TotalRemis')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false),
-            CollectionField::new('paiements')->useEntryCrudForm()->allowAdd(true)->setEntryIsComplex(),
+            MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
+            MoneyField::new('TotalRemis')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
+            CollectionField::new('paiements')->useEntryCrudForm()->allowAdd(false)->setEntryIsComplex()->hideWhenCreating(),
+            AssociationField::new('remise'),
 
         ];
     }
@@ -70,16 +71,6 @@ class InscriptionCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
 
-        /*$url = $this->adminUrlGenerator
-            ->setDashboard(DashboardController::class)
-            ->setController(PaiementCrudController::class)
-            ->setAction(Action::NEW)
-            ->set('inscriptionId',function (Inscription $inscription): array {
-                return [
-                    'iDinscription' => $inscription->getId(),
-                ];
-            })
-            ->generateUrl();*/
 
          $paiementAction =    Action::new('nouveauPaiement', 'Nouveau paiement')
          ->linkToCrudAction('duplicateProduct')        
@@ -87,27 +78,11 @@ class InscriptionCrudController extends AbstractCrudController
             return $inscription->getMontantRestant()!=0;
         }); 
 
-
-        /*$paiementAction = Action::new('nouveauPaiement', 'Nouveau paiement')
-        ->displayAsLink()
-        ->displayIf(static function ($inscription) {
-            return $inscription->getMontantRestant()!=0;
-        })
-        ->linkToRoute('app_paiement_new', function (Inscription $inscription): array {
-            return [
-                'iDinscription' => $inscription->getId(),
-            ];
-        });*/
-
         return $actions
         ->add(Crud::PAGE_EDIT , $paiementAction)
         ->add(Crud::PAGE_INDEX , $paiementAction)
-        /*->add(Crud::PAGE_INDEX, 
-                  Action::new('add-second-entity', 'Add second entity')
-                ->linkToUrl($url)
-            )*/
         ->remove(Crud::PAGE_INDEX, Action::NEW)
-        ->remove(Crud::PAGE_INDEX, Action::DELETE)
+      //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
         ;
         
     }

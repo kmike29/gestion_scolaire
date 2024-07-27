@@ -130,6 +130,7 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
         dialog table td {
             padding: .625em;
             text-align: center;
+            word-wrap: break-word;
         }
 
         dialog table th {
@@ -175,7 +176,7 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
         return; yield '';
     }
 
-    // line 100
+    // line 101
     public function block_toolbar($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -185,42 +186,42 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "toolbar"));
 
-        // line 101
+        // line 102
         yield "    ";
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 101, $this->source); })()), "callsCount", [], "any", false, false, false, 101) > 0)) {
-            // line 102
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 102, $this->source); })()), "callsCount", [], "any", false, false, false, 102) > 0)) {
+            // line 103
             yield "        ";
             $context["icon"] = ('' === $tmp = \Twig\Extension\CoreExtension::captureOutput((function () use (&$context, $macros, $blocks) {
-                // line 103
+                // line 104
                 yield "            ";
                 yield Twig\Extension\CoreExtension::source($this->env, "@WebProfiler/Icon/workflow.svg");
                 yield "
             <span class=\"sf-toolbar-value\">";
-                // line 104
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 104, $this->source); })()), "callsCount", [], "any", false, false, false, 104), "html", null, true);
+                // line 105
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 105, $this->source); })()), "callsCount", [], "any", false, false, false, 105), "html", null, true);
                 yield "</span>
         ";
                 return; yield '';
             })())) ? '' : new Markup($tmp, $this->env->getCharset());
-            // line 106
+            // line 107
             yield "        ";
             $context["text"] = ('' === $tmp = \Twig\Extension\CoreExtension::captureOutput((function () use (&$context, $macros, $blocks) {
-                // line 107
+                // line 108
                 yield "            <div class=\"sf-toolbar-info-piece\">
                 <b>Workflow Calls</b>
                 <span>";
-                // line 109
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 109, $this->source); })()), "callsCount", [], "any", false, false, false, 109), "html", null, true);
+                // line 110
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 110, $this->source); })()), "callsCount", [], "any", false, false, false, 110), "html", null, true);
                 yield "</span>
             </div>
         ";
                 return; yield '';
             })())) ? '' : new Markup($tmp, $this->env->getCharset());
-            // line 112
+            // line 113
             yield "
         ";
-            // line 113
-            yield Twig\Extension\CoreExtension::include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", ["link" => (isset($context["profiler_url"]) || array_key_exists("profiler_url", $context) ? $context["profiler_url"] : (function () { throw new RuntimeError('Variable "profiler_url" does not exist.', 113, $this->source); })())]);
+            // line 114
+            yield Twig\Extension\CoreExtension::include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", ["link" => (isset($context["profiler_url"]) || array_key_exists("profiler_url", $context) ? $context["profiler_url"] : (function () { throw new RuntimeError('Variable "profiler_url" does not exist.', 114, $this->source); })())]);
             yield "
     ";
         }
@@ -233,7 +234,7 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
         return; yield '';
     }
 
-    // line 117
+    // line 118
     public function block_menu($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -243,13 +244,13 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "menu"));
 
-        // line 118
+        // line 119
         yield "    <span class=\"label ";
-        yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 118, $this->source); })()), "workflows", [], "any", false, false, false, 118)) == 0)) ? ("disabled") : (""));
+        yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 119, $this->source); })()), "workflows", [], "any", false, false, false, 119)) == 0)) ? ("disabled") : (""));
         yield "\">
         <span class=\"icon\">
             ";
-        // line 120
+        // line 121
         yield Twig\Extension\CoreExtension::source($this->env, "@WebProfiler/Icon/workflow.svg");
         yield "
         </span>
@@ -265,7 +266,7 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
         return; yield '';
     }
 
-    // line 126
+    // line 127
     public function block_panel($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -275,19 +276,19 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "panel"));
 
-        // line 127
+        // line 128
         yield "    <h2>Workflow</h2>
 
     ";
-        // line 129
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 129, $this->source); })()), "workflows", [], "any", false, false, false, 129)) == 0)) {
-            // line 130
+        // line 130
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 130, $this->source); })()), "workflows", [], "any", false, false, false, 130)) == 0)) {
+            // line 131
             yield "        <div class=\"empty empty-panel\">
             <p>There are no workflows configured.</p>
         </div>
     ";
         } else {
-            // line 134
+            // line 135
             yield "        <script type=\"module\">
             import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
             mermaid.initialize({
@@ -296,17 +297,17 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
             });
 
             ";
-            // line 141
+            // line 142
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 141, $this->source); })()), "workflows", [], "any", false, false, false, 141));
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 142, $this->source); })()), "workflows", [], "any", false, false, false, 142));
             foreach ($context['_seq'] as $context["name"] => $context["data"]) {
-                // line 142
+                // line 143
                 yield "                window.showNodeDetails";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 142, $this->source); })()), "hash", [$context["name"]], "method", false, false, false, 142), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 143, $this->source); })()), "hash", [$context["name"]], "method", false, false, false, 143), "html", null, true);
                 yield " = function (node) {
                     const map = ";
-                // line 143
-                yield json_encode(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "listeners", [], "any", false, false, false, 143));
+                // line 144
+                yield json_encode(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "listeners", [], "any", false, false, false, 144));
                 yield ";
                     showNodeDetails(node, map);
                 };
@@ -315,7 +316,7 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['name'], $context['data'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 147
+            // line 148
             yield "
             const showNodeDetails = function (node, map) {
                 const dialog = document.getElementById('detailsDialog');
@@ -420,18 +421,18 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
 
         <div class=\"sf-tabs js-tabs\">
             ";
-            // line 250
+            // line 251
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 250, $this->source); })()), "workflows", [], "any", false, false, false, 250));
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 251, $this->source); })()), "workflows", [], "any", false, false, false, 251));
             foreach ($context['_seq'] as $context["name"] => $context["data"]) {
-                // line 251
+                // line 252
                 yield "                <div class=\"tab\">
                     <h2 class=\"tab-title\">";
-                // line 252
+                // line 253
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["name"], "html", null, true);
-                if (Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["data"], "calls", [], "any", false, false, false, 252))) {
+                if (Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["data"], "calls", [], "any", false, false, false, 253))) {
                     yield " (";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["data"], "calls", [], "any", false, false, false, 252)), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["data"], "calls", [], "any", false, false, false, 253)), "html", null, true);
                     yield ")";
                 }
                 yield "</h2>
@@ -440,26 +441,26 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
                         <h3>Definition</h3>
                         <pre class=\"sf-mermaid\">
                             ";
-                // line 257
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["data"], "dump", [], "any", false, false, false, 257);
+                // line 258
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["data"], "dump", [], "any", false, false, false, 258);
                 yield "
                             ";
-                // line 258
+                // line 259
                 $context['_parent'] = $context;
-                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "listeners", [], "any", false, false, false, 258));
+                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "listeners", [], "any", false, false, false, 259));
                 foreach ($context['_seq'] as $context["nodeId"] => $context["events"]) {
-                    // line 259
+                    // line 260
                     yield "                                click ";
                     yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["nodeId"], "html", null, true);
                     yield " showNodeDetails";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 259, $this->source); })()), "hash", [$context["name"]], "method", false, false, false, 259), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 260, $this->source); })()), "hash", [$context["name"]], "method", false, false, false, 260), "html", null, true);
                     yield "
                             ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['nodeId'], $context['events'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 261
+                // line 262
                 yield "                        </pre>
 
                         <h3>Calls</h3>
@@ -476,9 +477,9 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
                             </thead>
                             <tbody>
                                 ";
-                // line 276
+                // line 277
                 $context['_parent'] = $context;
-                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "calls", [], "any", false, false, false, 276));
+                $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["data"], "calls", [], "any", false, false, false, 277));
                 $context['loop'] = [
                   'parent' => $context['_parent'],
                   'index0' => 0,
@@ -493,80 +494,80 @@ class __TwigTemplate_d90161f5424cac0c0946c027bc4539cf extends Template
                     $context['loop']['last'] = 1 === $length;
                 }
                 foreach ($context['_seq'] as $context["_key"] => $context["call"]) {
-                    // line 277
+                    // line 278
                     yield "                                    <tr>
                                         <td class=\"font-normal text-small text-muted nowrap\">";
-                    // line 278
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 278), "html", null, true);
+                    // line 279
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 279), "html", null, true);
                     yield "</td>
                                         <td>
                                             <code>";
-                    // line 280
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["call"], "method", [], "any", false, false, false, 280), "html", null, true);
+                    // line 281
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["call"], "method", [], "any", false, false, false, 281), "html", null, true);
                     yield "()</code>
                                             ";
-                    // line 281
-                    if ((((CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", true, true, false, 281) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", false, false, false, 281)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", false, false, false, 281)) : (null))) {
-                        // line 282
+                    // line 282
+                    if ((((CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", true, true, false, 282) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", false, false, false, 282)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", false, false, false, 282)) : (null))) {
+                        // line 283
                         yield "                                                <hr />
                                                 Previous marking:
                                                 ";
-                        // line 284
-                        yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", false, false, false, 284));
+                        // line 285
+                        yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "previousMarking", [], "any", false, false, false, 285));
                         yield "
                                             ";
                     }
-                    // line 286
+                    // line 287
                     yield "                                        </td>
                                         <td>
                                             ";
-                    // line 288
-                    yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "args", [], "any", false, false, false, 288));
+                    // line 289
+                    yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "args", [], "any", false, false, false, 289));
                     yield "
                                         </td>
                                         <td>
                                             ";
-                    // line 291
-                    if (CoreExtension::getAttribute($this->env, $this->source, $context["call"], "return", [], "any", true, true, false, 291)) {
-                        // line 292
+                    // line 292
+                    if (CoreExtension::getAttribute($this->env, $this->source, $context["call"], "return", [], "any", true, true, false, 292)) {
+                        // line 293
                         yield "                                                ";
-                        if ((CoreExtension::getAttribute($this->env, $this->source, $context["call"], "return", [], "any", false, false, false, 292) === true)) {
-                            // line 293
+                        if ((CoreExtension::getAttribute($this->env, $this->source, $context["call"], "return", [], "any", false, false, false, 293) === true)) {
+                            // line 294
                             yield "                                                    <code>true</code>
                                                 ";
-                        } elseif ((CoreExtension::getAttribute($this->env, $this->source,                         // line 294
-$context["call"], "return", [], "any", false, false, false, 294) === false)) {
-                            // line 295
+                        } elseif ((CoreExtension::getAttribute($this->env, $this->source,                         // line 295
+$context["call"], "return", [], "any", false, false, false, 295) === false)) {
+                            // line 296
                             yield "                                                    <code>false</code>
                                                 ";
                         } else {
-                            // line 297
+                            // line 298
                             yield "                                                    ";
-                            yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "return", [], "any", false, false, false, 297));
+                            yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "return", [], "any", false, false, false, 298));
                             yield "
                                                 ";
                         }
-                        // line 299
+                        // line 300
                         yield "                                            ";
                     }
-                    // line 300
+                    // line 301
                     yield "                                        </td>
                                         <td>
                                             ";
-                    // line 302
-                    if (CoreExtension::getAttribute($this->env, $this->source, $context["call"], "exception", [], "any", true, true, false, 302)) {
-                        // line 303
+                    // line 303
+                    if (CoreExtension::getAttribute($this->env, $this->source, $context["call"], "exception", [], "any", true, true, false, 303)) {
+                        // line 304
                         yield "                                                ";
-                        yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "exception", [], "any", false, false, false, 303));
+                        yield $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, CoreExtension::getAttribute($this->env, $this->source, $context["call"], "exception", [], "any", false, false, false, 304));
                         yield "
                                             ";
                     }
-                    // line 305
+                    // line 306
                     yield "                                        </td>
                                         <td>
                                             ";
-                    // line 307
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["call"], "duration", [], "any", false, false, false, 307), "html", null, true);
+                    // line 308
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["call"], "duration", [], "any", false, false, false, 308), "html", null, true);
                     yield "ms
                                         </td>
                                     </tr>
@@ -583,7 +584,7 @@ $context["call"], "return", [], "any", false, false, false, 294) === false)) {
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['call'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 311
+                // line 312
                 yield "                            </tbody>
                         </table>
                     </div>
@@ -593,11 +594,11 @@ $context["call"], "return", [], "any", false, false, false, 294) === false)) {
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['name'], $context['data'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 316
+            // line 317
             yield "        </div>
     ";
         }
-        // line 318
+        // line 319
         yield "
     <dialog id=\"detailsDialog\">
         <h2>
@@ -651,7 +652,7 @@ $context["call"], "return", [], "any", false, false, false, 294) === false)) {
      */
     public function getDebugInfo()
     {
-        return array (  601 => 318,  597 => 316,  587 => 311,  569 => 307,  565 => 305,  559 => 303,  557 => 302,  553 => 300,  550 => 299,  544 => 297,  540 => 295,  538 => 294,  535 => 293,  532 => 292,  530 => 291,  524 => 288,  520 => 286,  515 => 284,  511 => 282,  509 => 281,  505 => 280,  500 => 278,  497 => 277,  480 => 276,  463 => 261,  452 => 259,  448 => 258,  444 => 257,  431 => 252,  428 => 251,  424 => 250,  319 => 147,  309 => 143,  304 => 142,  300 => 141,  291 => 134,  285 => 130,  283 => 129,  279 => 127,  269 => 126,  253 => 120,  247 => 118,  237 => 117,  223 => 113,  220 => 112,  213 => 109,  209 => 107,  206 => 106,  200 => 104,  195 => 103,  192 => 102,  189 => 101,  179 => 100,  72 => 4,  62 => 3,  39 => 1,);
+        return array (  602 => 319,  598 => 317,  588 => 312,  570 => 308,  566 => 306,  560 => 304,  558 => 303,  554 => 301,  551 => 300,  545 => 298,  541 => 296,  539 => 295,  536 => 294,  533 => 293,  531 => 292,  525 => 289,  521 => 287,  516 => 285,  512 => 283,  510 => 282,  506 => 281,  501 => 279,  498 => 278,  481 => 277,  464 => 262,  453 => 260,  449 => 259,  445 => 258,  432 => 253,  429 => 252,  425 => 251,  320 => 148,  310 => 144,  305 => 143,  301 => 142,  292 => 135,  286 => 131,  284 => 130,  280 => 128,  270 => 127,  254 => 121,  248 => 119,  238 => 118,  224 => 114,  221 => 113,  214 => 110,  210 => 108,  207 => 107,  201 => 105,  196 => 104,  193 => 103,  190 => 102,  180 => 101,  72 => 4,  62 => 3,  39 => 1,);
     }
 
     public function getSourceContext()
@@ -718,6 +719,7 @@ $context["call"], "return", [], "any", false, false, false, 294) === false)) {
         dialog table td {
             padding: .625em;
             text-align: center;
+            word-wrap: break-word;
         }
 
         dialog table th {

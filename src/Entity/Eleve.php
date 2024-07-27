@@ -262,4 +262,9 @@ class Eleve
 
         return $this;
     }
+
+    public function getLastInscription(): Inscription
+    {
+        return $this->inscriptions->last();;
+    }
 }

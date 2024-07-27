@@ -12,6 +12,7 @@ use App\Entity\Inscription;
 use App\Entity\Matiere;
 use App\Entity\Niveau;
 use App\Entity\Personnel;
+use App\Entity\Remise;
 use App\Entity\TrancheHoraire;
 use App\Entity\Tuteur;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -71,6 +72,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Diplomes - inactif', 'fa fa-user-graduate', Eleve::class);
         yield MenuItem::linkToCrud('Matières programmés', 'fa fa-clock', TrancheHoraire::class);
         yield MenuItem::linkToCrud('Inscription', 'fa fa-clock', Inscription::class);
+        yield MenuItem::linkToCrud('Remises', 'fa fa-clock', Remise::class);
 
     }
 }

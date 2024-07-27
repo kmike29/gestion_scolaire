@@ -6,6 +6,8 @@ use App\Entity\AnneeScolaire;
 use App\Entity\Eleve;
 use App\Entity\Inscription;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -16,9 +18,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class EleveCrudController extends AbstractCrudController
 {
+    private $adminUrlGenerator;
+
+    public function __construct(AdminUrlGenerator $adminUrlGenerator)
+    {
+        $this->adminUrlGenerator = $adminUrlGenerator;
+    }
+
     public static function getEntityFqcn(): string
     {
         return Eleve::class;
@@ -46,11 +57,26 @@ class EleveCrudController extends AbstractCrudController
             DateField::new('dateDInscription')->setLabel("Date d'inscription"),
             TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance'),
             AssociationField::new('classeActuelle'),
+            //CollectionField::new('inscriptions')->useEntryCrudForm(),
 
             //FormField::addTab('Parents'),
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
     }
+
+    /*public function createEntity(string $entityFqcn)
+    {
+        $eleve = new Eleve();
+        $inscription = new Inscription();
+
+       // $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->container->get('doctrine')->getManager();
+        $entityManager->persist($inscription);
+
+        $eleve->addInscription($inscription);
+
+        return $eleve;
+    }*/
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
@@ -64,15 +90,32 @@ class EleveCrudController extends AbstractCrudController
     public function createInscription(EntityManagerInterface $entityManager,Eleve $eleve){
 
         $schoolYearRepository = $entityManager->getRepository(AnneeScolaire::class);
-        $anneeEnCours = $schoolYearRepository->findActiveYear(true);
 
         $inscription = new Inscription();
         $inscription->setEleve($eleve);
         $inscription->setClasse($eleve->getClasseActuelle());
 
+        $eleve->addInscription($inscription);
+
         parent::persistEntity($entityManager, $inscription);
 
 
+    }
+
+    protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
+    {
+        $submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
+    
+        $url = $this->container->get(AdminUrlGenerator::class)
+                ->setController(InscriptionCrudController::class)
+                ->setAction(Action::EDIT)
+                ->setEntityId($context->getEntity()->getInstance()->getLastInscription())
+                ->generateUrl();
+
+        return $this->redirect($url);
+        
+    
+       // return parent::getRedirectResponseAfterSave($context, $action);
     }
     
 }

@@ -433,6 +433,7 @@
       <tag name="ea.crud_controller"/>
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.3YFBJbt.App\Controller\Admin\EleveCrudController"/>
       </call>
@@ -484,6 +485,14 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.3YFBJbt.App\Controller\Admin\PersonnelCrudController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Admin\RemiseCrudController" class="App\Controller\Admin\RemiseCrudController" public="true" autowire="true" autoconfigure="true">
+      <tag name="ea.crud_controller"/>
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.3YFBJbt.App\Controller\Admin\RemiseCrudController"/>
       </call>
     </service>
     <service id="App\Controller\Admin\TrancheHoraireCrudController" class="App\Controller\Admin\TrancheHoraireCrudController" public="true" autowire="true" autoconfigure="true">
@@ -574,6 +583,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\RemiseRepository" class="App\Repository\RemiseRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\TrancheHoraireRepository" class="App\Repository\TrancheHoraireRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -612,7 +625,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.5a5VM91"/>
+      <argument type="service" id=".service_locator.EDFuW67"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3574,7 +3587,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.5a5VM91"/>
+      <argument type="service" id=".service_locator.EDFuW67"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5335,7 +5348,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.1.7xMcS"/>
+      <argument type="service" id=".service_locator.MQFFgai"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -6431,7 +6444,7 @@
     </service>
     <service id="security.untracked_token_storage" class="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage"/>
     <service id="security.helper" class="Symfony\Bundle\SecurityBundle\Security">
-      <argument type="service" id=".service_locator.LrCXAmX"/>
+      <argument type="service" id=".service_locator.e_.xxAP"/>
       <argument type="collection">
         <argument key="dev">null</argument>
         <argument key="main">null</argument>
@@ -6454,6 +6467,11 @@
       <argument>none</argument>
     </service>
     <service id="security.user_checker" class="Symfony\Component\Security\Core\User\InMemoryUserChecker"/>
+    <service id="security.user_checker_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <argument type="collection">
+        <argument key="main" type="service_closure" id="security.user_checker"/>
+      </argument>
+    </service>
     <service id="security.expression_language" class="Symfony\Component\Security\Core\Authorization\ExpressionLanguage">
       <argument type="service" id="cache.security_expression_language" on-invalid="null"/>
     </service>
@@ -7608,6 +7626,7 @@
     </service>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Field\Configurator\PercentConfigurator" class="EasyCorp\Bundle\EasyAdminBundle\Field\Configurator\PercentConfigurator">
       <tag name="ea.field_configurator"/>
+      <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Intl\IntlFormatter"/>
     </service>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Field\Configurator\ChoiceConfigurator" class="EasyCorp\Bundle\EasyAdminBundle\Field\Configurator\ChoiceConfigurator">
       <tag name="ea.field_configurator"/>
@@ -7785,6 +7804,10 @@
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\PersonnelCrudController" class="App\Controller\Admin\PersonnelCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\PersonnelCrudController" class="App\Controller\Admin\PersonnelCrudController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\PersonnelCrudController" class="App\Controller\Admin\PersonnelCrudController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\RemiseCrudController" class="App\Controller\Admin\RemiseCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\RemiseCrudController" class="App\Controller\Admin\RemiseCrudController" autowire="true" abstract="true"/>
+    <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\RemiseCrudController" class="App\Controller\Admin\RemiseCrudController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\RemiseCrudController" class="App\Controller\Admin\RemiseCrudController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\TrancheHoraireCrudController" class="App\Controller\Admin\TrancheHoraireCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\TrancheHoraireCrudController" class="App\Controller\Admin\TrancheHoraireCrudController" autowire="true" abstract="true"/>
     <service id=".instanceof.EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\CrudControllerInterface.0.App\Controller\Admin\TrancheHoraireCrudController" class="App\Controller\Admin\TrancheHoraireCrudController" autowire="true" abstract="true"/>
@@ -7829,6 +7852,8 @@
     <service id=".abstract.instanceof.App\Repository\PaiementRepository" class="App\Repository\PaiementRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PersonnelRepository" class="App\Repository\PersonnelRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\PersonnelRepository" class="App\Repository\PersonnelRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RemiseRepository" class="App\Repository\RemiseRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\RemiseRepository" class="App\Repository\RemiseRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TrancheHoraireRepository" class="App\Repository\TrancheHoraireRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TrancheHoraireRepository" class="App\Repository\TrancheHoraireRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TuteurRepository" class="App\Repository\TuteurRepository" autowire="true" abstract="true"/>
@@ -8466,7 +8491,7 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.5a5VM91" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.EDFuW67" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -8708,6 +8733,27 @@
         <argument key="App\Controller\Admin\PersonnelCrudController::createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\PersonnelCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\PersonnelCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::index" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::edit" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::new" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::delete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::batchDelete" type="service_closure" id=".service_locator.jwjltq_"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::createEditFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
@@ -8997,6 +9043,27 @@
         <argument key="App\Controller\Admin\PersonnelCrudController:createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\PersonnelCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\PersonnelCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:index" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:edit" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:new" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:delete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:batchDelete" type="service_closure" id=".service_locator.jwjltq_"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:createEditFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
+        <argument key="App\Controller\Admin\RemiseCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
@@ -9360,7 +9427,7 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.1.7xMcS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.MQFFgai" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AnneeScolaireRepository" type="service_closure" id="App\Repository\AnneeScolaireRepository"/>
@@ -9374,6 +9441,7 @@
         <argument key="App\Repository\NiveauRepository" type="service_closure" id="App\Repository\NiveauRepository"/>
         <argument key="App\Repository\PaiementRepository" type="service_closure" id="App\Repository\PaiementRepository"/>
         <argument key="App\Repository\PersonnelRepository" type="service_closure" id="App\Repository\PersonnelRepository"/>
+        <argument key="App\Repository\RemiseRepository" type="service_closure" id="App\Repository\RemiseRepository"/>
         <argument key="App\Repository\TrancheHoraireRepository" type="service_closure" id="App\Repository\TrancheHoraireRepository"/>
         <argument key="App\Repository\TuteurRepository" type="service_closure" id="App\Repository\TuteurRepository"/>
       </argument>
@@ -9601,6 +9669,7 @@
         <argument key="App\Controller\Admin\NiveauCrudController">App\Entity\Niveau</argument>
         <argument key="App\Controller\Admin\PaiementCrudController">App\Entity\Paiement</argument>
         <argument key="App\Controller\Admin\PersonnelCrudController">App\Entity\Personnel</argument>
+        <argument key="App\Controller\Admin\RemiseCrudController">App\Entity\Remise</argument>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController">App\Entity\TrancheHoraire</argument>
         <argument key="App\Controller\Admin\TuteurCrudController">App\Entity\Tuteur</argument>
       </argument>
@@ -9616,6 +9685,7 @@
         <argument key="App\Controller\Admin\NiveauCrudController">e1f34dd</argument>
         <argument key="App\Controller\Admin\PaiementCrudController">2dfa3c7</argument>
         <argument key="App\Controller\Admin\PersonnelCrudController">cce3524</argument>
+        <argument key="App\Controller\Admin\RemiseCrudController">39e02b8</argument>
         <argument key="App\Controller\Admin\TrancheHoraireCrudController">c3c5cf9</argument>
         <argument key="App\Controller\Admin\TuteurCrudController">18e707b</argument>
       </argument>
@@ -9631,6 +9701,7 @@
         <argument key="App\Entity\Niveau">App\Controller\Admin\NiveauCrudController</argument>
         <argument key="App\Entity\Paiement">App\Controller\Admin\PaiementCrudController</argument>
         <argument key="App\Entity\Personnel">App\Controller\Admin\PersonnelCrudController</argument>
+        <argument key="App\Entity\Remise">App\Controller\Admin\RemiseCrudController</argument>
         <argument key="App\Entity\TrancheHoraire">App\Controller\Admin\TrancheHoraireCrudController</argument>
         <argument key="App\Entity\Tuteur">App\Controller\Admin\TuteurCrudController</argument>
       </argument>
@@ -9646,6 +9717,7 @@
         <argument key="e1f34dd">App\Controller\Admin\NiveauCrudController</argument>
         <argument key="2dfa3c7">App\Controller\Admin\PaiementCrudController</argument>
         <argument key="cce3524">App\Controller\Admin\PersonnelCrudController</argument>
+        <argument key="39e02b8">App\Controller\Admin\RemiseCrudController</argument>
         <argument key="c3c5cf9">App\Controller\Admin\TrancheHoraireCrudController</argument>
         <argument key="18e707b">App\Controller\Admin\TuteurCrudController</argument>
       </argument>
@@ -9864,6 +9936,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.3YFBJbt" method="withContext"/>
     </service>
+    <service id=".service_locator.3YFBJbt.App\Controller\Admin\RemiseCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\RemiseCrudController"/>
+      <argument>App\Controller\Admin\RemiseCrudController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.3YFBJbt" method="withContext"/>
+    </service>
     <service id=".service_locator.3YFBJbt.App\Controller\Admin\TrancheHoraireCrudController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Admin\TrancheHoraireCrudController"/>
       <argument>App\Controller\Admin\TrancheHoraireCrudController</argument>
@@ -10041,7 +10119,7 @@
         <argument key="request_stack" type="service_closure" id="request_stack"/>
       </argument>
     </service>
-    <service id=".service_locator.LrCXAmX" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.e_.xxAP" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="security.token_storage" type="service_closure" id="security.token_storage"/>
@@ -10049,7 +10127,7 @@
         <argument key="security.authenticator.managers_locator" type="service_closure" id="security.authenticator.managers_locator" on-invalid="ignore"/>
         <argument key="request_stack" type="service_closure" id="request_stack"/>
         <argument key="security.firewall.map" type="service_closure" id="security.firewall.map"/>
-        <argument key="security.user_checker" type="service_closure" id="security.user_checker"/>
+        <argument key="security.user_checker_locator" type="service_closure" id="security.user_checker_locator"/>
         <argument key="security.firewall.event_dispatcher_locator" type="service_closure" id="security.firewall.event_dispatcher_locator"/>
         <argument key="security.csrf.token_manager" type="service_closure" id="security.csrf.token_manager" on-invalid="ignore"/>
       </argument>
@@ -10098,6 +10176,7 @@
           <argument>App\Controller\Admin\NiveauCrudController</argument>
           <argument>App\Controller\Admin\PaiementCrudController</argument>
           <argument>App\Controller\Admin\PersonnelCrudController</argument>
+          <argument>App\Controller\Admin\RemiseCrudController</argument>
           <argument>App\Controller\Admin\TrancheHoraireCrudController</argument>
           <argument>App\Controller\Admin\TuteurCrudController</argument>
           <argument>App\Controller\PaiementController</argument>
@@ -11578,7 +11657,7 @@
     <service id="Symfony\Component\Mercure\PublisherInterface" alias="mercure.hub.default.publisher.traceable"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.5a5VM91"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.EDFuW67"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>

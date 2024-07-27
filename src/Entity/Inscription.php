@@ -16,7 +16,7 @@ class Inscription
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Eleve $Eleve = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
@@ -28,6 +28,9 @@ class Inscription
      */
     #[ORM\OneToMany(targetEntity: Paiement::class, mappedBy: 'inscription')]
     private Collection $paiements;
+
+    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    private ?Remise $remise = null;
 
     public function __construct()
     {
@@ -116,4 +119,18 @@ class Inscription
          return strval($this->getId());
 
     }
+
+    public function getRemise(): ?Remise
+    {
+        return $this->remise;
+    }
+
+    public function setRemise(?Remise $remise): static
+    {
+        $this->remise = $remise;
+
+        return $this;
+    }
+
+
 }
