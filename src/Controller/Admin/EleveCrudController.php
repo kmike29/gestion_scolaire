@@ -57,8 +57,6 @@ class EleveCrudController extends AbstractCrudController
             DateField::new('dateDInscription')->setLabel("Date d'inscription"),
             TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance'),
             AssociationField::new('classeActuelle'),
-            //CollectionField::new('inscriptions')->useEntryCrudForm(),
-
             //FormField::addTab('Parents'),
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
@@ -89,7 +87,6 @@ class EleveCrudController extends AbstractCrudController
 
     public function createInscription(EntityManagerInterface $entityManager,Eleve $eleve){
 
-        $schoolYearRepository = $entityManager->getRepository(AnneeScolaire::class);
 
         $inscription = new Inscription();
         $inscription->setEleve($eleve);
@@ -104,7 +101,7 @@ class EleveCrudController extends AbstractCrudController
 
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
-        $submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
+        //$submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
     
         $url = $this->container->get(AdminUrlGenerator::class)
                 ->setController(InscriptionCrudController::class)

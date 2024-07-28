@@ -29,12 +29,18 @@ class Inscription
     #[ORM\OneToMany(targetEntity: Paiement::class, mappedBy: 'inscription')]
     private Collection $paiements;
 
-    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
-    private ?Remise $remise = null;
+    /**
+     * @var Collection<int, Remise>
+     */
+    #[ORM\ManyToMany(targetEntity: Remise::class, mappedBy: 'inscriptions')]
+    private Collection $remises;
+
+
 
     public function __construct()
     {
         $this->paiements = new ArrayCollection();
+        $this->remises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,7 +117,7 @@ class Inscription
 
     public function getMontantRestant() : int
     {
-        return $this->getClasse()->getClasse()->getMontant() - $this->getTotalRemis();
+        return $this->getClasse()->getFraisScolarite() - $this->getTotalRemis();
     }
 
     public function __toString(): string
@@ -120,14 +126,29 @@ class Inscription
 
     }
 
-    public function getRemise(): ?Remise
+    /**
+     * @return Collection<int, Remise>
+     */
+    public function getRemises(): Collection
     {
-        return $this->remise;
+        return $this->remises;
     }
 
-    public function setRemise(?Remise $remise): static
+    public function addRemise(Remise $remise): static
     {
-        $this->remise = $remise;
+        if (!$this->remises->contains($remise)) {
+            $this->remises->add($remise);
+            $remise->addInscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemise(Remise $remise): static
+    {
+        if ($this->remises->removeElement($remise)) {
+            $remise->removeInscription($this);
+        }
 
         return $this;
     }

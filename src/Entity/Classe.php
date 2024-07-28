@@ -30,8 +30,11 @@ class Classe
     #[ORM\OneToMany(targetEntity: ClasseMatiere::class, mappedBy: 'classe', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $matieres;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $montant = null;
+    #[ORM\Column]
+    private ?int $fraisScolariteDeBase = null;
+
+    #[ORM\Column]
+    private ?int $fraisInscriptionDeBase = null;
 
 
     public function __construct()
@@ -121,17 +124,30 @@ class Classe
         return $this;
     }
 
-    public function getMontant(): ?int
+    public function getFraisScolariteDeBase(): ?int
     {
-        return $this->montant;
+        return $this->fraisScolariteDeBase;
     }
 
-    public function setMontant(?int $montant): static
+    public function setFraisScolariteDeBase(int $scolariteDeBase): static
     {
-        $this->montant = $montant;
+        $this->fraisScolariteDeBase = $scolariteDeBase;
 
         return $this;
     }
+
+    public function getFraisInscriptionDeBase(): ?int
+    {
+        return $this->fraisInscriptionDeBase;
+    }
+
+    public function setFraisInscriptionDeBase(int $fraisInscriptionDeBase): static
+    {
+        $this->fraisInscriptionDeBase = $fraisInscriptionDeBase;
+
+        return $this;
+    }
+
 
 
 }

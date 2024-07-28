@@ -24,8 +24,10 @@ class Remise
     /**
      * @var Collection<int, Inscription>
      */
-    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'remise')]
+    #[ORM\ManyToMany(targetEntity: Inscription::class, inversedBy: 'remises')]
     private Collection $inscriptions;
+
+
 
     public function __construct()
     {
@@ -61,6 +63,12 @@ class Remise
         return $this;
     }
 
+
+    public function __toString(): string
+    {
+        return $this->designation.' ('.strval($this->pourcentage).' %)';
+    }
+
     /**
      * @return Collection<int, Inscription>
      */
@@ -73,7 +81,6 @@ class Remise
     {
         if (!$this->inscriptions->contains($inscription)) {
             $this->inscriptions->add($inscription);
-            $inscription->setRemise($this);
         }
 
         return $this;
@@ -81,19 +88,9 @@ class Remise
 
     public function removeInscription(Inscription $inscription): static
     {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getRemise() === $this) {
-                $inscription->setRemise(null);
-            }
-        }
+        $this->inscriptions->removeElement($inscription);
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->designation.' ('.strval($this->pourcentage).' %)';
     }
 
 }

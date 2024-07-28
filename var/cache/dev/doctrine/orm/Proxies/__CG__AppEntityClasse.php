@@ -23,15 +23,17 @@ class Classe extends \App\Entity\Classe implements \Doctrine\ORM\Proxy\InternalP
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
         "\0".parent::class."\0".'classeSuperieure' => [parent::class, 'classeSuperieure', null],
+        "\0".parent::class."\0".'fraisInscriptionDeBase' => [parent::class, 'fraisInscriptionDeBase', null],
+        "\0".parent::class."\0".'fraisScolariteDeBase' => [parent::class, 'fraisScolariteDeBase', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
         "\0".parent::class."\0".'matieres' => [parent::class, 'matieres', null],
-        "\0".parent::class."\0".'montant' => [parent::class, 'montant', null],
         "\0".parent::class."\0".'niveau' => [parent::class, 'niveau', null],
         "\0".parent::class."\0".'nom' => [parent::class, 'nom', null],
         'classeSuperieure' => [parent::class, 'classeSuperieure', null],
+        'fraisInscriptionDeBase' => [parent::class, 'fraisInscriptionDeBase', null],
+        'fraisScolariteDeBase' => [parent::class, 'fraisScolariteDeBase', null],
         'id' => [parent::class, 'id', null],
         'matieres' => [parent::class, 'matieres', null],
-        'montant' => [parent::class, 'montant', null],
         'niveau' => [parent::class, 'niveau', null],
         'nom' => [parent::class, 'nom', null],
     ];

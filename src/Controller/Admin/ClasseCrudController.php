@@ -36,11 +36,14 @@ class ClasseCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            
             FormField::addTab('Informations'),
             TextField::new('nom'),
-            MoneyField::new('montant')->setCurrency('XAF')->setStoredAsCents(false),
+            MoneyField::new('fraisScolariteDeBase')->setCurrency('XAF')->setStoredAsCents(false),
+            MoneyField::new('fraisInscriptionDeBase')->setCurrency('XAF')->setStoredAsCents(false),
             AssociationField::new('niveau'),
             AssociationField::new('classeSuperieure'),
+
             FormField::addTab('Matieres')->hideWhenCreating(),
             CollectionField::new('matieres')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex()->hideWhenCreating(),
 

@@ -46,6 +46,12 @@ class ClasseAnneeScolaire
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Classe')]
     private Collection $inscriptions;
 
+    #[ORM\Column]
+    private ?int $fraisInscription = null;
+
+    #[ORM\Column]
+    private ?int $fraisScolarite = null;
+
     public function __construct()
     {
         $this->professeurPrincipal = new ArrayCollection();
@@ -198,6 +204,30 @@ class ClasseAnneeScolaire
                 $inscription->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFraisInscription(): ?int
+    {
+        return $this->fraisInscription;
+    }
+
+    public function setFraisInscription(int $fraisInscription): static
+    {
+        $this->fraisInscription = $fraisInscription;
+
+        return $this;
+    }
+
+    public function getFraisScolarite(): ?int
+    {
+        return $this->fraisScolarite;
+    }
+
+    public function setFraisScolarite(int $fraisScolarite): static
+    {
+        $this->fraisScolarite = $fraisScolarite;
 
         return $this;
     }

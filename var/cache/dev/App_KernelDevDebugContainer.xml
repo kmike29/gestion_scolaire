@@ -625,7 +625,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.EDFuW67"/>
+      <argument type="service" id=".service_locator.FtBXZTZ"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3587,7 +3587,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.EDFuW67"/>
+      <argument type="service" id=".service_locator.FtBXZTZ"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8491,7 +8491,7 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.EDFuW67" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.FtBXZTZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -8627,10 +8627,9 @@
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController::createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController::duplicateProduct" type="service_closure" id=".service_locator.9xTnqfF"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController::ajouterTranche" type="service_closure" id=".service_locator.9xTnqfF"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController::updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::index" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -8642,6 +8641,7 @@
         <argument key="App\Controller\Admin\InscriptionCrudController::autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController::updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController::createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
@@ -8937,10 +8937,9 @@
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController:createNewForm" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\EmploiDuTempsCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController:duplicateProduct" type="service_closure" id=".service_locator.9xTnqfF"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController:ajouterTranche" type="service_closure" id=".service_locator.9xTnqfF"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
-        <argument key="App\Controller\Admin\InscriptionCrudController:updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:index" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -8952,6 +8951,7 @@
         <argument key="App\Controller\Admin\InscriptionCrudController:autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:createIndexQueryBuilder" type="service_closure" id=".service_locator.yR6jqeD"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:renderFilters" type="service_closure" id=".service_locator.t9B7cZ4"/>
+        <argument key="App\Controller\Admin\InscriptionCrudController:updateEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:deleteEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\InscriptionCrudController:createEditForm" type="service_closure" id=".service_locator.jG5xrFj"/>
@@ -11657,7 +11657,7 @@
     <service id="Symfony\Component\Mercure\PublisherInterface" alias="mercure.hub.default.publisher.traceable"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.EDFuW67"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.FtBXZTZ"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>

@@ -20,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class InscriptionCrudController extends AbstractCrudController
 {
@@ -45,12 +46,12 @@ class InscriptionCrudController extends AbstractCrudController
             MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
             MoneyField::new('TotalRemis')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
             CollectionField::new('paiements')->useEntryCrudForm()->allowAdd(false)->setEntryIsComplex()->hideWhenCreating(),
-            AssociationField::new('remise'),
+            AssociationField::new('remises')->setFormTypeOption('multiple',true),
 
         ];
     }
 
-    public function duplicateProduct(
+    public function ajouterTranche(
         AdminContext $context,
         AdminUrlGenerator $adminUrlGenerator,
         EntityManagerInterface $em
@@ -71,9 +72,8 @@ class InscriptionCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
 
-
          $paiementAction =    Action::new('nouveauPaiement', 'Nouveau paiement')
-         ->linkToCrudAction('duplicateProduct')        
+         ->linkToCrudAction('ajouterTranche')        
          ->displayIf(static function ($inscription) {
             return $inscription->getMontantRestant()!=0;
         }); 
@@ -95,9 +95,19 @@ class InscriptionCrudController extends AbstractCrudController
         ;
     }
 
-    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    /*protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
+        //$submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
+    
+        $url = $this->container->get(AdminUrlGenerator::class)
+                ->setController(EleveCrudController::class)
+                ->setAction(Action::INDEX)
+                ->generateUrl();
+
+        return $this->redirect($url);
         
-    }
+    
+       // return parent::getRedirectResponseAfterSave($context, $action);
+    }*/
     
 }
