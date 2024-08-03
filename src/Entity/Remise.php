@@ -21,10 +21,14 @@ class Remise
     #[ORM\Column]
     private ?int $pourcentage = null;
 
+
+    #[ORM\ManyToOne(inversedBy: 'Remises')]
+    private ?TypeRemise $typeRemise = null;
+
     /**
      * @var Collection<int, Inscription>
      */
-    #[ORM\ManyToMany(targetEntity: Inscription::class, inversedBy: 'remises')]
+    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'remise')]
     private Collection $inscriptions;
 
 
@@ -69,6 +73,18 @@ class Remise
         return $this->designation.' ('.strval($this->pourcentage).' %)';
     }
 
+    public function getTypeRemise(): ?TypeRemise
+    {
+        return $this->typeRemise;
+    }
+
+    public function setTypeRemise(?TypeRemise $typeRemise): static
+    {
+        $this->typeRemise = $typeRemise;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Inscription>
      */
@@ -81,6 +97,7 @@ class Remise
     {
         if (!$this->inscriptions->contains($inscription)) {
             $this->inscriptions->add($inscription);
+            $inscription->setRemise($this);
         }
 
         return $this;
@@ -88,9 +105,16 @@ class Remise
 
     public function removeInscription(Inscription $inscription): static
     {
-        $this->inscriptions->removeElement($inscription);
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getRemise() === $this) {
+                $inscription->setRemise(null);
+            }
+        }
 
         return $this;
     }
+
+    
 
 }

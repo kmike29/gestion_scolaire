@@ -267,4 +267,21 @@ class Eleve
     {
         return $this->inscriptions->last();;
     }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getImpayes(): Collection
+    {
+        
+        $impayes = $this->inscriptions;
+
+        foreach ($impayes as $inscription) {
+            if($inscription->getMontantRestant()!=0 && !$inscription->getClasse()->getAnneeScolaire()->isActive()){
+                $impayes->removeElement($inscription);
+            }
+        }
+
+        return ($impayes);
+    }
 }

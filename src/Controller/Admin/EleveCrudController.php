@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -16,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -57,24 +59,11 @@ class EleveCrudController extends AbstractCrudController
             DateField::new('dateDInscription')->setLabel("Date d'inscription"),
             TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance'),
             AssociationField::new('classeActuelle'),
+            ArrayField::new('impayes')
             //FormField::addTab('Parents'),
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
     }
-
-    /*public function createEntity(string $entityFqcn)
-    {
-        $eleve = new Eleve();
-        $inscription = new Inscription();
-
-       // $entityManager = $this->getDoctrine()->getManager();
-        $entityManager = $this->container->get('doctrine')->getManager();
-        $entityManager->persist($inscription);
-
-        $eleve->addInscription($inscription);
-
-        return $eleve;
-    }*/
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
@@ -91,6 +80,7 @@ class EleveCrudController extends AbstractCrudController
         $inscription = new Inscription();
         $inscription->setEleve($eleve);
         $inscription->setClasse($eleve->getClasseActuelle());
+        $inscription->setPaiementUnique(false);
 
         $eleve->addInscription($inscription);
 
@@ -111,8 +101,6 @@ class EleveCrudController extends AbstractCrudController
 
         return $this->redirect($url);
         
-    
-       // return parent::getRedirectResponseAfterSave($context, $action);
     }
     
 }

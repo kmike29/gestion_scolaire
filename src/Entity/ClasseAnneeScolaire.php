@@ -231,4 +231,9 @@ class ClasseAnneeScolaire
 
         return $this;
     }
+
+    public function isActive(): bool
+    {
+        return $this->getAnneeScolaire()->isActive();
+    }
 }

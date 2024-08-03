@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
@@ -45,8 +46,12 @@ class InscriptionCrudController extends AbstractCrudController
             AssociationField::new('Classe'),
             MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
             MoneyField::new('TotalRemis')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
+            MoneyField::new('TotalAPayer')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
+            MoneyField::new('MontantPourRemiseUnique')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
+
+            AssociationField::new('remise'),
+            BooleanField::new('paiementUnique'),
             CollectionField::new('paiements')->useEntryCrudForm()->allowAdd(false)->setEntryIsComplex()->hideWhenCreating(),
-            AssociationField::new('remises')->setFormTypeOption('multiple',true),
 
         ];
     }
@@ -63,7 +68,8 @@ class InscriptionCrudController extends AbstractCrudController
         $url = $adminUrlGenerator            
             ->setController(PaiementCrudController::class)
             ->setAction(Action::NEW)
-            ->set('idInscription',$inscription->getId())
+            ->set('inscription',$inscription->getId())
+            ->unset('entityId')
             ->generateUrl();
 
         return $this->redirect($url);
@@ -81,7 +87,7 @@ class InscriptionCrudController extends AbstractCrudController
         return $actions
         ->add(Crud::PAGE_EDIT , $paiementAction)
         ->add(Crud::PAGE_INDEX , $paiementAction)
-        ->remove(Crud::PAGE_INDEX, Action::NEW)
+        //->remove(Crud::PAGE_INDEX, Action::NEW)
       //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
         ;
         

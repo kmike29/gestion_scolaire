@@ -15,6 +15,7 @@ use App\Entity\Personnel;
 use App\Entity\Remise;
 use App\Entity\TrancheHoraire;
 use App\Entity\Tuteur;
+use App\Entity\TypeRemise;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -58,21 +59,34 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Classes', 'fas fa-user-group', Classe::class);
-        yield MenuItem::linkToCrud('Matières', 'fa-solid fa-book', Matiere::class);
-        yield MenuItem::linkToCrud('Niveaux', 'fa fa-layer-group', Niveau::class);
-        yield MenuItem::linkToCrud('Assignation des matières', 'fa fa-book-open', ClasseMatiere::class);
-        yield MenuItem::linkToCrud('Eleves', 'fa fa-book-open-reader', Eleve::class);
-        yield MenuItem::linkToCrud('Personnel', 'fa-solid fa-user-tie', Personnel::class);
-        yield MenuItem::linkToCrud('Années scolaires', 'fa fa-calendar', AnneeScolaire::class);
-        yield MenuItem::linkToCrud('Classes actives ', 'fa fa-people-group', ClasseAnneeScolaire::class);
-        yield MenuItem::linkToCrud('Emplois du temps', 'fa fa-calendar-days', EmploiDuTemps::class);
-        yield MenuItem::linkToCrud('Parents', 'fa fa-child-reaching', Tuteur::class);
-        yield MenuItem::linkToCrud('Diplomes - inactif', 'fa fa-user-graduate', Eleve::class);
-        yield MenuItem::linkToCrud('Matières programmés', 'fa fa-clock', TrancheHoraire::class);
-        yield MenuItem::linkToCrud('Inscription', 'fa fa-clock', Inscription::class);
-        yield MenuItem::linkToCrud('Remises', 'fa fa-clock', Remise::class);
+
+        return [
+            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::subMenu('Système', 'fa fa-article')->setSubItems([
+                MenuItem::linkToCrud('Classes', 'fas fa-user-group', Classe::class),
+                MenuItem::linkToCrud('Matières', 'fa-solid fa-book', Matiere::class),
+                MenuItem::linkToCrud('Niveaux', 'fa fa-layer-group', Niveau::class),
+                MenuItem::linkToCrud('Assignation des matières', 'fa fa-book-open', ClasseMatiere::class),
+                MenuItem::linkToCrud('Années scolaires', 'fa fa-calendar', AnneeScolaire::class),
+                MenuItem::linkToCrud('TypRemises', 'fa fa-clock', TypeRemise::class),
+                MenuItem::linkToCrud('Matières programmés', 'fa fa-clock', TrancheHoraire::class),
+                MenuItem::linkToCrud('Remises', 'fa fa-clock', Remise::class),
+
+
+            ]),
+            MenuItem::subMenu('Gestion des classes', 'fa fa-article')->setSubItems([
+                MenuItem::linkToCrud('Eleves', 'fa fa-book-open-reader', Eleve::class),
+                MenuItem::linkToCrud('Personnel', 'fa-solid fa-user-tie', Personnel::class),
+                MenuItem::linkToCrud('Diplomes - inactif', 'fa fa-user-graduate', Eleve::class),
+                MenuItem::linkToCrud('Classes actives ', 'fa fa-people-group', ClasseAnneeScolaire::class),
+                MenuItem::linkToCrud('Emplois du temps', 'fa fa-calendar-days', EmploiDuTemps::class),
+                MenuItem::linkToCrud('Inscription', 'fa fa-clock', Inscription::class),
+
+            ]),
+
+   
+        ];
+
 
     }
 }

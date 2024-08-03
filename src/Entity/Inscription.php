@@ -29,18 +29,17 @@ class Inscription
     #[ORM\OneToMany(targetEntity: Paiement::class, mappedBy: 'inscription')]
     private Collection $paiements;
 
-    /**
-     * @var Collection<int, Remise>
-     */
-    #[ORM\ManyToMany(targetEntity: Remise::class, mappedBy: 'inscriptions')]
-    private Collection $remises;
+    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    private ?Remise $remise = null;
+
+    #[ORM\Column]
+    private ?bool $paiementUnique = null;
 
 
 
     public function __construct()
     {
         $this->paiements = new ArrayCollection();
-        $this->remises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,6 +101,21 @@ class Inscription
         return $this;
     }
 
+    public function getTotalAPayer(): int
+    {
+        $base = $this->getClasse()->getFraisScolarite();
+
+        $remise = ($this->remise) ?  ($base * $this->getRemise()->getPourcentage())/100 : 0 ;
+
+        return $base - $remise;
+    }
+
+    public function getMontantPourRemiseUnique(): int
+    {
+        return $this->getTotalAPayer() * 0.9;
+    }
+
+
     public function getTotalRemis() : int 
     {
         $total = 0;
@@ -117,7 +131,7 @@ class Inscription
 
     public function getMontantRestant() : int
     {
-        return $this->getClasse()->getFraisScolarite() - $this->getTotalRemis();
+        return ($this->isPaiementUnique()) ?  0 : $this->getTotalAPayer() - $this->getTotalRemis()  ;
     }
 
     public function __toString(): string
@@ -126,32 +140,31 @@ class Inscription
 
     }
 
-    /**
-     * @return Collection<int, Remise>
-     */
-    public function getRemises(): Collection
+    public function getRemise(): ?Remise
     {
-        return $this->remises;
+        return $this->remise;
     }
 
-    public function addRemise(Remise $remise): static
+    public function setRemise(?Remise $remise): static
     {
-        if (!$this->remises->contains($remise)) {
-            $this->remises->add($remise);
-            $remise->addInscription($this);
-        }
+        $this->remise = $remise;
 
         return $this;
     }
 
-    public function removeRemise(Remise $remise): static
+    public function isPaiementUnique(): ?bool
     {
-        if ($this->remises->removeElement($remise)) {
-            $remise->removeInscription($this);
-        }
+        return $this->paiementUnique;
+    }
+
+    public function setPaiementUnique(bool $paiementUnique): static
+    {
+        $this->paiementUnique = $paiementUnique;
 
         return $this;
     }
+
+
 
 
 }

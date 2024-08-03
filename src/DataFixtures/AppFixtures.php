@@ -6,6 +6,8 @@ use App\Entity\AnneeScolaire;
 use App\Entity\Classe;
 use App\Entity\ClasseAnneeScolaire;
 use App\Entity\Niveau;
+use App\Entity\Remise;
+use App\Entity\TypeRemise;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -79,6 +81,18 @@ class AppFixtures extends Fixture
             $gradeYear->setFraisScolarite($grade->getFraisScolariteDeBase()) ;
             $manager->persist($gradeYear);
         }
+
+        $typeRemise = new TypeRemise();
+        $typeRemise->setDesignation('nombres enfants');
+        $manager->persist($typeRemise);
+
+        $remise = new Remise();
+        $remise->setDesignation('2 enfants');
+        $remise->setPourcentage(20);
+        $remise->setTypeRemise($typeRemise);
+        $manager->persist($remise);
+
+
 
 
 
