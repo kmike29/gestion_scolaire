@@ -42,8 +42,8 @@ class InscriptionCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('Eleve'),
-            AssociationField::new('Classe'),
+            AssociationField::new('Eleve')->setFormTypeOption('disabled','disabled'),
+            AssociationField::new('Classe')->setFormTypeOption('disabled','disabled'),
 
             MoneyField::new('MontantDeBase')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
             ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),

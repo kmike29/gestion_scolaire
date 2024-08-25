@@ -1838,3 +1838,12 @@ cc8816,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=detail&crudControllerFqc
 1fe19a,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=detail&crudControllerFqcn=App%5CController%5CAdmin%5CInscriptionCrudController&entityId=2,1724591071,,200,request
 86f726,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=detail&crudControllerFqcn=App%5CController%5CAdmin%5CInscriptionCrudController&entityId=2,1724591098,,200,request
 785975,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=detail&crudControllerFqcn=App%5CController%5CAdmin%5CInscriptionCrudController&entityId=2,1724591110,,200,request
+7795fd,127.0.0.1,GET,https://127.0.0.1:8000/,1724612548,,302,request
+4d94e3,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CClasseCrudController,1724612551,,200,request
+62e678,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CEleveCrudController,1724612555,,200,request
+8b1faf,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=new&crudControllerFqcn=App%5CController%5CAdmin%5CEleveCrudController,1724612558,,200,request
+f5f349,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=new&crudControllerFqcn=App%5CController%5CAdmin%5CEleveCrudController,1724612588,dc8a17,500,request
+dc8a17,127.0.0.1,POST,https://127.0.0.1:8000/?crudAction=new&crudControllerFqcn=App%5CController%5CAdmin%5CEleveCrudController,1724612588,,500,request
+ef32c6,127.0.0.1,POST,https://127.0.0.1:8000/?crudAction=new&crudControllerFqcn=App%5CController%5CAdmin%5CEleveCrudController,1724612809,,422,request
+238209,127.0.0.1,POST,https://127.0.0.1:8000/?crudAction=new&crudControllerFqcn=App%5CController%5CAdmin%5CEleveCrudController,1724612816,,302,request
+d13c1a,127.0.0.1,GET,https://127.0.0.1:8000/?crudAction=edit&crudControllerFqcn=App%5CController%5CAdmin%5CInscriptionCrudController&entityId=4,1724612817,,200,request

@@ -22,9 +22,6 @@ class Eleve
     #[ORM\Column(length: 255)]
     private ?string $prenoms = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateDeNaissance = null;
-
     #[ORM\Column(length: 100)]
     private ?string $nationalite = null;
 
@@ -61,6 +58,9 @@ class Eleve
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Eleve')]
     private Collection $inscriptions;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateDeNaissance = null;
+
     public function __construct()
     {
         $this->parents = new ArrayCollection();
@@ -92,18 +92,6 @@ class Eleve
     public function setPrenoms(string $prenoms): static
     {
         $this->prenoms = $prenoms;
-
-        return $this;
-    }
-
-    public function getDateDeNaissance(): ?\DateTimeInterface
-    {
-        return $this->dateDeNaissance;
-    }
-
-    public function setDateDeNaissance(\DateTimeInterface $dateDeNaissance): static
-    {
-        $this->dateDeNaissance = $dateDeNaissance;
 
         return $this;
     }
@@ -283,5 +271,17 @@ class Eleve
         }
 
         return ($impayes);
+    }
+
+    public function getDateDeNaissance(): ?\DateTimeInterface
+    {
+        return $this->dateDeNaissance;
+    }
+
+    public function setDateDeNaissance(?\DateTimeInterface $dateDeNaissance): static
+    {
+        $this->dateDeNaissance = $dateDeNaissance;
+
+        return $this;
     }
 }

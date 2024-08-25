@@ -2117,6 +2117,11 @@
       </call>
       <factory class="Symfony\Component\HttpClient\HttpClient" method="create"/>
     </service>
+    <service id="psr18.http_client" class="Symfony\Component\HttpClient\Psr18Client">
+      <argument type="service" id=".debug.http_client"/>
+      <argument>null</argument>
+      <argument>null</argument>
+    </service>
     <service id="http_client.abstract_retry_strategy" class="Symfony\Component\HttpClient\Retry\GenericRetryStrategy" abstract="true">
       <argument type="abstract">http codes</argument>
       <argument type="abstract">delay ms</argument>
@@ -2126,7 +2131,7 @@
     </service>
     <service id="http_client.uri_template" class="Symfony\Component\HttpClient\UriTemplateHttpClient">
       <argument type="service" id="http_client.uri_template.inner"/>
-      <argument>null</argument>
+      <argument type="service" id="http_client.uri_template_expander.rize" on-invalid="null"/>
       <argument type="collection"/>
     </service>
     <service id="http_client.uri_template_expander.guzzle" class="Closure">
@@ -11607,6 +11612,8 @@
     <service id="asset_mapper.http_client" alias=".debug.http_client"/>
     <service id="Symfony\Component\AssetMapper\ImportMap\ImportMapManager" alias="asset_mapper.importmap.manager"/>
     <service id="Symfony\Contracts\HttpClient\HttpClientInterface" alias=".debug.http_client"/>
+    <service id="Psr\Http\Client\ClientInterface" alias="psr18.http_client"/>
+    <service id="http_client.uri_template_expander" alias="http_client.uri_template_expander.rize"/>
     <service id="mailer" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\MailerInterface" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\Transport\TransportInterface" alias="mailer.default_transport"/>
