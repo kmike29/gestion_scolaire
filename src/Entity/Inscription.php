@@ -101,13 +101,26 @@ class Inscription
         return $this;
     }
 
+    public function getMontantDeBase() : int {
+        return $this->getClasse()->getFraisScolarite();
+    }
+
     public function getTotalAPayer(): int
     {
-        $base = $this->getClasse()->getFraisScolarite();
+        return $this->getMontantDeBase() - $this->getMontantDeLaRemise();
+    }
 
-        $remise = ($this->remise) ?  ($base * $this->getRemise()->getPourcentage())/100 : 0 ;
+    public function getMontantDeLaRemise(): int
+    {
+        $base = $this->getMontantDeBase();
+        $remise = ($this->remise) ?  ($base * $this->getRemise()->getPourcentage())/100 : 0;
+    
+        return  $remise;
+    }
 
-        return $base - $remise;
+    public function getTotalDesRemises(): int 
+    {
+        return ($this->isPaiementUnique())?  $this->getMontantDeBase() - $this->getTotalRemis() : $this->getMontantDeBase() - $this->getTotalAPayer()  ;
     }
 
     public function getMontantPourRemiseUnique(): int
@@ -162,6 +175,19 @@ class Inscription
         $this->paiementUnique = $paiementUnique;
 
         return $this;
+    }
+
+    public function getStatusPaiement() : string   
+    {
+        $status = '';
+        if($this->isPaiementUnique()){
+            $status =  strval($this->getTotalRemis()). ' FCFA payés; sur '.strval($this->getTotalAPayer()) . ' FCFA (remise pour paiement en 1 tranche) ' ;
+
+        }else{
+            $status =  strval($this->getTotalRemis()). ' FCFA payés sur '.strval($this->getTotalAPayer()) . ' FCFA' ;
+        }
+        
+        return $status; 
     }
 
 

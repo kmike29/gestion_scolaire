@@ -7,6 +7,8 @@ use App\Entity\Eleve;
 use App\Entity\Inscription;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -42,28 +44,40 @@ class EleveCrudController extends AbstractCrudController
     {
         return [
             FormField::addTab("Informations de l'élève "),
-            ImageField::new('photo')->setBasePath('public/élèves/photos/')->setUploadDir('public/élèves/photos/')->setFormTypeOptions(['attr' => [
+            ImageField::new('photo')->setBasePath('/élèves/photos/')->setUploadDir('public/élèves/photos/')->setFormTypeOptions(['attr' => [
                 'accept' => 'image/*',
             ],
             ]),
-            TextField::new('matricule'),
+            TextField::new('matricule')->hideWhenCreating(),
             TextField::new('nom'),
             TextField::new('prenoms'),
             ChoiceField::new('sexe')->setChoices([
                 'M' => 'masculin',
                 'F' => 'feminin',
             ]),
-            TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance'),
-            TextField::new('nationalite')->setLabel('Nationalité'),
-            DateField::new('dateDeNaissance')->setLabel('Date de naissance'),
+            TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->hideOnIndex(),
+            TextField::new('nationalite')->setLabel('Nationalité')->hideOnIndex(),
+            DateField::new('dateDeNaissance')->setLabel('Date de naissance')->hideOnIndex(),
             DateField::new('dateDInscription')->setLabel("Date d'inscription"),
-            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance'),
+            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->hideOnIndex(),
             AssociationField::new('classeActuelle'),
             ArrayField::new('impayes')
             //FormField::addTab('Parents'),
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
     }
+
+    public function configureActions(Actions $actions): Actions
+    {
+
+        return $actions
+        ->add(Crud::PAGE_INDEX , Action::DETAIL)
+        //->remove(Crud::PAGE_INDEX, Action::NEW)
+      //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
+        ;
+        
+    }
+
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {

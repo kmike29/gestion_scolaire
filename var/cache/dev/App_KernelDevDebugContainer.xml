@@ -638,7 +638,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.4WoiYt3"/>
+      <argument type="service" id=".service_locator..r8axok"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3600,7 +3600,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.4WoiYt3"/>
+      <argument type="service" id=".service_locator..r8axok"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8510,7 +8510,7 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.4WoiYt3" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..r8axok" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -8603,11 +8603,11 @@
         <argument key="App\Controller\Admin\ClasseMatiereCrudController::createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\ClasseMatiereCrudController::configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
         <argument key="App\Controller\Admin\DashboardController::configureUserMenu" type="service_closure" id=".service_locator.t7nLwyX"/>
+        <argument key="App\Controller\Admin\EleveCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
         <argument key="App\Controller\Admin\EleveCrudController::persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\EleveCrudController::createInscription" type="service_closure" id=".service_locator.qkU5qjr"/>
         <argument key="App\Controller\Admin\EleveCrudController::configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
         <argument key="App\Controller\Admin\EleveCrudController::configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
-        <argument key="App\Controller\Admin\EleveCrudController::configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
         <argument key="App\Controller\Admin\EleveCrudController::configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
         <argument key="App\Controller\Admin\EleveCrudController::index" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\EleveCrudController::detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -8934,11 +8934,11 @@
         <argument key="App\Controller\Admin\ClasseMatiereCrudController:createNewFormBuilder" type="service_closure" id=".service_locator.jG5xrFj"/>
         <argument key="App\Controller\Admin\ClasseMatiereCrudController:configureResponseParameters" type="service_closure" id=".service_locator.vMUOjiq"/>
         <argument key="App\Controller\Admin\DashboardController:configureUserMenu" type="service_closure" id=".service_locator.t7nLwyX"/>
+        <argument key="App\Controller\Admin\EleveCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
         <argument key="App\Controller\Admin\EleveCrudController:persistEntity" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Admin\EleveCrudController:createInscription" type="service_closure" id=".service_locator.qkU5qjr"/>
         <argument key="App\Controller\Admin\EleveCrudController:configureCrud" type="service_closure" id=".service_locator.Nb584vp"/>
         <argument key="App\Controller\Admin\EleveCrudController:configureAssets" type="service_closure" id=".service_locator.wvbCcwL"/>
-        <argument key="App\Controller\Admin\EleveCrudController:configureActions" type="service_closure" id=".service_locator.UrOEf8r"/>
         <argument key="App\Controller\Admin\EleveCrudController:configureFilters" type="service_closure" id=".service_locator.kud45L1"/>
         <argument key="App\Controller\Admin\EleveCrudController:index" type="service_closure" id=".service_locator.t9B7cZ4"/>
         <argument key="App\Controller\Admin\EleveCrudController:detail" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -11730,7 +11730,7 @@
     <service id="Symfony\Component\Mercure\PublisherInterface" alias="mercure.hub.default.publisher.traceable"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.4WoiYt3"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator..r8axok"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>

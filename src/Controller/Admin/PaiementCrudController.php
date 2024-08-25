@@ -7,6 +7,7 @@ use App\Entity\Paiement;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -33,9 +34,16 @@ class PaiementCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            ChoiceField::new('type')->setChoices([
-                'tranche' => 'tranche',
-            ]),
+            FormField::addFieldset("Détails de l'élève "),       
+            TextField::new('eleve')->setFormTypeOption('disabled','disabled')->setColumns(6),
+            TextField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
+
+            FormField::addFieldset("Détails de l'inscription "),
+            TextField::new('statusPaiement',"Status de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
+            MoneyField::new('montantPourPayementUnique',"Montant à payer en une fois pour une remise")->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->setColumns(6),
+
+
+            //ChoiceField::new('type')->setChoices(['tranche' => 'tranche',]),
             MoneyField::new('montant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false),
         ];
     }

@@ -63,4 +63,44 @@ class Paiement
 
         return $this;
     }
+
+    public function getEleve() : string
+    {
+        return $this->getInscription()->getEleve()->__toString();
+    }
+
+    public function getClasse() : string 
+    {
+        return $this->getInscription()->getClasse()->__toString();
+
+    }
+
+    public function getMontantRestant() : int
+    {
+        return  $this->getInscription()->getMontantRestant();
+    }
+
+    
+    public function getTotalRemis() : int
+    {
+        return  $this->getInscription()->getTotalRemis();
+    }
+
+        
+    public function getTotalAPayer() : int
+    {
+        return  $this->getInscription()->getTotalAPayer();
+    }
+
+            
+    public function getMontantPourPayementUnique() : int
+    {
+        return  $this->getInscription()->getMontantPourRemiseUnique();
+    }
+
+
+    public function getStatusPaiement() : string   
+    {
+        return strval($this->getTotalRemis()). ' FCFA payés / '.strval($this->getTotalAPayer()) . ' FCFA' ; 
+    }
 }

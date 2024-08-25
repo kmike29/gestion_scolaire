@@ -44,13 +44,33 @@ class InscriptionCrudController extends AbstractCrudController
         return [
             AssociationField::new('Eleve'),
             AssociationField::new('Classe'),
-            MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
-            MoneyField::new('TotalRemis')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
-            MoneyField::new('TotalAPayer')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
-            MoneyField::new('MontantPourRemiseUnique')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->hideWhenCreating()->setFormTypeOption('disabled','disabled'),
+
+            MoneyField::new('MontantDeBase')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
+            ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
+            MoneyField::new('TotalAPayer')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
+                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
+                
+            TextField::new('StatusPaiement')->hideOnForm(),
+
+            /*MoneyField::new('TotalDesRemises')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
+            ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),*/
+
+            MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
+                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
+
+            /*MoneyField::new('TotalRemis')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
+                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
+
+                            MoneyField::new('MontantDeLaRemise')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
+            ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
+                
+                */
+
+            MoneyField::new('MontantPourRemiseUnique')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
+                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
 
             AssociationField::new('remise'),
-            BooleanField::new('paiementUnique'),
+            BooleanField::new('paiementUnique')->setFormTypeOption('disabled','disabled'),
             CollectionField::new('paiements')->useEntryCrudForm()->allowAdd(false)->setEntryIsComplex()->hideWhenCreating(),
 
         ];
@@ -85,6 +105,7 @@ class InscriptionCrudController extends AbstractCrudController
         }); 
 
         return $actions
+        ->add(Crud::PAGE_INDEX , Action::DETAIL)
         ->add(Crud::PAGE_EDIT , $paiementAction)
         ->add(Crud::PAGE_INDEX , $paiementAction)
         //->remove(Crud::PAGE_INDEX, Action::NEW)
@@ -93,13 +114,13 @@ class InscriptionCrudController extends AbstractCrudController
         
     }
 
-    public function configureCrud(Crud $crud): Crud
+    /*public function configureCrud(Crud $crud): Crud
     {
         return $crud
             // ...
             ->showEntityActionsInlined()
         ;
-    }
+    }*/
 
     /*protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {

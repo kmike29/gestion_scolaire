@@ -22,7 +22,7 @@ class Eleve
     #[ORM\Column(length: 255)]
     private ?string $prenoms = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDeNaissance = null;
 
     #[ORM\Column(length: 100)]
@@ -34,10 +34,10 @@ class Eleve
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDInscription = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, nullable: true)]
     private ?string $matricule = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $lieuDeNaissance = null;
 
     /**
@@ -46,7 +46,7 @@ class Eleve
     #[ORM\ManyToMany(targetEntity: Tuteur::class, inversedBy: 'enfants')]
     private Collection $parents;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
     #[ORM\Column(length: 10)]

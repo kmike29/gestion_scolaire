@@ -61,6 +61,9 @@ class DashboardController extends AbstractDashboardController
     {
 
         return [
+            MenuItem::linkToCrud('Eleves', 'fa fa-book-open-reader', Eleve::class),
+            MenuItem::linkToCrud('Inscription', 'fa fa-clock', Inscription::class),
+
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
             MenuItem::subMenu('Système', 'fa fa-article')->setSubItems([
                 MenuItem::linkToCrud('Classes', 'fas fa-user-group', Classe::class),
@@ -75,12 +78,10 @@ class DashboardController extends AbstractDashboardController
 
             ]),
             MenuItem::subMenu('Gestion des classes', 'fa fa-article')->setSubItems([
-                MenuItem::linkToCrud('Eleves', 'fa fa-book-open-reader', Eleve::class),
                 MenuItem::linkToCrud('Personnel', 'fa-solid fa-user-tie', Personnel::class),
                 MenuItem::linkToCrud('Diplomes - inactif', 'fa fa-user-graduate', Eleve::class),
                 MenuItem::linkToCrud('Classes actives ', 'fa fa-people-group', ClasseAnneeScolaire::class),
                 MenuItem::linkToCrud('Emplois du temps', 'fa fa-calendar-days', EmploiDuTemps::class),
-                MenuItem::linkToCrud('Inscription', 'fa fa-clock', Inscription::class),
 
             ]),
 
