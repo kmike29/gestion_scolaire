@@ -11,6 +11,7 @@ use App\Entity\EmploiDuTemps;
 use App\Entity\Inscription;
 use App\Entity\Matiere;
 use App\Entity\Niveau;
+use App\Entity\Paiement;
 use App\Entity\Personnel;
 use App\Entity\Remise;
 use App\Entity\TrancheHoraire;
@@ -62,7 +63,8 @@ class DashboardController extends AbstractDashboardController
 
         return [
             MenuItem::linkToCrud('Eleves', 'fa fa-book-open-reader', Eleve::class),
-            MenuItem::linkToCrud('Inscription', 'fa fa-clock', Inscription::class),
+            MenuItem::linkToCrud('Inscriptions', 'fa fa-clock', Inscription::class),
+            MenuItem::linkToCrud('Paiements', 'fa fa-money-bill', Paiement::class),
 
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
             MenuItem::subMenu('Système', 'fa fa-article')->setSubItems([

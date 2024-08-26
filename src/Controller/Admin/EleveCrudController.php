@@ -19,6 +19,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -61,7 +62,7 @@ class EleveCrudController extends AbstractCrudController
             DateField::new('dateDInscription')->setLabel("Date d'inscription"),
             TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->hideOnIndex(),
             AssociationField::new('classeActuelle'),
-            ArrayField::new('impayes')
+            MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')
             //FormField::addTab('Parents'),
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];

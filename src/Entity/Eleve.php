@@ -273,6 +273,18 @@ class Eleve
         return ($impayes);
     }
 
+
+    public function getMontantImpayes() : int 
+    {
+        $impayes = $this->getImpayes();
+        $montant = 0;
+        foreach ($impayes as $impaye) {
+            $montant = $montant + $impaye->getMontantRestant();
+        }
+
+        return $montant;
+    }
+
     public function getDateDeNaissance(): ?\DateTimeInterface
     {
         return $this->dateDeNaissance;
