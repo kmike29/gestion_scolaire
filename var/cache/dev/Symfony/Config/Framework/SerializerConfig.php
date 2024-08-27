@@ -13,6 +13,7 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 class SerializerConfig 
 {
     private $enabled;
+    private $enableAnnotations;
     private $enableAttributes;
     private $nameConverter;
     private $circularReferenceHandler;
@@ -22,7 +23,7 @@ class SerializerConfig
     private $_usedProperties = [];
 
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -30,6 +31,19 @@ class SerializerConfig
     {
         $this->_usedProperties['enabled'] = true;
         $this->enabled = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default null
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function enableAnnotations($value): static
+    {
+        $this->_usedProperties['enableAnnotations'] = true;
+        $this->enableAnnotations = $value;
 
         return $this;
     }
@@ -120,6 +134,12 @@ class SerializerConfig
             unset($value['enabled']);
         }
 
+        if (array_key_exists('enable_annotations', $value)) {
+            $this->_usedProperties['enableAnnotations'] = true;
+            $this->enableAnnotations = $value['enable_annotations'];
+            unset($value['enable_annotations']);
+        }
+
         if (array_key_exists('enable_attributes', $value)) {
             $this->_usedProperties['enableAttributes'] = true;
             $this->enableAttributes = $value['enable_attributes'];
@@ -166,6 +186,9 @@ class SerializerConfig
         $output = [];
         if (isset($this->_usedProperties['enabled'])) {
             $output['enabled'] = $this->enabled;
+        }
+        if (isset($this->_usedProperties['enableAnnotations'])) {
+            $output['enable_annotations'] = $this->enableAnnotations;
         }
         if (isset($this->_usedProperties['enableAttributes'])) {
             $output['enable_attributes'] = $this->enableAttributes;

@@ -14,10 +14,11 @@ class FormConfig
 {
     private $enabled;
     private $csrfProtection;
+    private $legacyErrorMessages;
     private $_usedProperties = [];
 
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -44,6 +45,20 @@ class FormConfig
         return $this->csrfProtection;
     }
 
+    /**
+     * @default null
+     * @param ParamConfigurator|bool $value
+     * @deprecated The child node "legacy_error_messages" at path "form" is deprecated.
+     * @return $this
+     */
+    public function legacyErrorMessages($value): static
+    {
+        $this->_usedProperties['legacyErrorMessages'] = true;
+        $this->legacyErrorMessages = $value;
+
+        return $this;
+    }
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -56,6 +71,12 @@ class FormConfig
             $this->_usedProperties['csrfProtection'] = true;
             $this->csrfProtection = new \Symfony\Config\Framework\Form\CsrfProtectionConfig($value['csrf_protection']);
             unset($value['csrf_protection']);
+        }
+
+        if (array_key_exists('legacy_error_messages', $value)) {
+            $this->_usedProperties['legacyErrorMessages'] = true;
+            $this->legacyErrorMessages = $value['legacy_error_messages'];
+            unset($value['legacy_error_messages']);
         }
 
         if ([] !== $value) {
@@ -71,6 +92,9 @@ class FormConfig
         }
         if (isset($this->_usedProperties['csrfProtection'])) {
             $output['csrf_protection'] = $this->csrfProtection->toArray();
+        }
+        if (isset($this->_usedProperties['legacyErrorMessages'])) {
+            $output['legacy_error_messages'] = $this->legacyErrorMessages;
         }
 
         return $output;

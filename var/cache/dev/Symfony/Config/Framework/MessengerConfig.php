@@ -20,13 +20,14 @@ class MessengerConfig
     private $serializer;
     private $transports;
     private $failureTransport;
+    private $resetOnMessage;
     private $stopWorkerOnSignals;
     private $defaultBus;
     private $buses;
     private $_usedProperties = [];
 
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -118,6 +119,21 @@ class MessengerConfig
     }
 
     /**
+     * Reset container services after each message.
+     * @default true
+     * @param ParamConfigurator|bool $value
+     * @deprecated Option "reset_on_message" at "messenger" is deprecated. It does nothing and will be removed in version 7.0.
+     * @return $this
+     */
+    public function resetOnMessage($value): static
+    {
+        $this->_usedProperties['resetOnMessage'] = true;
+        $this->resetOnMessage = $value;
+
+        return $this;
+    }
+
+    /**
      * @param ParamConfigurator|list<ParamConfigurator|int> $value
      *
      * @return $this
@@ -190,6 +206,12 @@ class MessengerConfig
             unset($value['failure_transport']);
         }
 
+        if (array_key_exists('reset_on_message', $value)) {
+            $this->_usedProperties['resetOnMessage'] = true;
+            $this->resetOnMessage = $value['reset_on_message'];
+            unset($value['reset_on_message']);
+        }
+
         if (array_key_exists('stop_worker_on_signals', $value)) {
             $this->_usedProperties['stopWorkerOnSignals'] = true;
             $this->stopWorkerOnSignals = $value['stop_worker_on_signals'];
@@ -230,6 +252,9 @@ class MessengerConfig
         }
         if (isset($this->_usedProperties['failureTransport'])) {
             $output['failure_transport'] = $this->failureTransport;
+        }
+        if (isset($this->_usedProperties['resetOnMessage'])) {
+            $output['reset_on_message'] = $this->resetOnMessage;
         }
         if (isset($this->_usedProperties['stopWorkerOnSignals'])) {
             $output['stop_worker_on_signals'] = $this->stopWorkerOnSignals;

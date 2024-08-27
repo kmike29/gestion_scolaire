@@ -61,6 +61,9 @@ class Eleve
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDeNaissance = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $observations = null;
+
     public function __construct()
     {
         $this->parents = new ArrayCollection();
@@ -293,6 +296,18 @@ class Eleve
     public function setDateDeNaissance(?\DateTimeInterface $dateDeNaissance): static
     {
         $this->dateDeNaissance = $dateDeNaissance;
+
+        return $this;
+    }
+
+    public function getObservations(): ?string
+    {
+        return $this->observations;
+    }
+
+    public function setObservations(?string $observations): static
+    {
+        $this->observations = $observations;
 
         return $this;
     }

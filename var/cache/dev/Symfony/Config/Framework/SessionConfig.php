@@ -57,7 +57,6 @@ class SessionConfig
     }
 
     /**
-     * Defaults to using the native session handler, or to the native *file* session handler if "save_path" is not null.
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -123,7 +122,7 @@ class SessionConfig
     }
 
     /**
-     * @default 'auto'
+     * @default null
      * @param ParamConfigurator|true|false|'auto' $value
      * @return $this
      */
@@ -149,7 +148,7 @@ class SessionConfig
     }
 
     /**
-     * @default 'lax'
+     * @default null
      * @param ParamConfigurator|NULL|'lax'|'strict'|'none' $value
      * @return $this
      */
@@ -214,7 +213,6 @@ class SessionConfig
     }
 
     /**
-     * Defaults to "%kernel.cache_dir%/sessions" if the "handler_id" option is not null
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this

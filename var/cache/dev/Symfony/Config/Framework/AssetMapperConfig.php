@@ -22,6 +22,7 @@ class AssetMapperConfig
     private $importmapPolyfill;
     private $importmapScriptAttributes;
     private $vendorDir;
+    private $provider;
     private $_usedProperties = [];
 
     /**
@@ -181,6 +182,20 @@ class AssetMapperConfig
         return $this;
     }
 
+    /**
+     * @default null
+     * @param ParamConfigurator|mixed $value
+     * @deprecated Option "provider" at "asset_mapper" is deprecated and does nothing. Remove it.
+     * @return $this
+     */
+    public function provider($value): static
+    {
+        $this->_usedProperties['provider'] = true;
+        $this->provider = $value;
+
+        return $this;
+    }
+
     public function __construct(array $value = [])
     {
         if (array_key_exists('enabled', $value)) {
@@ -255,6 +270,12 @@ class AssetMapperConfig
             unset($value['vendor_dir']);
         }
 
+        if (array_key_exists('provider', $value)) {
+            $this->_usedProperties['provider'] = true;
+            $this->provider = $value['provider'];
+            unset($value['provider']);
+        }
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
@@ -298,6 +319,9 @@ class AssetMapperConfig
         }
         if (isset($this->_usedProperties['vendorDir'])) {
             $output['vendor_dir'] = $this->vendorDir;
+        }
+        if (isset($this->_usedProperties['provider'])) {
+            $output['provider'] = $this->provider;
         }
 
         return $output;

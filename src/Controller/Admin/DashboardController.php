@@ -17,12 +17,14 @@ use App\Entity\Remise;
 use App\Entity\TrancheHoraire;
 use App\Entity\Tuteur;
 use App\Entity\TypeRemise;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Insitaction\EasyAdminFieldsBundle\EasyAdminFieldsBundle;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -56,6 +58,13 @@ class DashboardController extends AbstractDashboardController
             ->setTranslationDomain('admin')
             ->setTitle('Gestion scolaire')
             ->setLocales(['fr']);
+    }
+
+    public function configureAssets(): Assets
+    {
+        $assets = parent::configureAssets();
+        
+        return EasyAdminFieldsBundle::configureAssets($assets);
     }
 
     public function configureMenuItems(): iterable

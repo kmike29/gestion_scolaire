@@ -16,6 +16,7 @@ class FormLoginLdapConfig
     private $failureHandler;
     private $checkPath;
     private $useForward;
+    private $requirePreviousSession;
     private $loginPath;
     private $usernameParameter;
     private $passwordParameter;
@@ -31,6 +32,7 @@ class FormLoginLdapConfig
     private $failurePath;
     private $failureForward;
     private $failurePathParameter;
+    private $csrfTokenGenerator;
     private $service;
     private $dnString;
     private $queryString;
@@ -112,6 +114,20 @@ class FormLoginLdapConfig
     {
         $this->_usedProperties['useForward'] = true;
         $this->useForward = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default false
+     * @param ParamConfigurator|bool $value
+     * @deprecated Option "require_previous_session" at "form_login_ldap" is deprecated, it will be removed in version 7.0. Setting it has no effect anymore.
+     * @return $this
+     */
+    public function requirePreviousSession($value): static
+    {
+        $this->_usedProperties['requirePreviousSession'] = true;
+        $this->requirePreviousSession = $value;
 
         return $this;
     }
@@ -312,6 +328,19 @@ class FormLoginLdapConfig
     }
 
     /**
+     * @default null
+     * @param ParamConfigurator|mixed $value
+     * @return $this
+     */
+    public function csrfTokenGenerator($value): static
+    {
+        $this->_usedProperties['csrfTokenGenerator'] = true;
+        $this->csrfTokenGenerator = $value;
+
+        return $this;
+    }
+
+    /**
      * @default 'ldap'
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -325,7 +354,7 @@ class FormLoginLdapConfig
     }
 
     /**
-     * @default '{user_identifier}'
+     * @default '{username}'
      * @param ParamConfigurator|mixed $value
      * @return $this
      */
@@ -410,6 +439,12 @@ class FormLoginLdapConfig
             $this->_usedProperties['useForward'] = true;
             $this->useForward = $value['use_forward'];
             unset($value['use_forward']);
+        }
+
+        if (array_key_exists('require_previous_session', $value)) {
+            $this->_usedProperties['requirePreviousSession'] = true;
+            $this->requirePreviousSession = $value['require_previous_session'];
+            unset($value['require_previous_session']);
         }
 
         if (array_key_exists('login_path', $value)) {
@@ -502,6 +537,12 @@ class FormLoginLdapConfig
             unset($value['failure_path_parameter']);
         }
 
+        if (array_key_exists('csrf_token_generator', $value)) {
+            $this->_usedProperties['csrfTokenGenerator'] = true;
+            $this->csrfTokenGenerator = $value['csrf_token_generator'];
+            unset($value['csrf_token_generator']);
+        }
+
         if (array_key_exists('service', $value)) {
             $this->_usedProperties['service'] = true;
             $this->service = $value['service'];
@@ -558,6 +599,9 @@ class FormLoginLdapConfig
         if (isset($this->_usedProperties['useForward'])) {
             $output['use_forward'] = $this->useForward;
         }
+        if (isset($this->_usedProperties['requirePreviousSession'])) {
+            $output['require_previous_session'] = $this->requirePreviousSession;
+        }
         if (isset($this->_usedProperties['loginPath'])) {
             $output['login_path'] = $this->loginPath;
         }
@@ -602,6 +646,9 @@ class FormLoginLdapConfig
         }
         if (isset($this->_usedProperties['failurePathParameter'])) {
             $output['failure_path_parameter'] = $this->failurePathParameter;
+        }
+        if (isset($this->_usedProperties['csrfTokenGenerator'])) {
+            $output['csrf_token_generator'] = $this->csrfTokenGenerator;
         }
         if (isset($this->_usedProperties['service'])) {
             $output['service'] = $this->service;

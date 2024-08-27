@@ -19,7 +19,7 @@ class UidConfig
     private $_usedProperties = [];
 
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -32,7 +32,7 @@ class UidConfig
     }
 
     /**
-     * @default 7
+     * @default null
      * @param ParamConfigurator|7|6|4|1 $value
      * @return $this
      */
@@ -71,7 +71,7 @@ class UidConfig
     }
 
     /**
-     * @default 7
+     * @default null
      * @param ParamConfigurator|7|6|1 $value
      * @return $this
      */

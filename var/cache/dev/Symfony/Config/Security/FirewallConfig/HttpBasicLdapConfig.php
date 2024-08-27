@@ -59,7 +59,7 @@ class HttpBasicLdapConfig
     }
 
     /**
-     * @default '{user_identifier}'
+     * @default '{username}'
      * @param ParamConfigurator|mixed $value
      * @return $this
      */

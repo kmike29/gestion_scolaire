@@ -17,6 +17,7 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
 {
     private $formThemes;
     private $globals;
+    private $autoescape;
     private $autoescapeService;
     private $autoescapeServiceMethod;
     private $baseTemplateClass;
@@ -72,6 +73,21 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
         }
 
         return $this->globals[$key];
+    }
+
+    /**
+     * @default 'name'
+     * @param ParamConfigurator|mixed $value
+     * @deprecated Option "autoescape" at "twig" is deprecated, use autoescape_service[_method] instead.
+     *
+     * @return $this
+     */
+    public function autoescape(mixed $value = 'name'): static
+    {
+        $this->_usedProperties['autoescape'] = true;
+        $this->autoescape = $value;
+
+        return $this;
     }
 
     /**
@@ -293,6 +309,12 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
             unset($value['globals']);
         }
 
+        if (array_key_exists('autoescape', $value)) {
+            $this->_usedProperties['autoescape'] = true;
+            $this->autoescape = $value['autoescape'];
+            unset($value['autoescape']);
+        }
+
         if (array_key_exists('autoescape_service', $value)) {
             $this->_usedProperties['autoescapeService'] = true;
             $this->autoescapeService = $value['autoescape_service'];
@@ -396,6 +418,9 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
         }
         if (isset($this->_usedProperties['globals'])) {
             $output['globals'] = array_map(fn ($v) => $v instanceof \Symfony\Config\Twig\GlobalConfig ? $v->toArray() : $v, $this->globals);
+        }
+        if (isset($this->_usedProperties['autoescape'])) {
+            $output['autoescape'] = $this->autoescape;
         }
         if (isset($this->_usedProperties['autoescapeService'])) {
             $output['autoescape_service'] = $this->autoescapeService;

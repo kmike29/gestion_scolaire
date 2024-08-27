@@ -16,6 +16,7 @@ class ValidationConfig
 {
     private $enabled;
     private $cache;
+    private $enableAnnotations;
     private $enableAttributes;
     private $staticMethod;
     private $translationDomain;
@@ -26,7 +27,7 @@ class ValidationConfig
     private $_usedProperties = [];
 
     /**
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
@@ -47,6 +48,19 @@ class ValidationConfig
     {
         $this->_usedProperties['cache'] = true;
         $this->cache = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default null
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function enableAnnotations($value): static
+    {
+        $this->_usedProperties['enableAnnotations'] = true;
+        $this->enableAnnotations = $value;
 
         return $this;
     }
@@ -91,7 +105,7 @@ class ValidationConfig
     }
 
     /**
-     * @default 'html5'
+     * @default null
      * @param ParamConfigurator|'html5'|'loose'|'strict' $value
      * @return $this
      */
@@ -175,6 +189,12 @@ class ValidationConfig
             unset($value['cache']);
         }
 
+        if (array_key_exists('enable_annotations', $value)) {
+            $this->_usedProperties['enableAnnotations'] = true;
+            $this->enableAnnotations = $value['enable_annotations'];
+            unset($value['enable_annotations']);
+        }
+
         if (array_key_exists('enable_attributes', $value)) {
             $this->_usedProperties['enableAttributes'] = true;
             $this->enableAttributes = $value['enable_attributes'];
@@ -230,6 +250,9 @@ class ValidationConfig
         }
         if (isset($this->_usedProperties['cache'])) {
             $output['cache'] = $this->cache;
+        }
+        if (isset($this->_usedProperties['enableAnnotations'])) {
+            $output['enable_annotations'] = $this->enableAnnotations;
         }
         if (isset($this->_usedProperties['enableAttributes'])) {
             $output['enable_attributes'] = $this->enableAttributes;

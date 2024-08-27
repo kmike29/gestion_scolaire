@@ -47,6 +47,12 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "insitaction/easyadmin-fields-bundle": {
+        "version": "5.1.0"
+    },
+    "kreait/firebase-bundle": {
+        "version": "3.1.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -59,21 +65,6 @@
             "./.env.test",
             "./phpunit.xml.dist",
             "./tests/bootstrap.php"
-        ]
-    },
-    "symfony/asset-mapper": {
-        "version": "7.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "6.4",
-            "ref": "6c28c471640cc2c6e60812ebcb961c526ef8997f"
-        },
-        "files": [
-            "./assets/app.js",
-            "./assets/styles/app.css",
-            "./config/packages/asset_mapper.yaml",
-            "./importmap.php"
         ]
     },
     "symfony/console": {
@@ -241,20 +232,6 @@
             "./config/routes/security.yaml"
         ]
     },
-    "symfony/stimulus-bundle": {
-        "version": "2.17",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "2.13",
-            "ref": "6acd9ff4f7fd5626d2962109bd4ebab351d43c43"
-        },
-        "files": [
-            "./assets/bootstrap.js",
-            "./assets/controllers.json",
-            "./assets/controllers/hello_controller.js"
-        ]
-    },
     "symfony/translation": {
         "version": "7.0",
         "recipe": {
@@ -290,9 +267,6 @@
             "ref": "0df5844274d871b37fc3816c57a768ffc60a43a5"
         }
     },
-    "symfony/ux-turbo": {
-        "version": "v2.17.0"
-    },
     "symfony/validator": {
         "version": "7.0",
         "recipe": {
@@ -316,6 +290,22 @@
         "files": [
             "./config/packages/web_profiler.yaml",
             "./config/routes/web_profiler.yaml"
+        ]
+    },
+    "symfony/webpack-encore-bundle": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "082d754b3bd54b3fc669f278f1eea955cfd23cf5"
+        },
+        "files": [
+            "./assets/app.js",
+            "./assets/styles/app.css",
+            "./config/packages/webpack_encore.yaml",
+            "./package.json",
+            "./webpack.config.js"
         ]
     },
     "tattali/calendar-bundle": {
