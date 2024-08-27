@@ -265,6 +265,7 @@ $catalogue = new MessageCatalogue('ro', array (
     'exception.forbidden_action' => 'Acțiunea solicitată nu poate fi efectuată asupra acestui item.',
     'exception.insufficient_entity_permission' => 'Nu sunteți autorizat să accesați acest item.',
     'autocomplete.no-results-found' => 'Nu au fost găsite rezultate',
+    'autocomplete.no-more-results' => 'Nu mai sunt rezultate',
     'autocomplete.loading-more-results' => 'Se încarcă mai multe rezultate…',
   ),
 ));

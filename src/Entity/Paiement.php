@@ -103,4 +103,9 @@ class Paiement
     {
         return strval($this->getTotalRemis()). ' FCFA payés / '.strval($this->getTotalAPayer()) . ' FCFA' ; 
     }
+
+    public function __toString()
+    {
+        return strval('Paiement de ' . $this->getMontant());
+    }
 }

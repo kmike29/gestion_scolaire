@@ -65,6 +65,7 @@ class PaiementCrudController extends AbstractCrudController
             //$this->addFlash('notice', 'Paiement unique');
             // let him take the natural course
             $inscription = $entityInstance->getInscription();
+            $entityInstance->setType('tranche');
 
             if($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique()<=$entityInstance->getMontant() ){
                 $inscription->setPaiementUnique(true);

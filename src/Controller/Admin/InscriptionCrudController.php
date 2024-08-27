@@ -41,19 +41,60 @@ class InscriptionCrudController extends AbstractCrudController
     
     public function configureFields(string $pageName): iterable
     {
-        return [
-            AssociationField::new('Eleve')->setFormTypeOption('disabled','disabled'),
-            AssociationField::new('Classe')->setFormTypeOption('disabled','disabled'),
+        $eleve = AssociationField::new('Eleve');
+        $classe = AssociationField::new('Classe');
+        $montantDeBase = MoneyField::new('MontantDeBase')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
+        $statusPaiement = TextField::new('StatusPaiement');
+        $totalAPayer = MoneyField::new('TotalAPayer')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
+        $totalDesRemises = MoneyField::new('TotalDesRemises')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
+        $montantRestant = MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
+        $totalRemis = MoneyField::new('TotalRemis')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
+        $montantDeLaRemise = MoneyField::new('MontantDeLaRemise')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
+        $montantPourRemiseUnique = MoneyField::new('MontantPourRemiseUnique')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
+        $remise = AssociationField::new('remise');
+        $paiementUnique = BooleanField::new('paiementUnique')->setFormTypeOption('disabled','disabled');
+        $paiements = CollectionField::new('paiements')->allowAdd(false);
 
+
+        if (Crud::PAGE_INDEX === $pageName) {
+            return [$eleve, $classe, $remise];
+        } elseif(Crud::PAGE_DETAIL === $pageName) {
+            return [
+                $eleve, 
+                $classe,
+                $remise,
+                $totalAPayer,
+                $montantDeBase,
+                $statusPaiement,
+                $paiementUnique,
+                $paiements
+            ];
+        } elseif(Crud::PAGE_EDIT === $pageName) {
+            return [
+                $eleve->setFormTypeOption('disabled','disabled'), 
+                $classe,
+                $remise,
+                $totalAPayer->setFormTypeOption('disabled','disabled'),
+                $montantDeBase->setFormTypeOption('disabled','disabled'),
+                $statusPaiement->setFormTypeOption('disabled','disabled'),
+                $paiementUnique->setFormTypeOption('disabled','disabled'),
+                $paiements
+            ];        
+        } else {
+            return [$eleve, $classe, $remise];
+        }
+
+
+        /*return [
+            $eleve->setFormTypeOption('disabled','disabled'),
+            $classe ->setFormTypeOption('disabled','disabled'),
             MoneyField::new('MontantDeBase')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
             ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
             MoneyField::new('TotalAPayer')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
-                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
-                
+                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),     
             TextField::new('StatusPaiement')->hideOnForm(),
-
             /*MoneyField::new('TotalDesRemises')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
-            ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),*/
+            ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
 
             MoneyField::new('montantRestant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
                 ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
@@ -64,7 +105,7 @@ class InscriptionCrudController extends AbstractCrudController
                             MoneyField::new('MontantDeLaRemise')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
             ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
                 
-                */
+                
 
             MoneyField::new('MontantPourRemiseUnique')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
                 ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
@@ -73,7 +114,7 @@ class InscriptionCrudController extends AbstractCrudController
             BooleanField::new('paiementUnique')->setFormTypeOption('disabled','disabled'),
             CollectionField::new('paiements')->useEntryCrudForm()->allowAdd(false)->setEntryIsComplex()->hideWhenCreating(),
 
-        ];
+        ];*/
     }
 
     public function ajouterTranche(
