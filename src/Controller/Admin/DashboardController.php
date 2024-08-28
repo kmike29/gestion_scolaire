@@ -28,7 +28,7 @@ use Insitaction\EasyAdminFieldsBundle\EasyAdminFieldsBundle;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/', name: 'admin')]
+    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
@@ -58,13 +58,6 @@ class DashboardController extends AbstractDashboardController
             ->setTranslationDomain('admin')
             ->setTitle('Gestion scolaire')
             ->setLocales(['fr']);
-    }
-
-    public function configureAssets(): Assets
-    {
-        $assets = parent::configureAssets();
-        
-        return EasyAdminFieldsBundle::configureAssets($assets);
     }
 
     public function configureMenuItems(): iterable
