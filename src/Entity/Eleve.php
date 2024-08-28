@@ -22,13 +22,13 @@ class Eleve
     #[ORM\Column(length: 255)]
     private ?string $prenoms = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $nationalite = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ecoleDeProvenance = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDInscription = null;
 
     #[ORM\Column(length: 10, nullable: true)]

@@ -6,6 +6,7 @@ use App\Entity\Inscription;
 use App\Entity\Paiement;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -33,14 +34,18 @@ class PaiementCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $eleveField = AssociationField::new('inscription',"élève");
+        
+
+
         return [
             FormField::addFieldset("Détails de l'élève "),       
-            TextField::new('eleve')->setFormTypeOption('disabled','disabled')->setColumns(6),
-            TextField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
+            $eleveField->setColumns(6),
+            //AssociationField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
 
             FormField::addFieldset("Détails de l'inscription "),
-            TextField::new('statusPaiement',"Status de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
-            MoneyField::new('montantPourPayementUnique',"Montant à payer en une fois pour une remise")->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->setColumns(6),
+            //TextField::new('statusPaiement',"Status de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
+            //MoneyField::new('montantPourPayementUnique',"Montant à payer en une fois pour une remise")->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->setColumns(6),
 
 
             //ChoiceField::new('type')->setChoices(['tranche' => 'tranche',]),
@@ -53,10 +58,14 @@ class PaiementCrudController extends AbstractCrudController
         $paiement = new Paiement();
 
         $inscriptionRepository = $this->container->get('doctrine')->getManager()->getRepository(Inscription::class);
-        $inscription = $inscriptionRepository->findOneBy(['id' => $this->adminUrlGenerator->get('inscription')]);
-        dump($inscription);
 
-        $paiement->setInscription($inscription);
+        if($this->adminUrlGenerator->get('inscription')!=null){
+            $inscription = $inscriptionRepository->findOneBy(['id' => $this->adminUrlGenerator->get('inscription')]);
+            dump($inscription);
+            $paiement->setInscription($inscription);
+
+        }
+
         return $paiement;
     }
 
