@@ -123,7 +123,7 @@ class EleveCrudController extends AbstractCrudController
         $url = $this->container->get(AdminUrlGenerator::class)
                 ->setController(InscriptionCrudController::class)
                 ->setAction(Action::EDIT)
-                ->setEntityId($context->getEntity()->getInstance()->getLastInscription())
+                ->setEntityId($context->getEntity()->getInstance()->getLastInscription()->getId())
                 ->generateUrl();
 
         return $this->redirect($url);

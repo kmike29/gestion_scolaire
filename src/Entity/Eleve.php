@@ -28,9 +28,6 @@ class Eleve
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ecoleDeProvenance = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateDInscription = null;
-
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $matricule = null;
 
@@ -75,6 +72,9 @@ class Eleve
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $numeroContact2 = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateDInscription = null;
 
     public function __construct()
     {
@@ -135,17 +135,7 @@ class Eleve
         return $this;
     }
 
-    public function getDateDInscription(): ?\DateTimeInterface
-    {
-        return $this->dateDInscription;
-    }
 
-    public function setDateDInscription(\DateTimeInterface $dateDInscription): static
-    {
-        $this->dateDInscription = $dateDInscription;
-
-        return $this;
-    }
 
     public function getMatricule(): ?string
     {
@@ -368,6 +358,18 @@ class Eleve
     public function setNumeroContact2(?string $numeroContact2): static
     {
         $this->numeroContact2 = $numeroContact2;
+
+        return $this;
+    }
+
+    public function getDateDInscription(): ?\DateTimeInterface
+    {
+        return $this->dateDInscription;
+    }
+
+    public function setDateDInscription(?\DateTimeInterface $dateDInscription): static
+    {
+        $this->dateDInscription = $dateDInscription;
 
         return $this;
     }

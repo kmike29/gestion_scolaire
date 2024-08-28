@@ -66,42 +66,42 @@ class Paiement
 
     public function getEleve() : string
     {
-        return $this->getInscription()->getEleve()->__toString();
+        return ($this->getInscription())? $this->getInscription()->getEleve()->__toString() : '';
     }
 
     public function getClasse() : string 
     {
-        return $this->getInscription()->getClasse()->__toString();
+        return ($this->getInscription())?  $this->getInscription()->getClasse()->__toString() : '';
 
     }
 
     public function getMontantRestant() : int
     {
-        return  $this->getInscription()->getMontantRestant();
+        return ($this->getInscription())?  $this->getInscription()->getMontantRestant() : 0 ;
     }
 
     
     public function getTotalRemis() : int
     {
-        return  $this->getInscription()->getTotalRemis();
+        return  ($this->getInscription())?  $this->getInscription()->getTotalRemis() :0;
     }
 
         
     public function getTotalAPayer() : int
     {
-        return  $this->getInscription()->getTotalAPayer();
+        return ($this->getInscription())?  $this->getInscription()->getTotalAPayer() : 0;
     }
 
             
     public function getMontantPourPayementUnique() : int
     {
-        return  $this->getInscription()->getMontantPourRemiseUnique();
+        return ($this->getInscription())?  $this->getInscription()->getMontantPourRemiseUnique() : 0;
     }
 
 
     public function getStatusPaiement() : string   
     {
-        return strval($this->getTotalRemis()). ' FCFA payés / '.strval($this->getTotalAPayer()) . ' FCFA' ; 
+        return ($this->getInscription())?  strval($this->getTotalRemis()). ' FCFA payés / '.strval($this->getTotalAPayer()) . ' FCFA'  : "Pas d'inscription choisi"; 
     }
 
     public function __toString()

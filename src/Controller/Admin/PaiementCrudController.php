@@ -44,7 +44,7 @@ class PaiementCrudController extends AbstractCrudController
             //AssociationField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
 
             FormField::addFieldset("Détails de l'inscription "),
-            //TextField::new('statusPaiement',"Status de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
+            TextField::new('statusPaiement',"Status de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
             //MoneyField::new('montantPourPayementUnique',"Montant à payer en une fois pour une remise")->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->setColumns(6),
 
 
