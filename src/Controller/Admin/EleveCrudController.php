@@ -51,21 +51,31 @@ class EleveCrudController extends AbstractCrudController
             ],
             ]),
             TextField::new('matricule')->hideWhenCreating(),
-            TextField::new('nom'),
-            TextField::new('prenoms'),
+            TextField::new('nom')->setColumns(6),
+            TextField::new('prenoms')->setColumns(6),
             ChoiceField::new('sexe')->setChoices([
                 'M' => 'masculin',
                 'F' => 'feminin',
             ]),
-            TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->hideOnIndex(),
-            TextField::new('nationalite')->setLabel('Nationalité')->hideOnIndex(),
-            DateField::new('dateDeNaissance')->setLabel('Date de naissance')->hideOnIndex(),
-            DateField::new('dateDInscription')->setLabel("Date d'inscription"),
-            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->hideOnIndex(),
-            AssociationField::new('classeActuelle'),
-            MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled'),
-            FormField::addTab('Informations additionnels'),
+            TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->setColumns(6)->hideOnIndex(),
+            TextField::new('nationalite')->setLabel('Nationalité')->setColumns(6)->hideOnIndex(),
+            DateField::new('dateDeNaissance')->setLabel('Date de naissance')->setColumns(6)->hideOnIndex(),
+            DateField::new('dateDInscription')->setLabel("Date d'inscription")->setColumns(6),
+            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->setColumns(6)->hideOnIndex(),
+            AssociationField::new('classeActuelle')->setColumns(6),
+            
             TextareaField::new('observations'),
+
+            FormField::addTab('Personnes à contacter'),
+
+            TextField::new('personneAContacter1','Personne à contacter 1')->hideOnIndex(),
+            TextField::new('numeroContact1','Numéro du contact 1')->hideOnIndex(),
+            TextField::new('personneAContacter2','Personne à contacter 2')->hideOnIndex(),
+            TextField::new('numeroContact2','Numéro contact 2')->hideOnIndex(),
+
+
+            MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->hideWhenCreating(),
+
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
     }

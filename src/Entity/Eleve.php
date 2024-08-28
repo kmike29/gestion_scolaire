@@ -64,6 +64,18 @@ class Eleve
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $observations = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $personneAContacter1 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $personneAContacter2 = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $numeroContact1 = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $numeroContact2 = null;
+
     public function __construct()
     {
         $this->parents = new ArrayCollection();
@@ -308,6 +320,54 @@ class Eleve
     public function setObservations(?string $observations): static
     {
         $this->observations = $observations;
+
+        return $this;
+    }
+
+    public function getPersonneAContacter1(): ?string
+    {
+        return $this->personneAContacter1;
+    }
+
+    public function setPersonneAContacter1(?string $personneAContacter1): static
+    {
+        $this->personneAContacter1 = $personneAContacter1;
+
+        return $this;
+    }
+
+    public function getPersonneAContacter2(): ?string
+    {
+        return $this->personneAContacter2;
+    }
+
+    public function setPersonneAContacter2(?string $personneAContacter2): static
+    {
+        $this->personneAContacter2 = $personneAContacter2;
+
+        return $this;
+    }
+
+    public function getNumeroContact1(): ?string
+    {
+        return $this->numeroContact1;
+    }
+
+    public function setNumeroContact1(?string $numeroContact1): static
+    {
+        $this->numeroContact1 = $numeroContact1;
+
+        return $this;
+    }
+
+    public function getNumeroContact2(): ?string
+    {
+        return $this->numeroContact2;
+    }
+
+    public function setNumeroContact2(?string $numeroContact2): static
+    {
+        $this->numeroContact2 = $numeroContact2;
 
         return $this;
     }

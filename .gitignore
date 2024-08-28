@@ -6,7 +6,7 @@
 /public/bundles/
 /public/images/
 /var/cache/
-/var/log
+/var/log/
 /vendor/
 /assets/
 /node_modules
