@@ -186,6 +186,23 @@ class ClasseAnneeScolaire
         return $this->inscriptions;
     }
 
+    
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptionsIncompletes(): Collection
+    {
+        $impayes = $this->inscriptions;
+
+        foreach ($impayes as $inscription) {
+            if($inscription->getMontantRestant()==0 && $inscription->getClasse()->getAnneeScolaire()->isActive()){
+                $impayes->removeElement($inscription);
+            }
+        }
+
+        return ($impayes);
+    }
+
     public function addInscription(Inscription $inscription): static
     {
         if (!$this->inscriptions->contains($inscription)) {

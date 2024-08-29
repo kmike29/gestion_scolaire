@@ -42,7 +42,7 @@
         "symfony/twig-bundle": "7.1.*",
         "symfony/ux-autocomplete": "^2.19",
         "symfony/ux-live-component": "^2.19",
-        "symfony/ux-toggle-password": "*",
+        "symfony/ux-toggle-password": "^2.19",
         "symfony/validator": "7.1.*",
         "symfony/web-link": "7.1.*",
         "symfony/yaml": "7.1.*",

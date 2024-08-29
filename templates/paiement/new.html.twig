@@ -3,12 +3,12 @@
 {% block title %}New Paiement{% endblock %}
 
 {% block body %}
-    <h1>Create new Paiement</h1>
+    <h1>Enregistrer un nouveau paiement</h1>
 
     {#  include('paiement/_form.html.twig') } #}
     {#{ component('Encaissement') } #}
 
     {{ component('Encaisseur')}}
 
-    <a href="{{ path('app_paiement_index') }}">back to list</a>
+    <a href="{{ path('admin') }}">Retour </a>
 {% endblock %}

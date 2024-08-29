@@ -42,7 +42,7 @@ class DynamicPaiementType extends AbstractType
                     $field->add(EntityType::class, [
                         'class' => Inscription::class,
                         'placeholder' => null === $classe ? 'Choisir une classe' : 'Quel élève',
-                        'choices' => null === $classe ? [] : $classe->getInscriptions(),
+                        'choices' => null === $classe ? [] : $classe->getInscriptionsIncompletes(),
                         'choice_label' => fn (Inscription $inscription): string => $inscription->__toString(),
                         'disabled' => null === $classe,
                         'autocomplete' => true,
@@ -58,7 +58,7 @@ class DynamicPaiementType extends AbstractType
                         'class'=> "form-control"
                     ],
                     'mapped'=> false,
-                    'disabled' => null === $inscription,
+                    'disabled' => true,
                 ]);
             })
             ->add('montant',MoneyType::class, [

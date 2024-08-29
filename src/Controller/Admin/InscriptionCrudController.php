@@ -57,7 +57,15 @@ class InscriptionCrudController extends AbstractCrudController
 
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$eleve, $classe, $remise];
+            return [                
+            $eleve, 
+            $classe,
+            $remise,
+            $totalAPayer,
+            $montantDeBase,
+            $statusPaiement,
+            $paiementUnique,
+            $paiements];
         } elseif(Crud::PAGE_DETAIL === $pageName) {
             return [
                 $eleve, 

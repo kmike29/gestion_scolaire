@@ -149,7 +149,9 @@ class Inscription
 
     public function __toString(): string
     {
-         return strval('('.$this->getClasse().') élève:  '.$this->getEleve());
+        // return strval('('.$this->getClasse().') élève:  '.$this->getEleve());
+         return strval($this->getEleve());
+
 
     }
 
