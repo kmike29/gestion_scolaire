@@ -28,7 +28,7 @@ use Insitaction\EasyAdminFieldsBundle\EasyAdminFieldsBundle;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/', name: 'admin')]
     public function index(): Response
     {
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
@@ -59,7 +59,7 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('Gestion scolaire')
             ->setLocales(['fr']);
     }
-
+    
     public function configureMenuItems(): iterable
     {
 

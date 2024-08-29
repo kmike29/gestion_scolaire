@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Inscription;
 use App\Entity\Paiement;
+use App\Form\DynamicPaiementType;
 use App\Form\PaiementType;
 use App\Repository\PaiementRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,16 +25,21 @@ class PaiementController extends AbstractController
     }
 
     #[Route('/new', name: 'app_paiement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,Inscription $iDinscription): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,Inscription $iDinscription=null): Response
     {
-        $inscriptionRepository = $entityManager->getRepository(Inscription::class);
-        $inscription = $inscriptionRepository->findOneBy(['id' => $iDinscription]);
 
-        dump($inscription);
+        if($iDinscription){
+            $inscriptionRepository = $entityManager->getRepository(Inscription::class);
+            $inscription = $inscriptionRepository->findOneBy(['id' => $iDinscription]);
+    
+            dump($inscription);
+
+        }
+
 
 
         $paiement = new Paiement();
-        $form = $this->createForm(PaiementType::class, $paiement);
+        $form = $this->createForm(DynamicPaiementType::class, $paiement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
