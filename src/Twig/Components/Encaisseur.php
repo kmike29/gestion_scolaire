@@ -37,6 +37,7 @@ class Encaisseur extends AbstractController
         /** @var Post $post */
         $paiement = $this->getForm()->getData();
         $paiement->setType('tranche');
+        $paiement->setDateDeTransaction(new \DateTime());
         $entityManager->persist($paiement);
         $entityManager->flush();
 

@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
@@ -37,22 +38,23 @@ class PaiementCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $eleveField = AssociationField::new('inscription',"élève");
+        $eleveField = TextField::new('eleve',"élève");
         
 
 
         return [
             FormField::addFieldset("Détails de l'élève "),       
             $eleveField->setColumns(6),
-            //AssociationField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
+            TextField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
 
             FormField::addFieldset("Détails de l'inscription "),
-            TextField::new('statusPaiement',"Status de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
+            TextField::new('statusPaiement',"Etat de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
             //MoneyField::new('montantPourPayementUnique',"Montant à payer en une fois pour une remise")->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->setColumns(6),
 
 
             //ChoiceField::new('type')->setChoices(['tranche' => 'tranche',]),
             MoneyField::new('montant')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false),
+            DateTimeField::new('dateDeTransaction')
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PaiementRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PaiementRepository::class)]
@@ -22,6 +23,9 @@ class Paiement
     #[ORM\ManyToOne(inversedBy: 'paiements')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Inscription $inscription = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateDeTransaction = null;
 
     public function getId(): ?int
     {
@@ -107,5 +111,17 @@ class Paiement
     public function __toString()
     {
         return strval('Paiement de ' . $this->getMontant());
+    }
+
+    public function getDateDeTransaction(): ?\DateTimeInterface
+    {
+        return $this->dateDeTransaction;
+    }
+
+    public function setDateDeTransaction(?\DateTimeInterface $dateDeTransaction): static
+    {
+        $this->dateDeTransaction = $dateDeTransaction;
+
+        return $this;
     }
 }
