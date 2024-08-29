@@ -2,14 +2,17 @@
 
 namespace App\Form;
 
+use App\Entity\ClasseAnneeScolaire;
 use App\Entity\Inscription;
 use App\Entity\Paiement;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfonycasts\DynamicForms\DependentField;
 use Symfonycasts\DynamicForms\DynamicFormBuilder;
@@ -26,21 +29,42 @@ class DynamicPaiementType extends AbstractType
         $builder = new DynamicFormBuilder($builder);
 
         $builder
-            ->add('inscription', EntityType::class, [
-                'class' => Inscription::class,
-                'choice_label' => fn (Inscription $inscription): string => $inscription->__toString(),
-                'placeholder' => 'Choisir un élève',
+            ->add('classe', EntityType::class, [
+                'class' => ClasseAnneeScolaire::class,
+                'choice_label' => fn (ClasseAnneeScolaire $cas): string => $cas->__toString(),
+                'placeholder' => 'Choisir une classe',
                 'autocomplete' => true,
+                'mapped'=>false,
+                'attr' => ['class' =>"form-control"]
             ])
-
+            ->addDependent('inscription','classe', function (DependentField $field, ?ClasseAnneeScolaire $classe)
+                {
+                    $field->add(EntityType::class, [
+                        'class' => Inscription::class,
+                        'placeholder' => null === $classe ? 'Choisir une classe' : 'Quel élève',
+                        'choices' => null === $classe ? [] : $classe->getInscriptions(),
+                        'choice_label' => fn (Inscription $inscription): string => $inscription->__toString(),
+                        'disabled' => null === $classe,
+                        'autocomplete' => true,
+                        'attr' => ['class' =>"form-control"]
+                    ]);
+                }
+            )
             ->addDependent('status', 'inscription', function (DependentField $field, ?Inscription $inscription){
                 $field->add(TextType::class, [
-                    'data' => null === $inscription ? 'Choisissez un élève' : $inscription->getStatusPaiement(),
+                    'attr' => [
+                        'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getStatusPaiement(),
+                        'style' => 'width: 300px',
+                        'class'=> "form-control"
+                    ],
                     'mapped'=> false,
+                    'disabled' => null === $inscription,
                 ]);
             })
             ->add('montant',MoneyType::class, [
+                'label' => 'Montant versé',
                 'currency' => 'XAF',
+                'attr' => ['class' =>"form-control"]
             ])
             // see: https://github.com/SymfonyCasts/dynamic-forms
             /*->addDependent('status', 'inscription', function (DependentField $field, ?Inscription $meal) {

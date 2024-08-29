@@ -56,8 +56,8 @@ class PaiementController extends AbstractController
         }
 
         return $this->render('paiement/new.html.twig', [
-            'paiement' => $paiement,
-            'form' => $form,
+            //'paiement' => $paiement,
+           // 'form' => $form,
         ]);
     }
 
