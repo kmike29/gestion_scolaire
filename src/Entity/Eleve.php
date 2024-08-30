@@ -76,6 +76,9 @@ class Eleve
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDInscription = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $inscriptionComplete = null;
+
     public function __construct()
     {
         $this->parents = new ArrayCollection();
@@ -370,6 +373,18 @@ class Eleve
     public function setDateDInscription(?\DateTimeInterface $dateDInscription): static
     {
         $this->dateDInscription = $dateDInscription;
+
+        return $this;
+    }
+
+    public function isInscriptionComplete(): ?bool
+    {
+        return $this->inscriptionComplete;
+    }
+
+    public function setInscriptionComplete(?bool $inscriptionComplete): static
+    {
+        $this->inscriptionComplete = $inscriptionComplete;
 
         return $this;
     }

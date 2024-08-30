@@ -105,6 +105,12 @@ class Inscription
         return $this->getClasse()->getFraisScolarite();
     }
 
+    
+    public function getFraisInscription() : int {
+        return $this->getClasse()->getFraisInscription();
+    }
+
+
     public function getTotalAPayer(): int
     {
         return $this->getMontantDeBase() - $this->getMontantDeLaRemise();
