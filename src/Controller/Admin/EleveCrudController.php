@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -75,7 +76,7 @@ class EleveCrudController extends AbstractCrudController
 
 
             MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->hideWhenCreating(),
-
+            BooleanField::new('inscriptionComplete')->hideWhenCreating()
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
     }
@@ -96,6 +97,8 @@ class EleveCrudController extends AbstractCrudController
     {
             //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
             // let him take the natural course
+            $entityInstance->setInscriptionComplete(false);
+
             parent::persistEntity($entityManager, $entityInstance);
             $this->createInscription($entityManager, $entityInstance);
 

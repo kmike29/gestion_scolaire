@@ -34,12 +34,27 @@ class Encaisseur extends AbstractController
         // and the component is automatically re-rendered with the errors
         $this->submitForm();
 
-        /** @var Post $post */
+
+        /** @var Paiement $paiement */
         $paiement = $this->getForm()->getData();
         //$paiement->setType('tranche');
+
         $paiement->setDateDeTransaction(new \DateTime());
+
+        if($paiement->getType()  =='inscription'){
+            $paiement->setMontant($paiement->getInscription()->getFraisInscription());
+            $eleve = $paiement->getInscription()->getEleve();
+            $eleve->setInscriptionComplete(true);
+            $entityManager->persist($eleve);
+            $entityManager->flush();
+
+        }
+
+
         $entityManager->persist($paiement);
         $entityManager->flush();
+
+        
 
         $this->addFlash('success', 'Paiement effectué!');
 

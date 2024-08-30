@@ -15,8 +15,10 @@
             {{ form_row(form.type) }}
         </div>
 
-        <div class="form-group">
+        <div class="form-group">            
+        {% if form.inscription is defined %}
             {{ form_row(form.inscription) }}
+        {% endif %}
         </div>
     </div>
 
@@ -28,6 +30,6 @@
         {{ form_row(form.montant) }}
         {% endif %}
     
-        <button>Save</button>
+        <button>Enregistrer</button>
     {{ form_end(form) }}
 </div>

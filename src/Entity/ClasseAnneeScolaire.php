@@ -195,7 +195,7 @@ class ClasseAnneeScolaire
         $impayes = $this->inscriptions;
 
         foreach ($impayes as $inscription) {
-            if($inscription->getMontantRestant()==0 && $inscription->getClasse()->getAnneeScolaire()->isActive()){
+            if($inscription->getEleve()->isInscriptionComplete()){
                 $impayes->removeElement($inscription);
             }
         }
@@ -207,7 +207,7 @@ class ClasseAnneeScolaire
     /**
      * @return Collection<int, Inscription>
      */
-    public function getScolaritéIncompletes(): Collection
+    public function getScolaritésIncompletes(): Collection
     {
         $impayes = $this->inscriptions;
 

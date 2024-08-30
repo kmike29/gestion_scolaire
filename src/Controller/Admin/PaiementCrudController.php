@@ -46,6 +46,7 @@ class PaiementCrudController extends AbstractCrudController
             FormField::addFieldset("Détails de l'élève "),       
             $eleveField->setColumns(6),
             TextField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
+            TextField::new('type')->setFormTypeOption('disabled','disabled')->setColumns(6),
 
             FormField::addFieldset("Détails de l'inscription "),
             TextField::new('statusPaiement',"Etat de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),

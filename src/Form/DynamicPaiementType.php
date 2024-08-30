@@ -49,15 +49,20 @@ class DynamicPaiementType extends AbstractType
 
             ->addDependent('inscription',['classe','type'], function (DependentField $field, ?ClasseAnneeScolaire $classe,?string $type)
                 {
-                    $field->add(EntityType::class, [
-                        'class' => Inscription::class,
-                        'placeholder' => null === $classe ? 'Choisir une classe' : 'Quel élève',
-                        'choices' => null === $classe ? [] : $classe->getInscriptionsIncompletes(),
-                        'choice_label' => fn (Inscription $inscription): string => $inscription->__toString(),
-                        'disabled' => null === $classe || $type === null,
-                        'autocomplete' => true,
-                        'attr' => ['class' =>"form-control"]
-                    ]);
+                    if(null != $classe){
+                        $field->add(EntityType::class, [
+                            'class' => Inscription::class,
+                            'placeholder' => null === $classe ? 'Choisir une classe' : 'Quel élève',
+                            'choices' => $type == 'scolarité' ? $classe->getScolaritésIncompletes() : $classe->getInscriptionsIncompletes(),
+                            'choice_label' => fn (Inscription $inscription): string => $inscription->__toString(),
+                            'disabled' => null === $classe || $type === null,
+                            'autocomplete' => true,
+                            'attr' => ['class' =>"form-control"]
+                        ]);
+                    }
+
+
+
                 }
             )
 
@@ -81,14 +86,12 @@ class DynamicPaiementType extends AbstractType
                 // ajout du status uniquemment sur les paiement de scolarité
                 if($type == 'scolarité' && $inscription){
                         $field->add(MoneyType::class, [
-                            'label' => 'Montant versé',
                             'currency' => 'XAF',
                             'attr' => ['class' =>"form-control"],
                         ]);
                 }
                 if($type == 'inscription' && $inscription){
                     $field->add(MoneyType::class, [
-                        'label' => 'Montant versé',
                         'currency' => 'XAF',
                         'attr' => ['class' =>"form-control",'value' => $inscription->getFraisInscription()],
                         'disabled' => true,
