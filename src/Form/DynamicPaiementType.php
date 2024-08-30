@@ -84,6 +84,18 @@ class DynamicPaiementType extends AbstractType
 
             ->addDependent('montant', ['inscription' , 'type'], function (DependentField $field, ?Inscription $inscription,?string $type){
                 // ajout du status uniquemment sur les paiement de scolarité
+                if($type && $inscription){
+                    $field->add(MoneyType::class, [
+                        'currency' => 'XAF',
+                        'attr' => [
+                            'class' =>"form-control",
+                            'value' => ($type =='inscription') ? $inscription->getFraisInscription() : '',
+                            'disabled' => ($type =='inscription')
+                        ],
+
+                    ]);
+                }
+                /*
                 if($type == 'scolarité' && $inscription){
                         $field->add(MoneyType::class, [
                             'currency' => 'XAF',
@@ -96,7 +108,7 @@ class DynamicPaiementType extends AbstractType
                         'attr' => ['class' =>"form-control",'value' => $inscription->getFraisInscription()],
                         'disabled' => true,
                     ]);
-                }
+                }*/
             }
             )
 
