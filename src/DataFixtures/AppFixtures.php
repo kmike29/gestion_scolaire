@@ -17,10 +17,10 @@ class AppFixtures extends Fixture
     {
 
         $annéeScolaire = new AnneeScolaire();
-        $annéeScolaire->setDebut(new \DateTime('10/10/2023'));
-        $annéeScolaire->setFin(new \DateTime('10/06/2024'));
+        $annéeScolaire->setDebut(new \DateTime('10/09/2024'));
+        $annéeScolaire->setFin(new \DateTime('10/06/2025'));
         $annéeScolaire->setActive(true);
-        $annéeScolaire->setDesignation('2023-2024');
+        $annéeScolaire->setDesignation('2024-2025');
         $manager->persist($annéeScolaire);
 
         $levels = ['Préscolaire', 'Primaire'];
