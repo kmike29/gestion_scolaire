@@ -8,7 +8,6 @@
 /var/cache/
 /var/log/
 /vendor/
-/assets/
 /node_modules
 ###< symfony/framework-bundle ###
 
