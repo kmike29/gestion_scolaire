@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\AnneeScolaire;
+use App\Entity\Classe;
+use App\Entity\ClasseAnneeScolaire;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -25,6 +28,34 @@ class AnneeScolaireCrudController extends AbstractCrudController
             DateField::new('fin'),
             BooleanField::new('active')
         ];
+    }
+
+    
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+            //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
+            // let him take the natural course
+
+            parent::persistEntity($entityManager, $entityInstance);
+            $this->createClasses($entityManager, $entityInstance);
+
+    }
+
+    public function createClasses(EntityManagerInterface $entityManager,AnneeScolaire $annéeScolaire): void
+    {
+        $classesRepository = $entityManager->getRepository(Classe::class);
+        $classes = $classesRepository->findAll();
+
+        foreach ($classes as $classe) {
+
+            $gradeYear = new ClasseAnneeScolaire();
+            $gradeYear->setAnneeScolaire($annéeScolaire) ;
+            $gradeYear->setClasse($classe) ;
+            $gradeYear->setFraisInscription($classe->getFraisInscriptionDeBase()) ;
+            $gradeYear->setFraisScolarite($classe->getFraisScolariteDeBase()) ;
+            parent::persistEntity($entityManager, $gradeYear);
+        }
+
     }
 
     /*
