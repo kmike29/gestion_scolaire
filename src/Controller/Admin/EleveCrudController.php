@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\AnneeScolaire;
 use App\Entity\Eleve;
 use App\Entity\Inscription;
+use App\Entity\Paiement;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -111,10 +112,17 @@ class EleveCrudController extends AbstractCrudController
         $inscription->setEleve($eleve);
         $inscription->setClasse($eleve->getClasseActuelle());
         $inscription->setPaiementUnique(false);
-
         $eleve->addInscription($inscription);
 
         parent::persistEntity($entityManager, $inscription);
+
+        $paiement = new Paiement();
+        $paiement->setType('inscription');
+        $paiement->setMontant($inscription->getFraisInscription());
+        $paiement->setInscription($inscription);
+        $paiement->setDateDeTransaction(new \DateTime());
+
+        parent::persistEntity($entityManager, $paiement);
 
 
     }

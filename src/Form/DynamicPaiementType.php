@@ -37,38 +37,23 @@ class DynamicPaiementType extends AbstractType
                 'mapped'=>false,
                 'attr' => ['class' =>"form-control"]
             ])
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    "Frais d'inscriptions" => 'inscription',
-                    'Frais de scolarité' => 'scolarité',
-                ],
-                'placeholder' => 'Choisir un type de paiement',
-
-            ])
-
-
-            ->addDependent('inscription',['classe','type'], function (DependentField $field, ?ClasseAnneeScolaire $classe,?string $type)
+            ->addDependent('inscription','classe', function (DependentField $field, ?ClasseAnneeScolaire $classe)
                 {
-                    if(null != $classe){
-                        $field->add(EntityType::class, [
+                    $field->add(EntityType::class, [
                             'class' => Inscription::class,
                             'placeholder' => null === $classe ? 'Choisir une classe' : 'Quel élève',
-                            'choices' => $type == 'scolarité' ? $classe->getScolaritésIncompletes() : $classe->getInscriptionsIncompletes(),
+                            'choices' => ($classe!=null) ? $classe->getScolaritésIncompletes() : [] ,
                             'choice_label' => fn (Inscription $inscription): string => $inscription->__toString(),
-                            'disabled' => null === $classe || $type === null,
+                            'disabled' => null === $classe ,
                             'autocomplete' => true,
                             'attr' => ['class' =>"form-control"]
-                        ]);
-                    }
-
-
-
+                    ]);
                 }
             )
 
-            ->addDependent('status', ['inscription' , 'type'], function (DependentField $field, ?Inscription $inscription,?string $type){
+            ->addDependent('status', 'inscription' , function (DependentField $field, ?Inscription $inscription){
                 // ajout du status uniquemment sur les paiement de scolarité
-                if($type == 'scolarité'){
+                if($inscription){
                     $field->add(TextType::class, [
                         'attr' => [
                             'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getStatusPaiement(),
@@ -80,35 +65,32 @@ class DynamicPaiementType extends AbstractType
                     ]);
                 }
             })
-
-
-            ->addDependent('montant', ['inscription' , 'type'], function (DependentField $field, ?Inscription $inscription,?string $type){
+            ->addDependent('montantUnique', 'inscription' , function (DependentField $field, ?Inscription $inscription){
                 // ajout du status uniquemment sur les paiement de scolarité
-                if($type && $inscription){
+                if($inscription && $inscription->getPaiementsScolarité()->isEmpty() ){
+                    $field->add(TextType::class, [
+                        'label' =>'Montant pour reduction de paiement unique',
+                        'attr' => [
+                            'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getMontantPourRemiseUnique(),
+                            'style' => 'width: 300px',
+                            'class'=> "form-control"
+                        ],
+                        'mapped'=> false,
+                        'disabled' => true,
+                    ]);
+                }
+            })
+
+            ->addDependent('montant', 'inscription' , function (DependentField $field, ?Inscription $inscription){
                     $field->add(MoneyType::class, [
                         'currency' => 'XAF',
                         'attr' => [
                             'class' =>"form-control",
-                            'value' => ($type =='inscription') ? $inscription->getFraisInscription() : '',
-                            'disabled' => ($type =='inscription')
+                            'disabled' => $inscription === null 
                         ],
 
                     ]);
-                }
-                /*
-                if($type == 'scolarité' && $inscription){
-                        $field->add(MoneyType::class, [
-                            'currency' => 'XAF',
-                            'attr' => ['class' =>"form-control"],
-                        ]);
-                }
-                if($type == 'inscription' && $inscription){
-                    $field->add(MoneyType::class, [
-                        'currency' => 'XAF',
-                        'attr' => ['class' =>"form-control",'value' => $inscription->getFraisInscription()],
-                        'disabled' => true,
-                    ]);
-                }*/
+                
             }
             )
 

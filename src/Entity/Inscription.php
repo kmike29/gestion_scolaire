@@ -79,6 +79,21 @@ class Inscription
         return $this->paiements;
     }
 
+    /**
+     * @return Collection<int, Paiement>
+     */
+    public function getPaiementsScolarité(): Collection
+    {
+        $paiements = $this->paiements;
+        foreach ($paiements as $paiement) {
+            if($paiement->getType() == 'inscription'){
+                $paiements->removeElement($paiement);
+            }
+        }
+        
+        return $paiements;
+    }
+
     public function addPaiement(Paiement $paiement): static
     {
         if (!$this->paiements->contains($paiement)) {
@@ -140,8 +155,10 @@ class Inscription
         $total = 0;
 
         if(!empty($this->paiements)){
-            foreach ($this->paiements as $paiement) {
-                $total += $paiement->getMontant();
+            foreach ($this->getPaiementsScolarité() as $paiement) {
+               // if($paiement->getType() == 'scolarité'){
+                    $total += $paiement->getMontant();
+                //}
             }
         }
 

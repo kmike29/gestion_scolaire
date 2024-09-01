@@ -41,6 +41,15 @@ class Encaisseur extends AbstractController
 
         $paiement->setDateDeTransaction(new \DateTime());
 
+        $inscription = $paiement->getInscription();
+        $paiement->setType('scolarité');
+
+        if($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique()<=$paiement->getMontant() ){
+            $inscription->setPaiementUnique(true);
+            $entityManager->persist($inscription);
+            $this->addFlash('notice', 'Paiement unique');
+        }
+
         if($paiement->getType()  =='inscription'){
             $paiement->setMontant($paiement->getInscription()->getFraisInscription());
             $eleve = $paiement->getInscription()->getEleve();

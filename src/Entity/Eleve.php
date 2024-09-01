@@ -273,7 +273,7 @@ class Eleve
         $impayes = $this->inscriptions;
 
         foreach ($impayes as $inscription) {
-            if($inscription->getMontantRestant()!=0 && !$inscription->getClasse()->getAnneeScolaire()->isActive()){
+            if($inscription->getMontantRestant()==0 || $inscription->getClasse()->isActive()){
                 $impayes->removeElement($inscription);
             }
         }

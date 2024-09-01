@@ -62,7 +62,7 @@ class AppFixtures extends Fixture
 
         }
 
-        $ps = array_reverse(['Petite section', 'Grades section']);
+        $ps = array_reverse(['Petite section', 'Grande section']);
         foreach ($ps as $value) {
             $grade = new Classe();
             $grade->setNom($value);
