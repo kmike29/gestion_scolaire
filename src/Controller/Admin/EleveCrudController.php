@@ -51,22 +51,19 @@ class EleveCrudController extends AbstractCrudController
             ImageField::new('photo')->setBasePath('/élèves/photos/')->setUploadDir('public/élèves/photos/')->setFormTypeOptions(['attr' => [
                 'accept' => 'image/*',
             ],
-            ]),
+            ])->hideOnIndex(),
             TextField::new('matricule')->hideWhenCreating(),
             TextField::new('nom')->setColumns(6),
             TextField::new('prenoms')->setColumns(6),
-            ChoiceField::new('sexe')->setChoices([
-                'M' => 'masculin',
-                'F' => 'feminin',
-            ]),
+            ChoiceField::new('sexe')->setChoices(['M' => 'masculin','F' => 'feminin', ]),
             TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->setColumns(6)->hideOnIndex(),
             TextField::new('nationalite')->setLabel('Nationalité')->setColumns(6)->hideOnIndex(),
             DateField::new('dateDeNaissance')->setLabel('Date de naissance')->setColumns(6)->hideOnIndex(),
-            DateField::new('dateDInscription')->setLabel("Date d'inscription")->setColumns(6),
+            DateField::new('dateDInscription')->setLabel("Date d'inscription")->setColumns(6)->hideOnIndex(),
             TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->setColumns(6)->hideOnIndex(),
             AssociationField::new('classeActuelle')->setColumns(6),
             
-            TextareaField::new('observations'),
+            TextareaField::new('observations')->hideOnIndex(),
 
             FormField::addTab('Personnes à contacter'),
 
@@ -75,9 +72,10 @@ class EleveCrudController extends AbstractCrudController
             TextField::new('personneAContacter2','Personne à contacter 2')->hideOnIndex(),
             TextField::new('numeroContact2','Numéro contact 2')->hideOnIndex(),
 
+            FormField::addTab('Paiemens & inscriptions'),
 
             MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->hideWhenCreating(),
-            BooleanField::new('inscriptionComplete')->hideWhenCreating()
+            BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex()
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
     }

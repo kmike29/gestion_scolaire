@@ -60,11 +60,11 @@ class InscriptionCrudController extends AbstractCrudController
             return [                
             $eleve, 
             $classe,
-            $remise,
-            $totalAPayer,
-            $montantDeBase,
+            $remise->hideOnIndex(),
+            $totalAPayer->hideOnIndex(),
+            $montantDeBase->hideOnIndex(),
             $statusPaiement,
-            $paiementUnique,
+            $paiementUnique->hideOnIndex(),
             $paiements];
         } elseif(Crud::PAGE_DETAIL === $pageName) {
             return [
