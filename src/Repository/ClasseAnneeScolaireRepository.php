@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ClasseAnneeScolaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -15,6 +16,19 @@ class ClasseAnneeScolaireRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ClasseAnneeScolaire::class);
     }
+
+    public function findActiveClasses()  
+    {
+//->innerJoin('u.Phonenumbers', 'p', Expr\Join::WITH, 'p.is_primary = 1');
+        return $this->createQueryBuilder('t')
+        ->innerJoin('t.anneeScolaire', 'c')
+        ->andWhere('c.active = :actif')
+        ->setParameter('actif', true)
+        ->getQuery()
+        ->getResult();
+    }
+
+
 
     //    /**
     //     * @return ClasseAnneeScolaire[] Returns an array of ClasseAnneeScolaire objects

@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Positive;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
 use Symfonycasts\DynamicForms\DependentField;
 use Symfonycasts\DynamicForms\DynamicFormBuilder;
 
@@ -88,6 +90,7 @@ class DynamicPaiementType extends AbstractType
                             'class' =>"form-control",
                             'disabled' => $inscription === null 
                         ],
+                       // 'constraints' => [new Positive(message: 'Le montant versé doit etre supérieur à 0')]
 
                     ]);
                 

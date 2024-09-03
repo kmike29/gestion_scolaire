@@ -3,10 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\AnneeScolaire;
+use App\Entity\ClasseAnneeScolaire;
 use App\Entity\Eleve;
 use App\Entity\Inscription;
 use App\Entity\Paiement;
+use App\Repository\ClasseAnneeScolaireRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -46,6 +50,9 @@ class EleveCrudController extends AbstractCrudController
     
     public function configureFields(string $pageName): iterable
     {
+
+
+        
         return [
             FormField::addTab("Informations de l'élève "),
             ImageField::new('photo')->setBasePath('/élèves/photos/')->setUploadDir('public/élèves/photos/')->setFormTypeOptions(['attr' => [
@@ -55,14 +62,22 @@ class EleveCrudController extends AbstractCrudController
             TextField::new('matricule')->hideWhenCreating(),
             TextField::new('nom')->setColumns(6),
             TextField::new('prenoms')->setColumns(6),
-            ChoiceField::new('sexe')->setChoices(['M' => 'masculin','F' => 'feminin', ]),
+            
+            ChoiceField::new('sexe')->setChoices(['M' => 'masculin','F' => 'feminin', ])->renderExpanded()->setColumns(6) ,
+            AssociationField::new('classeActuelle')->setColumns(6)    
+            ->setFormTypeOption('query_builder', function (ClasseAnneeScolaireRepository $entityRepository) {
+                return $entityRepository->createQueryBuilder('t')
+                ->innerJoin('t.anneeScolaire', 'c')
+                ->andWhere('c.active = :actif')
+                ->setParameter('actif', true);
+            }),
+            
             TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->setColumns(6)->hideOnIndex(),
             TextField::new('nationalite')->setLabel('Nationalité')->setColumns(6)->hideOnIndex(),
             DateField::new('dateDeNaissance')->setLabel('Date de naissance')->setColumns(6)->hideOnIndex(),
             DateField::new('dateDInscription')->setLabel("Date d'inscription")->setColumns(6)->hideOnIndex(),
             TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->setColumns(6)->hideOnIndex(),
-            AssociationField::new('classeActuelle')->setColumns(6),
-            
+
             TextareaField::new('observations')->hideOnIndex(),
 
             FormField::addTab('Personnes à contacter'),

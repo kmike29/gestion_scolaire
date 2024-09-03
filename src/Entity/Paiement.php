@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PaiementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PaiementRepository::class)]
 class Paiement
@@ -16,7 +17,8 @@ class Paiement
 
     #[ORM\Column(length: 20)]
     private ?string $type = null;
-
+    
+    #[Assert\Positive(message : 'Les frais doivent etre supérieur à 0')]
     #[ORM\Column]
     private ?int $montant = null;
 

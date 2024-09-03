@@ -6,6 +6,7 @@ use App\Repository\ClasseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClasseRepository::class)]
 class Classe
@@ -15,6 +16,13 @@ class Classe
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NoSuspiciousCharacters]
+    #[Assert\Length(
+        min: 2,
+        max: 10,
+        minMessage: 'Le nom doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le nom ne doit pas contenir plus de {{ limit }} ',
+    )]
     #[ORM\Column(length: 10)]
     private ?string $nom = null;
 
@@ -30,9 +38,12 @@ class Classe
     #[ORM\OneToMany(targetEntity: ClasseMatiere::class, mappedBy: 'classe', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $matieres;
 
+    
+    #[Assert\Positive(message : 'Les frais doivent etre supérieur à 0')]
     #[ORM\Column]
     private ?int $fraisScolariteDeBase = null;
 
+    #[Assert\Positive(message : 'Les frais doivent etre supérieur à 0')]
     #[ORM\Column]
     private ?int $fraisInscriptionDeBase = null;
 

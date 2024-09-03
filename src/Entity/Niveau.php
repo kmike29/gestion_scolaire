@@ -6,6 +6,7 @@ use App\Repository\NiveauRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: NiveauRepository::class)]
 class Niveau
@@ -15,6 +16,13 @@ class Niveau
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Le nom doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le nom ne doit pas contenir plus de {{ limit }} ',
+    )]
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 30)]
     private ?string $nom = null;
 

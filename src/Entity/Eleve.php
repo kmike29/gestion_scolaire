@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EleveRepository::class)]
 class Eleve
@@ -16,21 +17,39 @@ class Eleve
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Le nom doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le nom ne doit pas contenir plus de {{ limit }} ',
+    )]
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Les prénoms doivent contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le prénoms ne doivent pas contenir plus de {{ limit }} lettres ',
+    )]
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 255)]
     private ?string $prenoms = null;
 
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $nationalite = null;
 
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ecoleDeProvenance = null;
 
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $matricule = null;
 
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lieuDeNaissance = null;
 

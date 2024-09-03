@@ -6,6 +6,7 @@ use App\Repository\ClasseAnneeScolaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClasseAnneeScolaireRepository::class)]
 class ClasseAnneeScolaire
@@ -46,9 +47,11 @@ class ClasseAnneeScolaire
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Classe')]
     private Collection $inscriptions;
 
+    #[Assert\Positive(message : 'Les frais doivent etre supérieur à 0')]
     #[ORM\Column]
     private ?int $fraisInscription = null;
 
+    #[Assert\Positive(message : 'Les frais doivent etre supérieur à 0')]
     #[ORM\Column]
     private ?int $fraisScolarite = null;
 
