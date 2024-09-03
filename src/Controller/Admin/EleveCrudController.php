@@ -75,10 +75,8 @@ class EleveCrudController extends AbstractCrudController
             TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->setColumns(6)->hideOnIndex(),
             TextField::new('nationalite')->setLabel('Nationalité')->setColumns(6)->hideOnIndex(),
             DateField::new('dateDeNaissance')->setLabel('Date de naissance')->setColumns(6)->hideOnIndex(),
-            DateField::new('dateDInscription')->setLabel("Date d'inscription")->setColumns(6)->hideOnIndex(),
-            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->setColumns(6)->hideOnIndex(),
+            DateField::new('dateDInscription')->setLabel("Date d'inscription")->setColumns(6)->hideOnIndex()->hideWhenCreating(),
 
-            TextareaField::new('observations')->hideOnIndex(),
 
             FormField::addTab('Personnes à contacter'),
 
@@ -87,10 +85,14 @@ class EleveCrudController extends AbstractCrudController
             TextField::new('personneAContacter2','Personne à contacter 2')->hideOnIndex(),
             TextField::new('numeroContact2','Numéro contact 2')->hideOnIndex(),
 
-            FormField::addTab('Paiemens & inscriptions'),
-
+            FormField::addTab('Paiemens & inscriptions')->hideWhenCreating(),
             MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->hideWhenCreating(),
-            BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex()
+            BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex(),
+
+            FormField::addTab('Informations complémentaires'),
+            TextareaField::new('observations')->hideOnIndex(),
+            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->setColumns(6)->hideOnIndex(),
+
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
     }
@@ -112,6 +114,7 @@ class EleveCrudController extends AbstractCrudController
             //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
             // let him take the natural course
             $entityInstance->setInscriptionComplete(false);
+            $entityInstance->setDateDInscription( new \DateTime);
 
             parent::persistEntity($entityManager, $entityInstance);
             $this->createInscription($entityManager, $entityInstance);

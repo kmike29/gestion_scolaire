@@ -19,6 +19,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\HttpFoundation\Response;
 
 class PaiementCrudController extends AbstractCrudController
 {
@@ -28,6 +29,7 @@ class PaiementCrudController extends AbstractCrudController
     {
         $this->adminUrlGenerator = $adminUrlGenerator;
     }
+
 
 
 

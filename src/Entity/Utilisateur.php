@@ -6,6 +6,8 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
@@ -16,7 +18,14 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NoSuspiciousCharacters]
     #[ORM\Column(length: 180)]
+    #[Assert\Length(
+        min: 4,
+        max: 50,
+        minMessage: 'Le username doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le username ne doit pas contenir plus de {{ limit }} ',
+    )]
     private ?string $username = null;
 
     /**
@@ -29,6 +38,16 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NoSuspiciousCharacters]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Le mot de passe doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le mot de passe ne doit pas contenir plus de {{ limit }} ',
+    )]
+    #[Assert\PasswordStrength([
+        'minScore' => PasswordStrength::STRENGTH_MEDIUM ,
+    ])]    
     private ?string $password = null;
 
     public function getId(): ?int
