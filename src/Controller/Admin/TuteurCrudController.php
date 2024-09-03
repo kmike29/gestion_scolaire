@@ -16,7 +16,7 @@ class TuteurCrudController extends AbstractCrudController
         return Tuteur::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -32,5 +32,5 @@ class TuteurCrudController extends AbstractCrudController
 
         ];
     }
-    
+
 }

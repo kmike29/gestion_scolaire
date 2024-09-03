@@ -36,7 +36,7 @@ class ClasseCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            
+
             FormField::addTab('Informations'),
             TextField::new('nom'),
             MoneyField::new('fraisScolariteDeBase')->setCurrency('XAF')->setStoredAsCents(false),
@@ -52,18 +52,19 @@ class ClasseCrudController extends AbstractCrudController
 
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        foreach( $entityInstance->getMatieres() as $matiere){
+        foreach ($entityInstance->getMatieres() as $matiere) {
             $matiere->generateId();
         }
-        try{
+        try {
             parent::persistEntity($entityManager, $entityInstance);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->addFlash('error', 'Une matière a été attribué plusieurs fois à la classe. Veuillez corriger');
         }
 
     }
 
-    public function checkDuplicateCourses(Classe $classe){
+    public function checkDuplicateCourses(Classe $classe)
+    {
 
 
     }

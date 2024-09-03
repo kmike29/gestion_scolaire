@@ -25,13 +25,13 @@ class PaiementController extends AbstractController
     }
 
     #[Route('/new', name: 'app_paiement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,Inscription $iDinscription=null): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Inscription $iDinscription = null): Response
     {
 
-        if($iDinscription){
+        if ($iDinscription) {
             $inscriptionRepository = $entityManager->getRepository(Inscription::class);
             $inscription = $inscriptionRepository->findOneBy(['id' => $iDinscription]);
-    
+
             dump($inscription);
 
         }
@@ -44,11 +44,11 @@ class PaiementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if( ($inscription->getMontantRestant()-($paiement->getMontant())) >=0  ){
+            if (($inscription->getMontantRestant() - ($paiement->getMontant())) >= 0) {
                 $paiement->setInscription($inscription);
                 $entityManager->persist($paiement);
                 $entityManager->flush();
-    
+
                 return $this->redirectToRoute('app_paiement_index', [], Response::HTTP_SEE_OTHER);
             }
 

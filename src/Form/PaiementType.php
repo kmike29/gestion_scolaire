@@ -22,7 +22,7 @@ class PaiementType extends AbstractType
                     'tranche' => 'tranche',
                 ],
             ])
-            ->add('montant',MoneyType ::class, [
+            ->add('montant', MoneyType::class, [
                 'currency' => 'XAF',
             ])
 

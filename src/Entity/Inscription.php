@@ -86,11 +86,11 @@ class Inscription
     {
         $paiements = $this->paiements;
         foreach ($paiements as $paiement) {
-            if($paiement->getType() == 'inscription'){
+            if ($paiement->getType() == 'inscription') {
                 $paiements->removeElement($paiement);
             }
         }
-        
+
         return $paiements;
     }
 
@@ -116,12 +116,14 @@ class Inscription
         return $this;
     }
 
-    public function getMontantDeBase() : int {
+    public function getMontantDeBase(): int
+    {
         return $this->getClasse()->getFraisScolarite();
     }
 
-    
-    public function getFraisInscription() : int {
+
+    public function getFraisInscription(): int
+    {
         return $this->getClasse()->getFraisInscription();
     }
 
@@ -134,14 +136,14 @@ class Inscription
     public function getMontantDeLaRemise(): int
     {
         $base = $this->getMontantDeBase();
-        $remise = ($this->remise) ?  ($base * $this->getRemise()->getPourcentage())/100 : 0;
-    
+        $remise = ($this->remise) ? ($base * $this->getRemise()->getPourcentage()) / 100 : 0;
+
         return  $remise;
     }
 
-    public function getTotalDesRemises(): int 
+    public function getTotalDesRemises(): int
     {
-        return ($this->isPaiementUnique())?  $this->getMontantDeBase() - $this->getTotalRemis() : $this->getMontantDeBase() - $this->getTotalAPayer()  ;
+        return ($this->isPaiementUnique()) ? $this->getMontantDeBase() - $this->getTotalRemis() : $this->getMontantDeBase() - $this->getTotalAPayer()  ;
     }
 
     public function getMontantPourRemiseUnique(): int
@@ -150,14 +152,14 @@ class Inscription
     }
 
 
-    public function getTotalRemis() : int 
+    public function getTotalRemis(): int
     {
         $total = 0;
 
-        if(!empty($this->paiements)){
+        if (!empty($this->paiements)) {
             foreach ($this->getPaiementsScolarité() as $paiement) {
-               // if($paiement->getType() == 'scolarité'){
-                    $total += $paiement->getMontant();
+                // if($paiement->getType() == 'scolarité'){
+                $total += $paiement->getMontant();
                 //}
             }
         }
@@ -165,15 +167,15 @@ class Inscription
         return $total;
     }
 
-    public function getMontantRestant() : int
+    public function getMontantRestant(): int
     {
-        return ($this->isPaiementUnique()) ?  0 : $this->getTotalAPayer() - $this->getTotalRemis()  ;
+        return ($this->isPaiementUnique()) ? 0 : $this->getTotalAPayer() - $this->getTotalRemis()  ;
     }
 
     public function __toString(): string
     {
         // return strval('('.$this->getClasse().') élève:  '.$this->getEleve());
-         return strval($this->getEleve());
+        return strval($this->getEleve());
 
 
     }
@@ -202,17 +204,17 @@ class Inscription
         return $this;
     }
 
-    public function getStatusPaiement() : string   
+    public function getStatusPaiement(): string
     {
         $status = '';
-        if($this->isPaiementUnique()){
+        if ($this->isPaiementUnique()) {
             $status =  strval($this->getTotalRemis()). ' FCFA payés; sur '.strval($this->getTotalAPayer()) . ' FCFA (remise pour paiement en 1 tranche) ' ;
 
-        }else{
+        } else {
             $status =  strval($this->getTotalRemis()). ' FCFA payés sur '.strval($this->getTotalAPayer()) . ' FCFA' ;
         }
-        
-        return $status; 
+
+        return $status;
     }
 
 

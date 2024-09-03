@@ -30,18 +30,18 @@ class AnneeScolaireCrudController extends AbstractCrudController
         ];
     }
 
-    
+
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-            //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
-            // let him take the natural course
+        //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
+        // let him take the natural course
 
-            parent::persistEntity($entityManager, $entityInstance);
-            $this->createClasses($entityManager, $entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
+        $this->createClasses($entityManager, $entityInstance);
 
     }
 
-    public function createClasses(EntityManagerInterface $entityManager,AnneeScolaire $annéeScolaire): void
+    public function createClasses(EntityManagerInterface $entityManager, AnneeScolaire $annéeScolaire): void
     {
         $classesRepository = $entityManager->getRepository(Classe::class);
         $classes = $classesRepository->findAll();

@@ -38,7 +38,7 @@ class Classe
     #[ORM\OneToMany(targetEntity: ClasseMatiere::class, mappedBy: 'classe', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $matieres;
 
-    
+
     #[Assert\Positive(message : 'Les frais doivent etre supérieur à 0')]
     #[ORM\Column]
     private ?int $fraisScolariteDeBase = null;

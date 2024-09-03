@@ -18,7 +18,7 @@ class TrancheHoraireCrudController extends AbstractCrudController
         return TrancheHoraire::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -30,5 +30,5 @@ class TrancheHoraireCrudController extends AbstractCrudController
             AssociationField::new('professeur'),
         ];
     }
-    
+
 }

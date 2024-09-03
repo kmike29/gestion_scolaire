@@ -13,8 +13,8 @@ class EmploiDuTempsSubscriber implements EventSubscriberInterface
     public function __construct(
         private TrancheHoraireRepository $tranchesRepository,
         private UrlGeneratorInterface $router
-    ){
-    } 
+    ) {
+    }
 
     public static function getSubscribedEvents(): array
     {
@@ -57,7 +57,7 @@ class EmploiDuTempsSubscriber implements EventSubscriberInterface
                 'backgroundColor' => 'red',
                 'borderColor' => 'red',
             ]);
-            
+
             $bookingEvent->addOption(
                 'url',
                 $this->router->generate('app_tranche_horaire_showing', [

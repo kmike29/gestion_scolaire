@@ -40,18 +40,18 @@ class PaiementCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $eleveField = TextField::new('eleve',"élève");
-        
+        $eleveField = TextField::new('eleve', "élève");
+
 
 
         return [
-            FormField::addFieldset("Détails de l'élève "),       
+            FormField::addFieldset("Détails de l'élève "),
             $eleveField->setColumns(6),
-            TextField::new('classe')->setFormTypeOption('disabled','disabled')->setColumns(6),
-            TextField::new('type')->setFormTypeOption('disabled','disabled')->setColumns(6),
+            TextField::new('classe')->setFormTypeOption('disabled', 'disabled')->setColumns(6),
+            TextField::new('type')->setFormTypeOption('disabled', 'disabled')->setColumns(6),
 
             FormField::addFieldset("Détails de l'inscription "),
-            TextField::new('statusPaiement',"Etat de l'inscription")->setFormTypeOption('disabled','disabled')->setColumns(6),
+            TextField::new('statusPaiement', "Etat de l'inscription")->setFormTypeOption('disabled', 'disabled')->setColumns(6),
             //MoneyField::new('montantPourPayementUnique',"Montant à payer en une fois pour une remise")->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->setColumns(6),
 
 
@@ -61,23 +61,23 @@ class PaiementCrudController extends AbstractCrudController
         ];
     }
 
-    
+
     public function configureActions(Actions $actions): Actions
     {
 
-         $paiementAction =    Action::new('nouveauPaiement', 'Nouveau paiement')
-         ->linkToRoute('app_paiement_new')        
-         ; 
+        $paiementAction =    Action::new('nouveauPaiement', 'Nouveau paiement')
+        ->linkToRoute('app_paiement_new')
+        ;
 
         return $actions
         //->add(Crud::PAGE_INDEX , $paiementAction)
         ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-            return $action->linkToRoute('app_paiement_new')        
+            return $action->linkToRoute('app_paiement_new')
             ;
         })
       //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
         ;
-         
+
     }
 
     public function createEntity(string $entityFqcn)
@@ -86,7 +86,7 @@ class PaiementCrudController extends AbstractCrudController
 
         $inscriptionRepository = $this->container->get('doctrine')->getManager()->getRepository(Inscription::class);
 
-        if($this->adminUrlGenerator->get('inscription')!=null){
+        if ($this->adminUrlGenerator->get('inscription') != null) {
             $inscription = $inscriptionRepository->findOneBy(['id' => $this->adminUrlGenerator->get('inscription')]);
             dump($inscription);
             $paiement->setInscription($inscription);
@@ -98,30 +98,30 @@ class PaiementCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-            //$this->addFlash('notice', 'Paiement unique');
-            // let him take the natural course
-            $inscription = $entityInstance->getInscription();
-            $entityInstance->setType('tranche');
+        //$this->addFlash('notice', 'Paiement unique');
+        // let him take the natural course
+        $inscription = $entityInstance->getInscription();
+        $entityInstance->setType('tranche');
 
-            if($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique()<=$entityInstance->getMontant() ){
-                $inscription->setPaiementUnique(true);
-                parent::persistEntity($entityManager, $inscription);
-                $this->addFlash('notice', 'Paiement unique');
-            }
+        if ($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique() <= $entityInstance->getMontant()) {
+            $inscription->setPaiementUnique(true);
+            parent::persistEntity($entityManager, $inscription);
+            $this->addFlash('notice', 'Paiement unique');
+        }
 
 
-            parent::persistEntity($entityManager, $entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
 
     }
 
 
 
-   /* public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
-    {
-            //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
-            // let him take the natural course
-            $inscription = $entityInstance
-            parent::persistEntity($entityManager, $entityInstance);
+    /* public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+     {
+             //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
+             // let him take the natural course
+             $inscription = $entityInstance
+             parent::persistEntity($entityManager, $entityInstance);
 
-    }*/
+     }*/
 }

@@ -15,12 +15,12 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, UserInterface $user = null): Response
     {
 
-        if($user !== null){
-        
+        if ($user !== null) {
+
             if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
                 return $this->redirectToRoute('admin');
             }
-        
+
             return $this->redirectToRoute('app_utilisateur_index');
         }
 

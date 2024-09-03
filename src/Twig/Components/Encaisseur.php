@@ -44,13 +44,13 @@ class Encaisseur extends AbstractController
         $inscription = $paiement->getInscription();
         $paiement->setType('scolarité');
 
-        if($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique()<=$paiement->getMontant() ){
+        if ($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique() <= $paiement->getMontant()) {
             $inscription->setPaiementUnique(true);
             $entityManager->persist($inscription);
             $this->addFlash('notice', 'Paiement unique');
         }
 
-        if($paiement->getType()  =='inscription'){
+        if ($paiement->getType()  == 'inscription') {
             $paiement->setMontant($paiement->getInscription()->getFraisInscription());
             $eleve = $paiement->getInscription()->getEleve();
             $eleve->setInscriptionComplete(true);
@@ -63,7 +63,7 @@ class Encaisseur extends AbstractController
         $entityManager->persist($paiement);
         $entityManager->flush();
 
-        
+
 
         $this->addFlash('success', 'Paiement effectué!');
 

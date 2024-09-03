@@ -36,65 +36,70 @@ class DynamicPaiementType extends AbstractType
                 'choice_label' => fn (ClasseAnneeScolaire $cas): string => $cas->__toString(),
                 'placeholder' => 'Choisir une classe',
                 'autocomplete' => true,
-                'mapped'=>false,
-                'attr' => ['class' =>"form-control"]
+                'mapped' => false,
+                'attr' => ['class' => "form-control"]
             ])
-            ->addDependent('inscription','classe', function (DependentField $field, ?ClasseAnneeScolaire $classe)
-                {
+            ->addDependent(
+                'inscription',
+                'classe',
+                function (DependentField $field, ?ClasseAnneeScolaire $classe) {
                     $field->add(EntityType::class, [
                             'class' => Inscription::class,
                             'placeholder' => null === $classe ? 'Choisir une classe' : 'Quel élève',
-                            'choices' => ($classe!=null) ? $classe->getScolaritésIncompletes() : [] ,
+                            'choices' => ($classe != null) ? $classe->getScolaritésIncompletes() : [] ,
                             'choice_label' => fn (Inscription $inscription): string => $inscription->__toString(),
                             'disabled' => null === $classe ,
                             'autocomplete' => true,
-                            'attr' => ['class' =>"form-control"]
+                            'attr' => ['class' => "form-control"]
                     ]);
                 }
             )
 
-            ->addDependent('status', 'inscription' , function (DependentField $field, ?Inscription $inscription){
+            ->addDependent('status', 'inscription', function (DependentField $field, ?Inscription $inscription) {
                 // ajout du status uniquemment sur les paiement de scolarité
-                if($inscription){
+                if ($inscription) {
                     $field->add(TextType::class, [
                         'attr' => [
                             'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getStatusPaiement(),
                             'style' => 'width: 300px',
-                            'class'=> "form-control"
+                            'class' => "form-control"
                         ],
-                        'mapped'=> false,
+                        'mapped' => false,
                         'disabled' => true,
                     ]);
                 }
             })
-            ->addDependent('montantUnique', 'inscription' , function (DependentField $field, ?Inscription $inscription){
+            ->addDependent('montantUnique', 'inscription', function (DependentField $field, ?Inscription $inscription) {
                 // ajout du status uniquemment sur les paiement de scolarité
-                if($inscription && $inscription->getPaiementsScolarité()->isEmpty() ){
+                if ($inscription && $inscription->getPaiementsScolarité()->isEmpty()) {
                     $field->add(TextType::class, [
-                        'label' =>'Montant pour reduction de paiement unique',
+                        'label' => 'Montant pour reduction de paiement unique',
                         'attr' => [
                             'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getMontantPourRemiseUnique(),
                             'style' => 'width: 300px',
-                            'class'=> "form-control"
+                            'class' => "form-control"
                         ],
-                        'mapped'=> false,
+                        'mapped' => false,
                         'disabled' => true,
                     ]);
                 }
             })
 
-            ->addDependent('montant', 'inscription' , function (DependentField $field, ?Inscription $inscription){
+            ->addDependent(
+                'montant',
+                'inscription',
+                function (DependentField $field, ?Inscription $inscription) {
                     $field->add(MoneyType::class, [
                         'currency' => 'XAF',
                         'attr' => [
-                            'class' =>"form-control",
-                            'disabled' => $inscription === null 
+                            'class' => "form-control",
+                            'disabled' => $inscription === null
                         ],
                        // 'constraints' => [new Positive(message: 'Le montant versé doit etre supérieur à 0')]
 
                     ]);
-                
-            }
+
+                }
             )
 
             // see: https://github.com/SymfonyCasts/dynamic-forms

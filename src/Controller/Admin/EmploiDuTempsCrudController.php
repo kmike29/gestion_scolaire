@@ -16,12 +16,12 @@ class EmploiDuTempsCrudController extends AbstractCrudController
         return EmploiDuTemps::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
             AssociationField::new('classe'),
         ];
     }
-    
+
 }

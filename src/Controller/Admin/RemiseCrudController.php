@@ -18,7 +18,7 @@ class RemiseCrudController extends AbstractCrudController
         return Remise::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -27,5 +27,5 @@ class RemiseCrudController extends AbstractCrudController
             AssociationField::new('typeRemise'),
         ];
     }
-    
+
 }

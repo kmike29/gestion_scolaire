@@ -17,7 +17,7 @@ class PersonnelCrudController extends AbstractCrudController
         return Personnel::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -36,5 +36,5 @@ class PersonnelCrudController extends AbstractCrudController
             TextField::new('diplomesProfessionnels')->setLabel('Diplomes professionnels'),
         ];
     }
-    
+
 }

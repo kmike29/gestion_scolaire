@@ -17,9 +17,9 @@ class ClasseAnneeScolaireRepository extends ServiceEntityRepository
         parent::__construct($registry, ClasseAnneeScolaire::class);
     }
 
-    public function findActiveClasses()  
+    public function findActiveClasses()
     {
-//->innerJoin('u.Phonenumbers', 'p', Expr\Join::WITH, 'p.is_primary = 1');
+        //->innerJoin('u.Phonenumbers', 'p', Expr\Join::WITH, 'p.is_primary = 1');
         return $this->createQueryBuilder('t')
         ->innerJoin('t.anneeScolaire', 'c')
         ->andWhere('c.active = :actif')

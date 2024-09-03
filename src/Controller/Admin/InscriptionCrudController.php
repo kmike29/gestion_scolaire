@@ -25,7 +25,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class InscriptionCrudController extends AbstractCrudController
 {
-
     private $adminUrlGenerator;
 
     public function __construct(AdminUrlGenerator $adminUrlGenerator)
@@ -38,7 +37,7 @@ class InscriptionCrudController extends AbstractCrudController
         return Inscription::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         $eleve = AssociationField::new('Eleve');
@@ -52,13 +51,13 @@ class InscriptionCrudController extends AbstractCrudController
         $montantDeLaRemise = MoneyField::new('MontantDeLaRemise')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
         $montantPourRemiseUnique = MoneyField::new('MontantPourRemiseUnique')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
         $remise = AssociationField::new('remise');
-        $paiementUnique = BooleanField::new('paiementUnique')->setFormTypeOption('disabled','disabled');
+        $paiementUnique = BooleanField::new('paiementUnique')->setFormTypeOption('disabled', 'disabled');
         $paiements = CollectionField::new('paiements')->allowAdd(false);
 
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [                
-            $eleve, 
+            return [
+            $eleve,
             $classe,
             $remise->hideOnIndex(),
             $totalAPayer->hideOnIndex(),
@@ -66,9 +65,9 @@ class InscriptionCrudController extends AbstractCrudController
             $statusPaiement,
             $paiementUnique->hideOnIndex(),
             $paiements];
-        } elseif(Crud::PAGE_DETAIL === $pageName) {
+        } elseif (Crud::PAGE_DETAIL === $pageName) {
             return [
-                $eleve, 
+                $eleve,
                 $classe,
                 $remise,
                 $totalAPayer,
@@ -77,17 +76,17 @@ class InscriptionCrudController extends AbstractCrudController
                 $paiementUnique,
                 $paiements
             ];
-        } elseif(Crud::PAGE_EDIT === $pageName) {
+        } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
-                $eleve->setFormTypeOption('disabled','disabled'), 
+                $eleve->setFormTypeOption('disabled', 'disabled'),
                 $classe,
                 $remise,
-                $totalAPayer->setFormTypeOption('disabled','disabled'),
-                $montantDeBase->setFormTypeOption('disabled','disabled'),
-                $statusPaiement->setFormTypeOption('disabled','disabled'),
-                $paiementUnique->setFormTypeOption('disabled','disabled'),
+                $totalAPayer->setFormTypeOption('disabled', 'disabled'),
+                $montantDeBase->setFormTypeOption('disabled', 'disabled'),
+                $statusPaiement->setFormTypeOption('disabled', 'disabled'),
+                $paiementUnique->setFormTypeOption('disabled', 'disabled'),
                 $paiements
-            ];        
+            ];
         } else {
             return [$eleve, $classe, $remise];
         }
@@ -99,7 +98,7 @@ class InscriptionCrudController extends AbstractCrudController
             MoneyField::new('MontantDeBase')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
             ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
             MoneyField::new('TotalAPayer')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
-                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),     
+                ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
             TextField::new('StatusPaiement')->hideOnForm(),
             /*MoneyField::new('TotalDesRemises')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
             ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
@@ -112,8 +111,8 @@ class InscriptionCrudController extends AbstractCrudController
 
                             MoneyField::new('MontantDeLaRemise')->hideOnForm()->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
             ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
-                
-                
+
+
 
             MoneyField::new('MontantPourRemiseUnique')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false)
                 ->hideWhenCreating()->setFormTypeOption('disabled','disabled')->hideOnIndex(),
@@ -129,15 +128,15 @@ class InscriptionCrudController extends AbstractCrudController
         AdminContext $context,
         AdminUrlGenerator $adminUrlGenerator,
         EntityManagerInterface $em
-    ){
+    ) {
         /** @var Product $product */
         $inscription = $context->getEntity()->getInstance();
 
 
-        $url = $adminUrlGenerator            
+        $url = $adminUrlGenerator
             ->setController(PaiementCrudController::class)
             ->setAction(Action::NEW)
-            ->set('inscription',$inscription->getId())
+            ->set('inscription', $inscription->getId())
             ->unset('entityId')
             ->generateUrl();
 
@@ -147,20 +146,20 @@ class InscriptionCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
 
-         $paiementAction =    Action::new('nouveauPaiement', 'Nouveau paiement')
-         ->linkToCrudAction('ajouterTranche')        
-         ->displayIf(static function ($inscription) {
-            return $inscription->getMontantRestant()!=0;
-        }); 
+        $paiementAction =    Action::new('nouveauPaiement', 'Nouveau paiement')
+        ->linkToCrudAction('ajouterTranche')
+        ->displayIf(static function ($inscription) {
+            return $inscription->getMontantRestant() != 0;
+        });
 
         return $actions
-        ->add(Crud::PAGE_INDEX , Action::DETAIL)
-        ->add(Crud::PAGE_EDIT , $paiementAction)
-        ->add(Crud::PAGE_INDEX , $paiementAction)
+        ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ->add(Crud::PAGE_EDIT, $paiementAction)
+        ->add(Crud::PAGE_INDEX, $paiementAction)
         //->remove(Crud::PAGE_INDEX, Action::NEW)
       //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
         ;
-        
+
     }
 
     /*public function configureCrud(Crud $crud): Crud
@@ -174,16 +173,16 @@ class InscriptionCrudController extends AbstractCrudController
     /*protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
         //$submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
-    
+
         $url = $this->container->get(AdminUrlGenerator::class)
                 ->setController(EleveCrudController::class)
                 ->setAction(Action::INDEX)
                 ->generateUrl();
 
         return $this->redirect($url);
-        
-    
+
+
        // return parent::getRedirectResponseAfterSave($context, $action);
     }*/
-    
+
 }

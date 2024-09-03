@@ -47,7 +47,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     #[Assert\PasswordStrength([
         'minScore' => PasswordStrength::STRENGTH_MEDIUM ,
-    ])]    
+    ])]
     private ?string $password = null;
 
     public function getId(): ?int

@@ -47,12 +47,12 @@ class EleveCrudController extends AbstractCrudController
         return Eleve::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
 
 
-        
+
         return [
             FormField::addTab("Informations de l'élève "),
             ImageField::new('photo')->setBasePath('/élèves/photos/')->setUploadDir('public/élèves/photos/')->setFormTypeOptions(['attr' => [
@@ -62,16 +62,16 @@ class EleveCrudController extends AbstractCrudController
             TextField::new('matricule')->hideWhenCreating(),
             TextField::new('nom')->setColumns(6),
             TextField::new('prenoms')->setColumns(6),
-            
+
             ChoiceField::new('sexe')->setChoices(['M' => 'masculin','F' => 'feminin', ])->renderExpanded()->setColumns(6) ,
-            AssociationField::new('classeActuelle')->setColumns(6)    
+            AssociationField::new('classeActuelle')->setColumns(6)
             ->setFormTypeOption('query_builder', function (ClasseAnneeScolaireRepository $entityRepository) {
                 return $entityRepository->createQueryBuilder('t')
                 ->innerJoin('t.anneeScolaire', 'c')
                 ->andWhere('c.active = :actif')
                 ->setParameter('actif', true);
             }),
-            
+
             TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->setColumns(6)->hideOnIndex(),
             TextField::new('nationalite')->setLabel('Nationalité')->setColumns(6)->hideOnIndex(),
             DateField::new('dateDeNaissance')->setLabel('Date de naissance')->setColumns(6)->hideOnIndex(),
@@ -80,13 +80,13 @@ class EleveCrudController extends AbstractCrudController
 
             FormField::addTab('Personnes à contacter'),
 
-            TextField::new('personneAContacter1','Personne à contacter 1')->hideOnIndex(),
-            TextField::new('numeroContact1','Numéro du contact 1')->hideOnIndex(),
-            TextField::new('personneAContacter2','Personne à contacter 2')->hideOnIndex(),
-            TextField::new('numeroContact2','Numéro contact 2')->hideOnIndex(),
+            TextField::new('personneAContacter1', 'Personne à contacter 1')->hideOnIndex(),
+            TextField::new('numeroContact1', 'Numéro du contact 1')->hideOnIndex(),
+            TextField::new('personneAContacter2', 'Personne à contacter 2')->hideOnIndex(),
+            TextField::new('numeroContact2', 'Numéro contact 2')->hideOnIndex(),
 
             FormField::addTab('Paiemens & inscriptions')->hideWhenCreating(),
-            MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled','disabled')->hideWhenCreating(),
+            MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled', 'disabled')->hideWhenCreating(),
             BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex(),
 
             FormField::addTab('Informations complémentaires'),
@@ -101,27 +101,28 @@ class EleveCrudController extends AbstractCrudController
     {
 
         return $actions
-        ->add(Crud::PAGE_INDEX , Action::DETAIL)
+        ->add(Crud::PAGE_INDEX, Action::DETAIL)
         //->remove(Crud::PAGE_INDEX, Action::NEW)
       //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
         ;
-        
+
     }
 
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-            //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
-            // let him take the natural course
-            $entityInstance->setInscriptionComplete(false);
-            $entityInstance->setDateDInscription( new \DateTime);
+        //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
+        // let him take the natural course
+        $entityInstance->setInscriptionComplete(false);
+        $entityInstance->setDateDInscription(new \DateTime());
 
-            parent::persistEntity($entityManager, $entityInstance);
-            $this->createInscription($entityManager, $entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
+        $this->createInscription($entityManager, $entityInstance);
 
     }
 
-    public function createInscription(EntityManagerInterface $entityManager,Eleve $eleve){
+    public function createInscription(EntityManagerInterface $entityManager, Eleve $eleve)
+    {
 
 
         $inscription = new Inscription();
@@ -146,7 +147,7 @@ class EleveCrudController extends AbstractCrudController
     protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
     {
         //$submitButtonName = $context->getRequest()->request->all()['ea']['newForm']['btn'];
-    
+
         $url = $this->container->get(AdminUrlGenerator::class)
                 ->setController(InscriptionCrudController::class)
                 ->setAction(Action::EDIT)
@@ -154,7 +155,7 @@ class EleveCrudController extends AbstractCrudController
                 ->generateUrl();
 
         return $this->redirect($url);
-        
+
     }
-    
+
 }

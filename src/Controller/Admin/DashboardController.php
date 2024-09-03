@@ -59,7 +59,7 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('Gestion scolaire')
             ->setLocales(['fr']);
     }
-    
+
     public function configureMenuItems(): iterable
     {
 
@@ -89,7 +89,7 @@ class DashboardController extends AbstractDashboardController
 
             ]),
 
-   
+
         ];
 
 

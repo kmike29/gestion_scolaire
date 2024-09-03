@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ClasseMatiere
 {
     #[ORM\Id]
-    #[ORM\Column(name: 'id', type: 'string', length: 255, unique: true )]
+    #[ORM\Column(name: 'id', type: 'string', length: 255, unique: true)]
     private ?string $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'matieres')]
@@ -39,9 +39,9 @@ class ClasseMatiere
         $this->trancheHoraires = new ArrayCollection();
     }
 
-    public function generateId() : void
+    public function generateId(): void
     {
-         $this->id= $this->classe->__toString(). $this->matiere->__toString();
+        $this->id = $this->classe->__toString(). $this->matiere->__toString();
     }
 
     public function getId(): ?string

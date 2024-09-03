@@ -1,6 +1,7 @@
 <?php
 
 // src/Twig/Components/RandomNumber.php
+
 namespace App\Twig\Components;
 
 use Symfony\UX\LiveComponent\DefaultActionTrait;

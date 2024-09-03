@@ -124,6 +124,6 @@ class Remise
         return $this;
     }
 
-    
+
 
 }

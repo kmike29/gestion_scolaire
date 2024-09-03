@@ -22,24 +22,24 @@ class ClasseAnneeScolaireCrudController extends AbstractCrudController
         return ClasseAnneeScolaire::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
             AssociationField::new('anneeScolaire'),
             AssociationField::new('Classe'),
-            BooleanField::new('active')->setFormTypeOption('disabled','disabled'),
+            BooleanField::new('active')->setFormTypeOption('disabled', 'disabled'),
         ];
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-            //$this->addFlash('notice', 'Paiement unique');
-            // let him take the natural course
-            $entityInstance->setFraisInscription($entityInstance->getClasse()->getFraisInscriptionDeBase());
-            $entityInstance->setFraisScolarite($entityInstance->getClasse()->getFraisScolariteDeBase());
+        //$this->addFlash('notice', 'Paiement unique');
+        // let him take the natural course
+        $entityInstance->setFraisInscription($entityInstance->getClasse()->getFraisInscriptionDeBase());
+        $entityInstance->setFraisScolarite($entityInstance->getClasse()->getFraisScolariteDeBase());
 
-            parent::persistEntity($entityManager, $entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
 
     }
 
@@ -49,7 +49,7 @@ class ClasseAnneeScolaireCrudController extends AbstractCrudController
             ->add('anneeScolaire')
         ;
     }
-    
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -71,6 +71,6 @@ class ClasseAnneeScolaireCrudController extends AbstractCrudController
             // the help message displayed to end users (it can contain HTML tags)
             //->setHelp('edit', '...')
         ;
-}
-    
+    }
+
 }

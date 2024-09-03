@@ -280,7 +280,8 @@ class Eleve
 
     public function getLastInscription(): Inscription
     {
-        return $this->inscriptions->last();;
+        return $this->inscriptions->last();
+        ;
     }
 
     /**
@@ -288,11 +289,11 @@ class Eleve
      */
     public function getImpayes(): Collection
     {
-        
+
         $impayes = $this->inscriptions;
 
         foreach ($impayes as $inscription) {
-            if($inscription->getMontantRestant()==0 || $inscription->getClasse()->isActive()){
+            if ($inscription->getMontantRestant() == 0 || $inscription->getClasse()->isActive()) {
                 $impayes->removeElement($inscription);
             }
         }
@@ -301,7 +302,7 @@ class Eleve
     }
 
 
-    public function getMontantImpayes() : int 
+    public function getMontantImpayes(): int
     {
         $impayes = $this->getImpayes();
         $montant = 0;

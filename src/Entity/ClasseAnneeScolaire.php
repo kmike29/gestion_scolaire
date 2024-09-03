@@ -189,7 +189,7 @@ class ClasseAnneeScolaire
         return $this->inscriptions;
     }
 
-    
+
     /**
      * @return Collection<int, Inscription>
      */
@@ -198,7 +198,7 @@ class ClasseAnneeScolaire
         $impayes = $this->inscriptions;
 
         foreach ($impayes as $inscription) {
-            if($inscription->getEleve()->isInscriptionComplete()){
+            if ($inscription->getEleve()->isInscriptionComplete()) {
                 $impayes->removeElement($inscription);
             }
         }
@@ -206,7 +206,7 @@ class ClasseAnneeScolaire
         return ($impayes);
     }
 
-        
+
     /**
      * @return Collection<int, Inscription>
      */
@@ -215,7 +215,7 @@ class ClasseAnneeScolaire
         $impayes = $this->inscriptions;
 
         foreach ($impayes as $inscription) {
-            if($inscription->getMontantRestant()==0 && $inscription->getClasse()->getAnneeScolaire()->isActive()){
+            if ($inscription->getMontantRestant() == 0 && $inscription->getClasse()->getAnneeScolaire()->isActive()) {
                 $impayes->removeElement($inscription);
             }
         }
