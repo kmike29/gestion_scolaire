@@ -14,6 +14,7 @@ use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -45,6 +46,15 @@ class EleveCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Eleve::class;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('sexe')
+            ->add('classeActuelle')
+
+        ;
     }
 
 
@@ -88,6 +98,7 @@ class EleveCrudController extends AbstractCrudController
             FormField::addTab('Paiemens & inscriptions')->hideWhenCreating(),
             MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled', 'disabled')->hideWhenCreating(),
             BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex(),
+            CollectionField::new('inscriptions')->hideWhenCreating()->hideOnIndex(),
 
             FormField::addTab('Informations complémentaires'),
             TextareaField::new('observations')->hideOnIndex(),

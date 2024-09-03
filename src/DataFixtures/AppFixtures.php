@@ -46,7 +46,7 @@ class AppFixtures extends Fixture
             $grade = new Classe();
             $grade->setNom($value);
             $grade->setNiveau($primaire);
-            $grade->setFraisScolariteDeBase(10000);
+            $grade->setFraisScolariteDeBase(40000);
             $grade->setFraisInscriptionDeBase(1000);
             $grade->setClasseSuperieure($classeSuperieure);
             $manager->persist($grade);
@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
             $grade = new Classe();
             $grade->setNom($value);
             $grade->setNiveau($préscolaire);
-            $grade->setFraisScolariteDeBase(5000);
+            $grade->setFraisScolariteDeBase(40000);
             $grade->setFraisInscriptionDeBase(1000);
             $grade->setClasseSuperieure($classeSuperieure);
             $manager->persist($grade);
@@ -87,14 +87,31 @@ class AppFixtures extends Fixture
         $manager->persist($typeRemise);
 
         $remise = new Remise();
-        $remise->setDesignation('2 enfants');
-        $remise->setPourcentage(20);
+        $remise->setDesignation('2-3 enfants');
+        $remise->setPourcentage(10);
         $remise->setTypeRemise($typeRemise);
+        $remise->setCumulable(true);
         $manager->persist($remise);
 
 
 
+        $remise = new Remise();
+        $remise->setDesignation('4-5 enfants');
+        $remise->setPourcentage(12);
+        $remise->setTypeRemise($typeRemise);
+        $remise->setCumulable(true);
+        $manager->persist($remise);
 
+        $typeRemise = new TypeRemise();
+        $typeRemise->setDesignation('Remise personel');
+        $manager->persist($typeRemise);
+
+        $remise = new Remise();
+        $remise->setDesignation('enfant enseignant');
+        $remise->setPourcentage(30);
+        $remise->setTypeRemise($typeRemise);
+        $remise->setCumulable(false);
+        $manager->persist($remise);
 
         $manager->flush();
     }

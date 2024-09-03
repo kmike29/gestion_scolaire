@@ -40,6 +40,9 @@ class Remise
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'remise')]
     private Collection $inscriptions;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $cumulable = null;
+
 
 
     public function __construct()
@@ -120,6 +123,18 @@ class Remise
                 $inscription->setRemise(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isCumulable(): ?bool
+    {
+        return $this->cumulable;
+    }
+
+    public function setCumulable(?bool $cumulable): static
+    {
+        $this->cumulable = $cumulable;
 
         return $this;
     }

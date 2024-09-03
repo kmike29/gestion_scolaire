@@ -278,10 +278,10 @@ class Eleve
         return $this;
     }
 
-    public function getLastInscription(): Inscription
+    public function getLastInscription(): ?Inscription
     {
-        return $this->inscriptions->last();
-        ;
+        return ($this->inscriptions->last()) ? $this->inscriptions->last() : null;
+        
     }
 
     /**
