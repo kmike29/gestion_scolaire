@@ -18,13 +18,25 @@
         </div>
     </div>
 
+    <div class="form-group">
+
         {% if form.status is defined %}
                 {{ form_row(form.status) }}
         {% endif %}
 
+    </div>
+
+    <div class="form-group">
         {% if form.montantUnique is defined %}
                 {{ form_row(form.montantUnique) }}
         {% endif %}
+    </div>
+
+    <div class="form-group">
+
+    </div>
+
+
 
 
         {% if form.montant is defined %}

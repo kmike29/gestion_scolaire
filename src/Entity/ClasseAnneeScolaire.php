@@ -36,12 +36,6 @@ class ClasseAnneeScolaire
     private Collection $emploisDuTemps;
 
     /**
-     * @var Collection<int, Eleve>
-     */
-    #[ORM\OneToMany(targetEntity: Eleve::class, mappedBy: 'classe')]
-    private Collection $eleves;
-
-    /**
      * @var Collection<int, Inscription>
      */
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Classe')]
@@ -55,12 +49,18 @@ class ClasseAnneeScolaire
     #[ORM\Column]
     private ?int $fraisScolarite = null;
 
+    /**
+     * @var Collection<int, Eleve>
+     */
+    #[ORM\OneToMany(targetEntity: Eleve::class, mappedBy: 'classeActuelle')]
+    private Collection $eleves;
+
     public function __construct()
     {
         $this->professeurPrincipal = new ArrayCollection();
         $this->emploisDuTemps = new ArrayCollection();
-        $this->eleves = new ArrayCollection();
         $this->inscriptions = new ArrayCollection();
+        $this->eleves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,35 +151,7 @@ class ClasseAnneeScolaire
         return $this;
     }
 
-    /**
-     * @return Collection<int, Eleve>
-     */
-    public function getEleves(): Collection
-    {
-        return $this->eleves;
-    }
-
-    public function addEleve(Eleve $eleve): static
-    {
-        if (!$this->eleves->contains($eleve)) {
-            $this->eleves->add($eleve);
-            $eleve->setClasseActuelle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEleve(Eleve $eleve): static
-    {
-        if ($this->eleves->removeElement($eleve)) {
-            // set the owning side to null (unless already changed)
-            if ($eleve->getClasseActuelle() === $this) {
-                $eleve->setClasseActuelle(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 
     /**
      * @return Collection<int, Inscription>
@@ -272,5 +244,35 @@ class ClasseAnneeScolaire
     public function isActive(): bool
     {
         return $this->getAnneeScolaire()->isActive();
+    }
+
+    /**
+     * @return Collection<int, Eleve>
+     */
+    public function getEleves(): Collection
+    {
+        return $this->eleves;
+    }
+
+    public function addElefe(Eleve $elefe): static
+    {
+        if (!$this->eleves->contains($elefe)) {
+            $this->eleves->add($elefe);
+            $elefe->setClasseActuelle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeElefe(Eleve $elefe): static
+    {
+        if ($this->eleves->removeElement($elefe)) {
+            // set the owning side to null (unless already changed)
+            if ($elefe->getClasseActuelle() === $this) {
+                $elefe->setClasseActuelle(null);
+            }
+        }
+
+        return $this;
     }
 }

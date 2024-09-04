@@ -37,10 +37,20 @@ class InscriptionCrudController extends AbstractCrudController
         return Inscription::class;
     }
 
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        //$this->addFlash('notice', 'La fin ne peut pas etre inférieure au début');
+        // let him take the natural course
+        $entityInstance->setPaiementUnique(false);
+
+        parent::persistEntity($entityManager, $entityInstance);
+
+    }
+
 
     public function configureFields(string $pageName): iterable
     {
-        $eleve = AssociationField::new('Eleve');
+        $eleve = AssociationField::new('eleve');
         $classe = AssociationField::new('Classe');
         $montantDeBase = MoneyField::new('MontantDeBase')->setCurrency('XAF')->setNumDecimals(0)->setStoredAsCents(false);
         $statusPaiement = TextField::new('StatusPaiement');
@@ -59,7 +69,7 @@ class InscriptionCrudController extends AbstractCrudController
             return [
             $eleve,
             $classe,
-            $remise->hideOnIndex(),
+            $remise,
             $totalAPayer->hideOnIndex(),
             $montantDeBase->hideOnIndex(),
             $statusPaiement,

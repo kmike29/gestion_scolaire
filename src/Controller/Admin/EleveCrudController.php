@@ -98,7 +98,8 @@ class EleveCrudController extends AbstractCrudController
             FormField::addTab('Paiemens & inscriptions')->hideWhenCreating(),
             MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled', 'disabled')->hideWhenCreating(),
             BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex(),
-            CollectionField::new('inscriptions')->hideWhenCreating()->hideOnIndex(),
+            CollectionField::new('inscriptions')->hideWhenCreating()->allowAdd(false),
+            TextField::new('LastInscription'),
 
             FormField::addTab('Informations complémentaires'),
             TextareaField::new('observations')->hideOnIndex(),
@@ -129,6 +130,7 @@ class EleveCrudController extends AbstractCrudController
 
         parent::persistEntity($entityManager, $entityInstance);
         $this->createInscription($entityManager, $entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
 
     }
 
@@ -141,8 +143,8 @@ class EleveCrudController extends AbstractCrudController
         $inscription->setClasse($eleve->getClasseActuelle());
         $inscription->setPaiementUnique(false);
         $eleve->addInscription($inscription);
-
         parent::persistEntity($entityManager, $inscription);
+
 
         $paiement = new Paiement();
         $paiement->setType('inscription');

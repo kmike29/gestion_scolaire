@@ -108,7 +108,7 @@ class AppFixtures extends Fixture
 
         $remise = new Remise();
         $remise->setDesignation('enfant enseignant');
-        $remise->setPourcentage(30);
+        $remise->setPourcentage(60);
         $remise->setTypeRemise($typeRemise);
         $remise->setCumulable(false);
         $manager->persist($remise);

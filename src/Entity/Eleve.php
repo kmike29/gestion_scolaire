@@ -65,14 +65,6 @@ class Eleve
     #[ORM\Column(length: 10)]
     private ?string $sexe = null;
 
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?ClasseAnneeScolaire $classeActuelle = null;
-
-    /**
-     * @var Collection<int, Inscription>
-     */
-    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'Eleve')]
-    private Collection $inscriptions;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDeNaissance = null;
@@ -97,6 +89,15 @@ class Eleve
 
     #[ORM\Column(nullable: true)]
     private ?bool $inscriptionComplete = null;
+
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?ClasseAnneeScolaire $classeActuelle = null;
+
+    /**
+     * @var Collection<int, Inscription>
+     */
+    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'eleve')]
+    private Collection $inscriptions;
 
     public function __construct()
     {
@@ -236,47 +237,6 @@ class Eleve
         return $this;
     }
 
-    public function getClasseActuelle(): ?ClasseAnneeScolaire
-    {
-        return $this->classeActuelle;
-    }
-
-    public function setClasseActuelle(?ClasseAnneeScolaire $classeActuelle): static
-    {
-        $this->classeActuelle = $classeActuelle;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Inscription>
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(Inscription $inscription): static
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->setEleve($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(Inscription $inscription): static
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getEleve() === $this) {
-                $inscription->setEleve(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getLastInscription(): ?Inscription
     {
@@ -284,17 +244,14 @@ class Eleve
         
     }
 
-    /**
-     * @return Collection<int, Inscription>
-     */
-    public function getImpayes(): Collection
+    public function getImpayes(): array
     {
 
-        $impayes = $this->inscriptions;
+        $impayes = [];
 
-        foreach ($impayes as $inscription) {
-            if ($inscription->getMontantRestant() == 0 || $inscription->getClasse()->isActive()) {
-                $impayes->removeElement($inscription);
+        foreach ($this->inscriptions as $inscription) {
+            if ($inscription->getMontantRestant() != 0 && !$inscription->getClasse()->isActive()) {
+                $impayes[] = $inscription;
             }
         }
 
@@ -408,4 +365,47 @@ class Eleve
 
         return $this;
     }
+
+    public function getClasseActuelle(): ?ClasseAnneeScolaire
+    {
+        return $this->classeActuelle;
+    }
+
+    public function setClasseActuelle(?ClasseAnneeScolaire $classeActuelle): static
+    {
+        $this->classeActuelle = $classeActuelle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): static
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): static
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getEleve() === $this) {
+                $inscription->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

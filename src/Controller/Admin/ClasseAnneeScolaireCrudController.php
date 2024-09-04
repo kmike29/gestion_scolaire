@@ -29,6 +29,7 @@ class ClasseAnneeScolaireCrudController extends AbstractCrudController
             AssociationField::new('anneeScolaire'),
             AssociationField::new('Classe'),
             BooleanField::new('active')->setFormTypeOption('disabled', 'disabled'),
+            CollectionField::new('eleves')
         ];
     }
 

@@ -16,10 +16,6 @@ class Inscription
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Eleve $Eleve = null;
-
-    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?ClasseAnneeScolaire $Classe = null;
 
@@ -35,6 +31,10 @@ class Inscription
     #[ORM\Column]
     private ?bool $paiementUnique = null;
 
+    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Eleve $eleve = null;
+
 
 
     public function __construct()
@@ -45,18 +45,6 @@ class Inscription
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEleve(): ?Eleve
-    {
-        return $this->Eleve;
-    }
-
-    public function setEleve(?Eleve $Eleve): static
-    {
-        $this->Eleve = $Eleve;
-
-        return $this;
     }
 
     public function getClasse(): ?ClasseAnneeScolaire
@@ -215,6 +203,18 @@ class Inscription
         }
 
         return $status;
+    }
+
+    public function getEleve(): ?Eleve
+    {
+        return $this->eleve;
+    }
+
+    public function setEleve(?Eleve $eleve): static
+    {
+        $this->eleve = $eleve;
+
+        return $this;
     }
 
 
