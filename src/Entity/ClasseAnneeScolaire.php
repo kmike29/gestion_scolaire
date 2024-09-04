@@ -151,7 +151,7 @@ class ClasseAnneeScolaire
         return $this;
     }
 
- 
+
 
     /**
      * @return Collection<int, Inscription>

@@ -61,8 +61,8 @@ class DynamicPaiementType extends AbstractType
                     $field->add(TextType::class, [
                         'attr' => [
                             'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getStatusPaiement(),
-                            'style' => 'width: 300px',
-                            'class' => "form-control"
+                           // 'style' => 'width: 300px',
+                           'class' => "form-control col-md-6"
                         ],
                         'mapped' => false,
                         'disabled' => true,
@@ -76,8 +76,8 @@ class DynamicPaiementType extends AbstractType
                         'label' => 'Montant pour reduction de paiement unique',
                         'attr' => [
                             'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getMontantPourRemiseUnique(),
-                            'style' => 'width: 300px',
-                            'class' => "form-control"
+                            //'style' => 'width: 300px',
+                            'class' => "form-control col-md-6"
                         ],
                         'mapped' => false,
                         'disabled' => true,

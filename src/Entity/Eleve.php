@@ -241,7 +241,7 @@ class Eleve
     public function getLastInscription(): ?Inscription
     {
         return ($this->inscriptions->last()) ? $this->inscriptions->last() : null;
-        
+
     }
 
     public function getImpayes(): array
