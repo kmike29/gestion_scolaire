@@ -75,7 +75,7 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Niveaux', 'fa fa-layer-group', Niveau::class),
                 MenuItem::linkToCrud('Assignation des matières', 'fa fa-book-open', ClasseMatiere::class),
                 MenuItem::linkToCrud('Années scolaires', 'fa fa-calendar', AnneeScolaire::class),
-                MenuItem::linkToCrud('TypRemises', 'fa fa-clock', TypeRemise::class),
+                MenuItem::linkToCrud('Type de Remises', 'fa fa-clock', TypeRemise::class),
                 MenuItem::linkToCrud('Matières programmés', 'fa fa-clock', TrancheHoraire::class),
                 MenuItem::linkToCrud('Remises', 'fa fa-clock', Remise::class),
 

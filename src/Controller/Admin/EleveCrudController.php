@@ -99,7 +99,6 @@ class EleveCrudController extends AbstractCrudController
             MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled', 'disabled')->hideWhenCreating(),
             BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex(),
             CollectionField::new('inscriptions')->hideWhenCreating()->allowAdd(false),
-            TextField::new('LastInscription'),
 
             FormField::addTab('Informations complémentaires'),
             TextareaField::new('observations')->hideOnIndex(),

@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -28,6 +29,8 @@ class ClasseAnneeScolaireCrudController extends AbstractCrudController
         return [
             AssociationField::new('anneeScolaire'),
             AssociationField::new('Classe'),
+            MoneyField::new('fraisScolarite')->setCurrency('XAF')->setStoredAsCents(false),
+            MoneyField::new('fraisInscription')->setCurrency('XAF')->setStoredAsCents(false),
             BooleanField::new('active')->setFormTypeOption('disabled', 'disabled'),
             CollectionField::new('eleves')
         ];
