@@ -29,6 +29,9 @@ class Paiement
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDeTransaction = null;
 
+    #[ORM\ManyToOne(inversedBy: 'paiements')]
+    private ?Facture $facture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +126,18 @@ class Paiement
     public function setDateDeTransaction(?\DateTimeInterface $dateDeTransaction): static
     {
         $this->dateDeTransaction = $dateDeTransaction;
+
+        return $this;
+    }
+
+    public function getFacture(): ?Facture
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(?Facture $facture): static
+    {
+        $this->facture = $facture;
 
         return $this;
     }

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240903201219 extends AbstractMigration
+final class Version20240906140729 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -40,14 +40,16 @@ final class Version20240903201219 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_8F8818A986EC68D8 ON eleve_tuteur (tuteur_id)');
         $this->addSql('CREATE TABLE emploi_du_temps (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, classe_id INTEGER DEFAULT NULL, CONSTRAINT FK_F86B32C18F5EA509 FOREIGN KEY (classe_id) REFERENCES classe_annee_scolaire (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_F86B32C18F5EA509 ON emploi_du_temps (classe_id)');
+        $this->addSql('CREATE TABLE facture (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, reference VARCHAR(100) NOT NULL)');
         $this->addSql('CREATE TABLE inscription (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, classe_id INTEGER NOT NULL, remise_id INTEGER DEFAULT NULL, eleve_id INTEGER NOT NULL, paiement_unique BOOLEAN NOT NULL, CONSTRAINT FK_5E90F6D68F5EA509 FOREIGN KEY (classe_id) REFERENCES classe_annee_scolaire (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_5E90F6D64E47A399 FOREIGN KEY (remise_id) REFERENCES remise (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_5E90F6D6A6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_5E90F6D68F5EA509 ON inscription (classe_id)');
         $this->addSql('CREATE INDEX IDX_5E90F6D64E47A399 ON inscription (remise_id)');
         $this->addSql('CREATE INDEX IDX_5E90F6D6A6CC7B2 ON inscription (eleve_id)');
         $this->addSql('CREATE TABLE matiere (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nom VARCHAR(100) NOT NULL, description CLOB DEFAULT NULL)');
         $this->addSql('CREATE TABLE niveau (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nom VARCHAR(30) NOT NULL)');
-        $this->addSql('CREATE TABLE paiement (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, inscription_id INTEGER NOT NULL, type VARCHAR(20) NOT NULL, montant INTEGER NOT NULL, date_de_transaction DATETIME DEFAULT NULL, CONSTRAINT FK_B1DC7A1E5DAC5993 FOREIGN KEY (inscription_id) REFERENCES inscription (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('CREATE TABLE paiement (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, inscription_id INTEGER NOT NULL, facture_id INTEGER DEFAULT NULL, type VARCHAR(20) NOT NULL, montant INTEGER NOT NULL, date_de_transaction DATETIME DEFAULT NULL, CONSTRAINT FK_B1DC7A1E5DAC5993 FOREIGN KEY (inscription_id) REFERENCES inscription (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_B1DC7A1E7F2DEE08 FOREIGN KEY (facture_id) REFERENCES facture (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_B1DC7A1E5DAC5993 ON paiement (inscription_id)');
+        $this->addSql('CREATE INDEX IDX_B1DC7A1E7F2DEE08 ON paiement (facture_id)');
         $this->addSql('CREATE TABLE personnel (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nom VARCHAR(100) NOT NULL, prenoms VARCHAR(255) NOT NULL, matricule VARCHAR(10) NOT NULL, date_de_naissance DATE NOT NULL, date_ajout DATE NOT NULL, acte_de_naissance VARCHAR(255) DEFAULT NULL, cv VARCHAR(255) DEFAULT NULL, numero_cnss VARCHAR(100) DEFAULT NULL, compte_bancaire VARCHAR(255) DEFAULT NULL, diplomes_academiques VARCHAR(255) DEFAULT NULL, diplomes_professionnels VARCHAR(255) DEFAULT NULL)');
         $this->addSql('CREATE TABLE remise (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type_remise_id INTEGER DEFAULT NULL, designation VARCHAR(100) NOT NULL, pourcentage INTEGER NOT NULL, cumulable BOOLEAN DEFAULT NULL, CONSTRAINT FK_117A95C7FA81E289 FOREIGN KEY (type_remise_id) REFERENCES type_remise (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_117A95C7FA81E289 ON remise (type_remise_id)');
@@ -80,6 +82,7 @@ final class Version20240903201219 extends AbstractMigration
         $this->addSql('DROP TABLE eleve');
         $this->addSql('DROP TABLE eleve_tuteur');
         $this->addSql('DROP TABLE emploi_du_temps');
+        $this->addSql('DROP TABLE facture');
         $this->addSql('DROP TABLE inscription');
         $this->addSql('DROP TABLE matiere');
         $this->addSql('DROP TABLE niveau');

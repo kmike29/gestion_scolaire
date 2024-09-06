@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Inscription;
 use App\Entity\Paiement;
+use App\Form\CollectionFactureType;
 use App\Form\DynamicPaiementType;
 use App\Form\PaiementType;
 use App\Repository\PaiementRepository;
@@ -37,8 +38,16 @@ class PaiementController extends AbstractController
     #[Route('/new_groupe', name: 'app_paiement_new_groupe', methods: ['GET', 'POST'])]
     public function new_groupe(Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('paiement/groupe.html.twig', [
+        /*return $this->render('paiement/groupe.html.twig', [
 
+        ]);*/
+
+        $form = $this->createForm(CollectionFactureType::class);
+        $form->handleRequest($request);
+
+
+        return $this->render('paiement/groupe.html.twig', [
+                'form' => $form,
         ]);
     }
     #[Route('/{id}', name: 'app_paiement_show', methods: ['GET'])]
