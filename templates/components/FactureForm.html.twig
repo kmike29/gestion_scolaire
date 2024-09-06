@@ -24,6 +24,7 @@
                     <th scope="col">inscrit</th>
                     <th scope="col">Montant payé</th>
                     <th scope="col">Reste à payer</th>
+                    <th scope="col">Seuil pour une remise paiement unique</th>
                     <th scope="col">Montant à verser</th>
                     <th scope="col">Actions</th>
 
@@ -36,6 +37,11 @@
                         <td>{{ form_row(item_form.inscription) }}</td>
                         <td>{{ form_row(item_form.montantVerse) }}</td>
                         <td>{{ form_row(item_form.montantRestant) }}</td>
+                        <td>        
+                            {% if item_form.montantUnique is defined %}
+                              {{ form_row(item_form.montantUnique) }}
+                            {% endif %}
+                        </td>
                         <td>{{ form_row(item_form.montant) }}</td>
                         <td>
                             {{ form_row(item_form.vars.button_delete,

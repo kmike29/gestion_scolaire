@@ -79,7 +79,19 @@ class DynamicPaiementLigneType extends AbstractType
                     'label' => false,
                 ]);
             })
-
+            ->addDependent('montantUnique', 'inscription', function (DependentField $field, ?Inscription $inscription) {
+                // ajout du status uniquemment sur les paiement de scolarité
+                if ($inscription && $inscription->getPaiementsScolarité()->isEmpty()) {
+                    $field->add(TextType::class, [
+                        'label' => 'Montant pour reduction de paiement unique',
+                        'attr' => [
+                            'value' =>  null === $inscription ? 'Choisissez un élève' : $inscription->getMontantPourRemiseUnique(),
+                        ],
+                        'mapped' => false,
+                        'disabled' => true,
+                    ]);
+                }
+            })
 
             ->addDependent(
                 'montant',
