@@ -1,6 +1,12 @@
 <div {{ attributes }}>
-    {{ form_start(form) }}
-        <div class="row">
+
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action:prevent',
+            'data-live-action-param': 'save'
+        }
+    }) }}       
+     <div class="row">
             <div class="col-4">
                 {{ form_row(form.reference, {
                     label: false,

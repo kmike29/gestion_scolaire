@@ -34,13 +34,45 @@ class FactureForm extends AbstractController
     #[LiveAction]
     public function save(EntityManagerInterface $entityManager)
     {
+        $this->submitForm();
 
-        
+        /** @var Paiement $paiement */
+        $facture = $this->getForm()->getData();
 
+        if($facture->getReference() == ''|| $facture->getReference() == null   ){
+            $facture->setReference($this->generateRandomString());
+        }
 
+        foreach ($facture->getPaiements() as $paiement){
+            $paiement->setDateDeTransaction(new \DateTime());
+
+            $inscription = $paiement->getInscription();
+            $paiement->setType('scolarité');
+    
+            if ($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique() <= $paiement->getMontant()) {
+                $inscription->setPaiementUnique(true);
+                $entityManager->persist($inscription);
+                $this->addFlash('notice', 'Paiement unique');
+            }
+        }
+
+        $entityManager->persist($facture);
+        $entityManager->flush();
 
         $this->addFlash('success', 'Paiement effectué!');
 
         return $this->redirectToRoute('admin');
+    }
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+    
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+    
+        return $randomString;
     }
 }

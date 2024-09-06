@@ -65,14 +65,10 @@ class PaiementCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
 
-        $paiementAction =    Action::new('nouveauPaiement', 'Nouveau paiement')
-        ->linkToRoute('app_paiement_new')
-        ;
-
         return $actions
         //->add(Crud::PAGE_INDEX , $paiementAction)
         ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
-            return $action->linkToRoute('app_paiement_new')
+            return $action->linkToRoute('app_paiement_new_groupe')
             ;
         })
       //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
