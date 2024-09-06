@@ -25,42 +25,22 @@ class PaiementController extends AbstractController
     }
 
     #[Route('/new', name: 'app_paiement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, Inscription $iDinscription = null): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        if ($iDinscription) {
-            $inscriptionRepository = $entityManager->getRepository(Inscription::class);
-            $inscription = $inscriptionRepository->findOneBy(['id' => $iDinscription]);
-
-            dump($inscription);
-
-        }
-
-
-
-        $paiement = new Paiement();
-        $form = $this->createForm(DynamicPaiementType::class, $paiement);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            if (($inscription->getMontantRestant() - ($paiement->getMontant())) >= 0) {
-                $paiement->setInscription($inscription);
-                $entityManager->persist($paiement);
-                $entityManager->flush();
-
-                return $this->redirectToRoute('app_paiement_index', [], Response::HTTP_SEE_OTHER);
-            }
-
-
-        }
 
         return $this->render('paiement/new.html.twig', [
-            //'paiement' => $paiement,
-           // 'form' => $form,
+
         ]);
     }
 
+    #[Route('/new_groupe', name: 'app_paiement_new_groupe', methods: ['GET', 'POST'])]
+    public function new_groupe(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        return $this->render('paiement/groupe.html.twig', [
+
+        ]);
+    }
     #[Route('/{id}', name: 'app_paiement_show', methods: ['GET'])]
     public function show(Paiement $paiement): Response
     {

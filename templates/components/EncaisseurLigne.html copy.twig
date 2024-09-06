@@ -1,0 +1,36 @@
+<div {{ attributes }}>
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action:prevent',
+            'data-live-action-param': 'save'
+        }
+    }) }}
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">classe</th>
+            <th scope="col">inscrit</th>
+            <th scope="col">Montant payé</th>
+            <th scope="col">Reste à payer</th>
+            <th scope="col">Montant à verser</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>{{ form_row(form.classe) }}</td>
+            <td>{{ form_row(form.inscription) }}</td>
+            <td>{{ form_row(form.montantVerse) }}</td>
+            <td>{{ form_row(form.montantRestant) }}</td>
+            <td>{{ form_row(form.montant) }}</td>
+          </tr>
+        
+        </tbody>
+      </table>
+    
+
+
+
+    {{ form_end(form) }}
+</div>

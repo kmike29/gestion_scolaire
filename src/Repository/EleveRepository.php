@@ -16,6 +16,17 @@ class EleveRepository extends ServiceEntityRepository
         parent::__construct($registry, Eleve::class);
     }
 
+
+    public function search($value): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.nom LIKE :val')
+            ->setParameter('val', '%'.$value.'%')->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Eleve[] Returns an array of Eleve objects
     //     */

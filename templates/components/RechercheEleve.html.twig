@@ -1,0 +1,24 @@
+{# templates/components/ProductSearch.html.twig #}
+{# for the Live Component to work, there must be a single root element
+    (e.g. a <div>) where the attributes are applied to #}
+ <div {{ attributes }}>
+     <input
+         type="search"
+         data-model="debounce(100)|query"
+     >
+     <li data-model="value" > taille eleves recherche {{ value|length }}</li>
+
+     <ul>
+         {% for eleve in this.resultats %}
+             <li>
+                {{ eleve.nom }} {{ eleve.prenoms }}  
+                <button
+                data-action="live#action"
+                data-live-action-param="addStudent"
+                data-live-id-param="{{ eleve.id }}"
+                 >Ajouter</button>
+             </li>  
+             
+         {% endfor %}
+     </ul>
+ </div>

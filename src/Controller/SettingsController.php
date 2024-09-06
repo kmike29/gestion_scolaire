@@ -13,11 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SettingsController extends AbstractController
 {
-
     public function __construct(
         private SettingsFormFactoryInterface $settingsFormFactory,
-        private SettingsManagerInterface  $settingsManager)
-    {
+        private SettingsManagerInterface  $settingsManager
+    ) {
     }
 
     #[Route('/settings', name: 'app_setting')]
@@ -43,7 +42,7 @@ class SettingsController extends AbstractController
         $builder = $this->settingsFormFactory->createSettingsFormBuilder($clone);
 
         //Add a submit button, so we can save the form
-        $builder->add('submit', SubmitType::class,[
+        $builder->add('submit', SubmitType::class, [
             'label' => 'Sauvegarder'
         ]);
 
