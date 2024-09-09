@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reçu{% endblock %}
+
+{% block body %}
+
+<div style= "background-color: white;">
+    <div style="text-align:center">
+        <h1 > COMPLEXE SCOLAIRE ETOILE DE L’EXCELLENCE  </h1>
+        <h2 > Tél : 90 64 67 72 / 92 21 67 69 <h2>
+    </div>
+
+
+    <div style="text-align:right">
+        <h4> Reçu N° {{ paiement.facture.reference }} <h4>
+    </div>
+
+    <div style="text-align:center">
+        <h4>  <b> Année scolaire : </b> {{ paiement.inscription.classe.anneeScolaire }} <h4>
+    </div>
+
+    <div >
+
+        <span style="float: left;"> <b> Reçu de  : </b>  {{ paiement.inscription.eleve }}  </span>
+        <span style="float: right;"> <b>Classe : </b>  {{ paiement.inscription.classe }} </span>
+    </div>
+
+    <br>
+
+    <div style="text-align:left">
+        <h5 style="text-align:left">  <b>Montant payé  : </b>   {{ paiement.montant }} FCFA </h5>
+
+        <h5 style="text-align:left">  <b> Pour : </b> Frais de {{ paiement.type }} </h5>
+        <h5 style="text-align:left">  <b> Total payé : </b> {{ paiement.inscription.totalRemis }}  F CFA </h5>
+        <h5 style="text-align:left"> <b> Reste à payer : </b>  {{ paiement.inscription.montantRestant }} F CFA </h5>
+    </div>
+
+    <div style="text-align:">
+        <h5 style="text-align:right">  <b>Mission Tové, le  </b>   {{ paiement.dateDeTransaction |date("d/m/Y")  }}  </h5>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+</div>
+{% endblock %}

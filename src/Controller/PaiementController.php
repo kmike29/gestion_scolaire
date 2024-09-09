@@ -14,9 +14,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
 #[Route('/paiement')]
 class PaiementController extends AbstractController
 {
+
+
+
     #[Route('/', name: 'app_paiement_index', methods: ['GET'])]
     public function index(PaiementRepository $paiementRepository): Response
     {
@@ -50,6 +54,7 @@ class PaiementController extends AbstractController
                 'form' => $form,
         ]);
     }
+
     #[Route('/{id}', name: 'app_paiement_show', methods: ['GET'])]
     public function show(Paiement $paiement): Response
     {
@@ -57,6 +62,16 @@ class PaiementController extends AbstractController
             'paiement' => $paiement,
         ]);
     }
+
+        
+    #[Route('/{id}/recu', name: 'app_paiement_recu', methods: ['GET'])]
+    public function recu(Paiement $paiement): Response
+    {
+        return $this->render('paiement/recu.html.twig', [
+            'paiement' => $paiement,
+        ]);
+    }
+
 
     #[Route('/{id}/edit', name: 'app_paiement_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Paiement $paiement, EntityManagerInterface $entityManager): Response

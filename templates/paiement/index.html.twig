@@ -23,6 +23,9 @@
                 <td>
                     <a href="{{ path('app_paiement_show', {'id': paiement.id}) }}">show</a>
                     <a href="{{ path('app_paiement_edit', {'id': paiement.id}) }}">edit</a>
+                    <a href="{{ path('app_paiement_recu', {'id': paiement.id}) }}">recu</a>
+                    <a href="{{ path('app_paiement_recu_pdf', {'id': paiement.id}) }}">recu en pdf</a>
+
                 </td>
             </tr>
         {% else %}
