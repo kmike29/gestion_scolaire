@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Dompdf\Dompdf;
 
 #[Route('/paiement')]
 class PaiementController extends AbstractController
@@ -32,11 +32,7 @@ class PaiementController extends AbstractController
     #[Route('/new', name: 'app_paiement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-
-
-        return $this->render('paiement/new.html.twig', [
-
-        ]);
+        return $this->render('paiement/new.html.twig');
     }
 
     #[Route('/new_groupe', name: 'app_paiement_new_groupe', methods: ['GET', 'POST'])]
@@ -63,7 +59,23 @@ class PaiementController extends AbstractController
         ]);
     }
 
-        
+    
+    #[Route('/{id}/pdf', name: 'app_paiement_recu_pdf', methods: ['GET'])]
+    public function pdf(Paiement $paiement) : Response 
+    {
+        $html =  $this->render('paiement/recu.html.twig', [
+            'paiement' => $paiement,
+        ]);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream('recu '.$paiement->getFacture()->getReference(), array('Attachment' => 0));
+        return new Response('', 200, [
+            'Content-Type' => 'application/pdf',
+        ]);
+        }
+
     #[Route('/{id}/recu', name: 'app_paiement_recu', methods: ['GET'])]
     public function recu(Paiement $paiement): Response
     {

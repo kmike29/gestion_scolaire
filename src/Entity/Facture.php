@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FactureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FactureRepository::class)]
@@ -23,6 +24,12 @@ class Facture
      */
     #[ORM\OneToMany(targetEntity: Paiement::class, mappedBy: 'facture', cascade: ['persist', 'remove'])]
     private Collection $paiements;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateFacture = null;
+
+    #[ORM\ManyToOne(inversedBy: 'factures')]
+    private ?AnneeScolaire $anneeScolaire = null;
 
     public function __construct()
     {
@@ -74,5 +81,58 @@ class Facture
         }
 
         return $this;
+    }
+
+    public function getDateFacture(): ?\DateTimeInterface
+    {
+        return $this->dateFacture;
+    }
+
+    public function setDateFacture(?\DateTimeInterface $dateFacture): static
+    {
+        $this->dateFacture = $dateFacture;
+
+        return $this;
+    }
+
+    public function getAnneeScolaire(): ?AnneeScolaire
+    {
+        return $this->anneeScolaire;
+    }
+
+    public function setAnneeScolaire(?AnneeScolaire $anneeScolaire): static
+    {
+        $this->anneeScolaire = $anneeScolaire;
+
+        return $this;
+    }
+
+    public function getTotalRemis(): int
+    {
+        $total = 0;
+
+        foreach ($this->paiements as $paiement) {
+                // if($paiement->getType() == 'scolarité'){
+                $total += $paiement->getMontant();
+                //}
+        }
+        
+
+        return $total;
+    }
+
+    public function getMontantRestant(): int
+    {
+        $total = 0;
+
+        if (!empty($this->paiements)) {
+            foreach ($this->paiements as $paiement) {
+                // if($paiement->getType() == 'scolarité'){
+                $total += $paiement->getInscription()->getMontantRestant();
+                //}
+            }
+        }
+
+        return $total;
     }
 }

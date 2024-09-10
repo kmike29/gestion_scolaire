@@ -34,9 +34,16 @@ class AnneeScolaire
     #[ORM\Column(length: 10)]
     private ?string $designation = null;
 
+    /**
+     * @var Collection<int, Facture>
+     */
+    #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'anneeScolaire')]
+    private Collection $factures;
+
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+        $this->factures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +132,36 @@ class AnneeScolaire
     public function __toString(): string
     {
         return $this->designation;
+    }
+
+    /**
+     * @return Collection<int, Facture>
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): static
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures->add($facture);
+            $facture->setAnneeScolaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): static
+    {
+        if ($this->factures->removeElement($facture)) {
+            // set the owning side to null (unless already changed)
+            if ($facture->getAnneeScolaire() === $this) {
+                $facture->setAnneeScolaire(null);
+            }
+        }
+
+        return $this;
     }
 
 }

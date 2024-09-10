@@ -2,6 +2,7 @@
 
 namespace App\Twig\Components;
 
+use App\Entity\AnneeScolaire;
 use App\Entity\Facture;
 use App\Entity\Paiement;
 use App\Form\CollectionFactureType;
@@ -34,14 +35,20 @@ class FactureForm extends AbstractController
     #[LiveAction]
     public function save(EntityManagerInterface $entityManager)
     {
+        $anneeRepository =  $entityManager->getRepository(AnneeScolaire::class);
+        $anneeScolaire =  $anneeRepository->findActiveYear(true);
+
+        
         $this->submitForm();
 
-        /** @var Paiement $paiement */
+        /** @var Facture $facture */
         $facture = $this->getForm()->getData();
 
         if($facture->getReference() == ''|| $facture->getReference() == null   ){
             $facture->setReference($this->generateRandomString());
         }
+        $facture->setDateFacture(new \DateTime());
+        $facture->setAnneeScolaire($anneeScolaire );
 
         foreach ($facture->getPaiements() as $paiement){
             $paiement->setDateDeTransaction(new \DateTime());
@@ -64,7 +71,7 @@ class FactureForm extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-    function generateRandomString($length = 10) {
+    function generateRandomString($length = 7) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
