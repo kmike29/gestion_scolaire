@@ -99,6 +99,9 @@ class Eleve
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'eleve')]
     private Collection $inscriptions;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $exemption = null;
+
     public function __construct()
     {
         $this->parents = new ArrayCollection();
@@ -404,6 +407,18 @@ class Eleve
                 $inscription->setEleve(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isExemption(): ?bool
+    {
+        return $this->exemption;
+    }
+
+    public function setExemption(?bool $exemption): static
+    {
+        $this->exemption = $exemption;
 
         return $this;
     }

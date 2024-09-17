@@ -86,6 +86,7 @@ class EleveCrudController extends AbstractCrudController
             TextField::new('nationalite')->setLabel('Nationalité')->setColumns(6)->hideOnIndex(),
             DateField::new('dateDeNaissance')->setLabel('Date de naissance')->setColumns(6)->hideOnIndex(),
             DateField::new('dateDInscription')->setLabel("Date d'inscription")->setColumns(6)->hideOnIndex()->hideWhenCreating(),
+            BooleanField::new('exemption')->hideOnIndex(),
 
 
             FormField::addTab('Personnes à contacter'),
@@ -145,13 +146,16 @@ class EleveCrudController extends AbstractCrudController
         parent::persistEntity($entityManager, $inscription);
 
 
-        $paiement = new Paiement();
-        $paiement->setType('inscription');
-        $paiement->setMontant($inscription->getFraisInscription());
-        $paiement->setInscription($inscription);
-        $paiement->setDateDeTransaction(new \DateTime());
+        if(!$eleve->isExemption()){
+            $paiement = new Paiement();
+            $paiement->setType('inscription');
+            $paiement->setMontant($inscription->getFraisInscription());
+            $paiement->setInscription($inscription);
+            $paiement->setDateDeTransaction(new \DateTime());
+    
+            parent::persistEntity($entityManager, $paiement);
+        }
 
-        parent::persistEntity($entityManager, $paiement);
 
 
     }
