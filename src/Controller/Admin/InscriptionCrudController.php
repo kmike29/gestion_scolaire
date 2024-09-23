@@ -168,10 +168,10 @@ class InscriptionCrudController extends AbstractCrudController
         ->add(Crud::PAGE_EDIT, $paiementAction)
         ->add(Crud::PAGE_INDEX, $paiementAction)
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
-                return $action->setLabel('Sauvegarder');
+                return $action->setLabel('Enregistrer');
             })
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
-                return $action->setLabel('Sauvegarder et ajouter un autre');
+                return $action->setLabel('Enregistrer et ajouter un autre');
             });
         //->remove(Crud::PAGE_INDEX, Action::NEW)
         //  ->remove(Crud::PAGE_INDEX, Action::DELETE)

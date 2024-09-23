@@ -68,7 +68,11 @@ class FactureForm extends AbstractController
 
         $this->addFlash('success', 'Paiement effectué!');
 
-        return $this->redirectToRoute('admin');
+        //return $this->redirectToRoute('admin');
+        return $this->redirectToRoute('admin', [
+            'crudControllerFqcn' => 'App\Controller\Admin\PaiementCrudController',
+            'crudAction' => 'index',
+        ]);
     }
 
     public function generateRandomString($length = 7)

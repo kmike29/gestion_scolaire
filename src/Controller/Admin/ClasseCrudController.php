@@ -70,10 +70,10 @@ class ClasseCrudController extends AbstractCrudController
 
         return $actions
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
-                return $action->setLabel('Sauvegarder');
+                return $action->setLabel('Enregistrer');
             })
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
-                return $action->setLabel('Sauvegarder et ajouter un autre');
+                return $action->setLabel('Enregistrer et ajouter un autre');
             });
 
     }

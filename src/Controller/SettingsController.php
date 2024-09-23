@@ -43,7 +43,7 @@ class SettingsController extends AbstractController
 
         //Add a submit button, so we can save the form
         $builder->add('submit', SubmitType::class, [
-            'label' => 'Sauvegarder'
+            'label' => 'Enregistrer'
         ]);
 
         //Create the form
