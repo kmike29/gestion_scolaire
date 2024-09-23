@@ -19,6 +19,7 @@ class Paiement
     private ?string $type = null;
 
     #[Assert\Positive(message : 'Les frais doivent etre supérieur à 0')]
+    //#[Assert\LessThanOrEqual($this->inscription->getMontantRestant())]
     #[ORM\Column]
     private ?int $montant = null;
 

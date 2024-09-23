@@ -80,7 +80,7 @@ class EleveCrudController extends AbstractCrudController
                 ->innerJoin('t.anneeScolaire', 'c')
                 ->andWhere('c.active = :actif')
                 ->setParameter('actif', true);
-            }),
+            })->setFormTypeOption('required', true),
 
             TextField::new('lieuDeNaissance')->setLabel('Lieu de naissance')->setColumns(6)->hideOnIndex(),
             TextField::new('nationalite')->setLabel('Nationalité')->setColumns(6)->hideOnIndex(),
@@ -99,11 +99,11 @@ class EleveCrudController extends AbstractCrudController
             FormField::addTab('Paiemens & inscriptions')->hideWhenCreating(),
             MoneyField::new('MontantImpayes')->setCurrency('XOF')->setNumDecimals(0)->setStoredAsCents(false)->setFormTypeOption('disabled', 'disabled')->hideWhenCreating(),
             BooleanField::new('inscriptionComplete')->hideWhenCreating()->hideOnIndex(),
-            CollectionField::new('inscriptions')->hideWhenCreating()->allowAdd(false),
+            CollectionField::new('inscriptions')->hideWhenCreating()->allowAdd(false)->hideOnIndex(),
 
             FormField::addTab('Informations complémentaires'),
             TextareaField::new('observations')->hideOnIndex(),
-            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->setColumns(6)->hideOnIndex(),
+            TextField::new('ecoleDeProvenance')->setLabel('Ecole de provenance')->setColumns(6),
 
             //CollectionField::new('parents')->allowAdd(true)->useEntryCrudForm()->setEntryIsComplex(),
         ];
@@ -130,8 +130,8 @@ class EleveCrudController extends AbstractCrudController
 
         parent::persistEntity($entityManager, $entityInstance);
         $this->createInscription($entityManager, $entityInstance);
-        parent::persistEntity($entityManager, $entityInstance);
-
+        //parent::persistEntity($entityManager, $entityInstance);
+        $this->addFlash('notice', "L'élève".$entityInstance->__toString()."a été enregistré");
     }
 
     public function createInscription(EntityManagerInterface $entityManager, Eleve $eleve)
@@ -146,13 +146,13 @@ class EleveCrudController extends AbstractCrudController
         parent::persistEntity($entityManager, $inscription);
 
 
-        if(!$eleve->isExemption()){
+        if (!$eleve->isExemption()) {
             $paiement = new Paiement();
             $paiement->setType('inscription');
             $paiement->setMontant($inscription->getFraisInscription());
             $paiement->setInscription($inscription);
             $paiement->setDateDeTransaction(new \DateTime());
-    
+
             parent::persistEntity($entityManager, $paiement);
         }
 

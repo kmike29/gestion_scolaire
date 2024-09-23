@@ -66,14 +66,13 @@ class PaiementCrudController extends AbstractCrudController
         AdminContext $context,
         AdminUrlGenerator $adminUrlGenerator,
         EntityManagerInterface $em
-    )
-    {
+    ) {
         /** @var Paiement $paiement */
         $paiement = $context->getEntity()->getInstance();
 
 
 
-        return $this->redirectToRoute('app_paiement_recu_pdf',['id'=>$paiement->getId()]);
+        return $this->redirectToRoute('app_paiement_recu_pdf', ['id' => $paiement->getId()]);
 
     }
 
@@ -81,7 +80,7 @@ class PaiementCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
 
-        
+
         $recuAction =    Action::new('voirRecu', 'Voir le reçu')
         ->linkToCrudAction('voirRecu');
 

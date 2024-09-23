@@ -18,9 +18,6 @@ use Dompdf\Dompdf;
 #[Route('/paiement')]
 class PaiementController extends AbstractController
 {
-
-
-
     #[Route('/', name: 'app_paiement_index', methods: ['GET'])]
     public function index(PaiementRepository $paiementRepository): Response
     {
@@ -59,9 +56,9 @@ class PaiementController extends AbstractController
         ]);
     }
 
-    
+
     #[Route('/{id}/pdf', name: 'app_paiement_recu_pdf', methods: ['GET'])]
-    public function pdf(Paiement $paiement) : Response 
+    public function pdf(Paiement $paiement): Response
     {
         $html =  $this->render('paiement/recu.html.twig', [
             'paiement' => $paiement,
@@ -74,7 +71,7 @@ class PaiementController extends AbstractController
         return new Response('', 200, [
             'Content-Type' => 'application/pdf',
         ]);
-        }
+    }
 
     #[Route('/{id}/recu', name: 'app_paiement_recu', methods: ['GET'])]
     public function recu(Paiement $paiement): Response

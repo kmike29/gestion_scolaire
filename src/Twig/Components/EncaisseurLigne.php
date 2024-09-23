@@ -17,7 +17,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveAction;
 #[AsLiveComponent()]
 class EncaisseurLigne extends AbstractController
 {
-   // use ComponentWithFormTrait;
+    // use ComponentWithFormTrait;
     use DefaultActionTrait;
 
     #[LiveProp]
