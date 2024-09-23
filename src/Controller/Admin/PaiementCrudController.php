@@ -93,8 +93,13 @@ class PaiementCrudController extends AbstractCrudController
         })
         ->remove(Crud::PAGE_INDEX, Action::EDIT)
         ->remove(Crud::PAGE_INDEX, Action::DELETE)
-
-      //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
+                return $action->setLabel('Sauvegarder');
+            })
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
+                return $action->setLabel('Sauvegarder et ajouter un autre');
+            });
+        //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
         ;
 
     }

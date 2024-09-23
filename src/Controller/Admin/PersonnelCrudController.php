@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Personnel;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -36,5 +39,16 @@ class PersonnelCrudController extends AbstractCrudController
             TextField::new('diplomesProfessionnels')->setLabel('Diplomes professionnels'),
         ];
     }
+    public function configureActions(Actions $actions): Actions
+    {
 
+        return $actions
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
+                return $action->setLabel('Sauvegarder');
+            })
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
+                return $action->setLabel('Sauvegarder et ajouter un autre');
+            });
+
+    }
 }

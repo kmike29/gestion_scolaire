@@ -114,9 +114,12 @@ class EleveCrudController extends AbstractCrudController
 
         return $actions
         ->add(Crud::PAGE_INDEX, Action::DETAIL)
-        //->remove(Crud::PAGE_INDEX, Action::NEW)
-      //  ->remove(Crud::PAGE_INDEX, Action::DELETE)
-        ;
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
+                return $action->setLabel('Sauvegarder');
+            })
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
+                return $action->setLabel('Sauvegarder et ajouter un autre');
+            });
 
     }
 

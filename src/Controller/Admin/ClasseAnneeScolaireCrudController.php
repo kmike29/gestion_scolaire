@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\ClasseAnneeScolaire;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -52,6 +54,19 @@ class ClasseAnneeScolaireCrudController extends AbstractCrudController
         return $filters
             ->add('anneeScolaire')
         ;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+
+        return $actions
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
+                return $action->setLabel('Sauvegarder');
+            })
+            ->update(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER, function (Action $action) {
+                return $action->setLabel('Sauvegarder et ajouter un autre');
+            });
+
     }
 
     public function configureCrud(Crud $crud): Crud
