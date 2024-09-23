@@ -139,7 +139,7 @@ class InscriptionCrudController extends AbstractCrudController
         AdminUrlGenerator $adminUrlGenerator,
         EntityManagerInterface $em
     ) {
-        /** @var Product $product */
+        /** @var Inscription $inscription */
         $inscription = $context->getEntity()->getInstance();
 
 
@@ -152,6 +152,7 @@ class InscriptionCrudController extends AbstractCrudController
 
         return $this->redirect($url);
     }
+
 
     public function configureActions(Actions $actions): Actions
     {
