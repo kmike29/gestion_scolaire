@@ -112,11 +112,11 @@ class Facture
         $total = 0;
 
         foreach ($this->paiements as $paiement) {
-                // if($paiement->getType() == 'scolarité'){
-                $total += $paiement->getMontant();
-                //}
+            // if($paiement->getType() == 'scolarité'){
+            $total += $paiement->getMontant();
+            //}
         }
-        
+
 
         return $total;
     }

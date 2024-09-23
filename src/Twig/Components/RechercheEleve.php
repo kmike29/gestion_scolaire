@@ -33,7 +33,7 @@ class RechercheEleve
     public function getResultats(): array
     {
         // example method that returns an array of Products
-        return ($this->query!='') ?  $this->eleveRepository->search($this->query) : [];
+        return ($this->query != '') ? $this->eleveRepository->search($this->query) : [];
     }
 
     #[LiveAction]

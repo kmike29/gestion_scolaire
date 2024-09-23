@@ -34,10 +34,10 @@ class EncaisseurGroupe extends AbstractController
     /** @var Eleve[] */
     public $eleves = [];
 
-    public function addStudentToList( Eleve $eleve,EleveRepository $eleveRepository)
+    public function addStudentToList(Eleve $eleve, EleveRepository $eleveRepository)
     {
         //$eleve = $eleveRepository->findBy(['id' => $eleveId]);
-       // dump($eleve);
+        // dump($eleve);
         $this->paiements[] = $eleve;
     }
 }

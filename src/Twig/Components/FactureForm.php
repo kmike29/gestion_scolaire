@@ -38,24 +38,24 @@ class FactureForm extends AbstractController
         $anneeRepository =  $entityManager->getRepository(AnneeScolaire::class);
         $anneeScolaire =  $anneeRepository->findActiveYear(true);
 
-        
+
         $this->submitForm();
 
         /** @var Facture $facture */
         $facture = $this->getForm()->getData();
 
-        if($facture->getReference() == ''|| $facture->getReference() == null   ){
+        if ($facture->getReference() == '' || $facture->getReference() == null) {
             $facture->setReference($this->generateRandomString());
         }
         $facture->setDateFacture(new \DateTime());
-        $facture->setAnneeScolaire($anneeScolaire );
+        $facture->setAnneeScolaire($anneeScolaire);
 
-        foreach ($facture->getPaiements() as $paiement){
+        foreach ($facture->getPaiements() as $paiement) {
             $paiement->setDateDeTransaction(new \DateTime());
 
             $inscription = $paiement->getInscription();
             $paiement->setType('scolarité');
-    
+
             if ($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique() <= $paiement->getMontant()) {
                 $inscription->setPaiementUnique(true);
                 $entityManager->persist($inscription);
@@ -71,15 +71,16 @@ class FactureForm extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-    function generateRandomString($length = 7) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    public function generateRandomString($length = 7)
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
-    
+
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[random_int(0, $charactersLength - 1)];
         }
-    
+
         return $randomString;
     }
 }

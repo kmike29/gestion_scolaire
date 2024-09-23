@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
 use Symfonycasts\DynamicForms\DependentField;
@@ -103,8 +104,9 @@ class DynamicPaiementLigneType extends AbstractType
                             'disabled' => $inscription === null
                         ],
                         'label' => false,
-                       // 'constraints' => [new Positive(message: 'Le montant versé doit etre supérieur à 0')]
-
+                        'constraints' =>
+                         ($inscription) ? [new LessThanOrEqual($inscription->getMontantRestant(), message: 'Le montant versé doit ne peut pas etre supérieur au montant restant')]
+                          : [new LessThanOrEqual(0, message: 'Le montant versé doit etre supérieur à 0')]
                     ]);
 
                 }
