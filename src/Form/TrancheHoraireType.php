@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\ClasseAnneeScolaire;
 use App\Entity\EmploiDuTemps;
 use App\Entity\Personnel;
 use App\Entity\TrancheHoraire;

@@ -2,13 +2,13 @@
 
 namespace App\Settings;
 
-use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsTrait;
-use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\ParameterTypes\BoolType;
 use Jbtronics\SettingsBundle\ParameterTypes\IntType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Jbtronics\SettingsBundle\Storage\JSONFileStorageAdapter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(storageAdapter: JSONFileStorageAdapter::class)]
 class PaiementSettings

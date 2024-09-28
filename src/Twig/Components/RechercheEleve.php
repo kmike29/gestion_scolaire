@@ -4,14 +4,14 @@
 
 namespace App\Twig\Components;
 
+use App\Entity\Eleve;
 use App\Repository\EleveRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
-use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
-use App\Entity\Eleve;
+use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
 class RechercheEleve
