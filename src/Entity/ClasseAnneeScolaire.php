@@ -55,6 +55,9 @@ class ClasseAnneeScolaire
     #[ORM\OneToMany(targetEntity: Eleve::class, mappedBy: 'classeActuelle')]
     private Collection $eleves;
 
+    #[ORM\ManyToOne(inversedBy: 'classesEcole')]
+    private ?Ecole $ecole = null;
+
     public function __construct()
     {
         $this->professeurPrincipal = new ArrayCollection();
@@ -272,6 +275,18 @@ class ClasseAnneeScolaire
                 $elefe->setClasseActuelle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEcole(): ?Ecole
+    {
+        return $this->ecole;
+    }
+
+    public function setEcole(?Ecole $ecole): static
+    {
+        $this->ecole = $ecole;
 
         return $this;
     }

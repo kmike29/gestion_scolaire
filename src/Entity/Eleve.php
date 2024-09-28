@@ -102,6 +102,9 @@ class Eleve
     #[ORM\Column(nullable: true)]
     private ?bool $exemption = null;
 
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Ecole $ecole = null;
+
     public function __construct()
     {
         $this->parents = new ArrayCollection();
@@ -419,6 +422,18 @@ class Eleve
     public function setExemption(?bool $exemption): static
     {
         $this->exemption = $exemption;
+
+        return $this;
+    }
+
+    public function getEcole(): ?Ecole
+    {
+        return $this->ecole;
+    }
+
+    public function setEcole(?Ecole $ecole): static
+    {
+        $this->ecole = $ecole;
 
         return $this;
     }

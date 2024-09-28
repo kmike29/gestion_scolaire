@@ -31,6 +31,9 @@ class Facture
     #[ORM\ManyToOne(inversedBy: 'factures')]
     private ?AnneeScolaire $anneeScolaire = null;
 
+    #[ORM\ManyToOne(inversedBy: 'factures')]
+    private ?Ecole $ecole = null;
+
     public function __construct()
     {
         $this->paiements = new ArrayCollection();
@@ -134,5 +137,17 @@ class Facture
         }
 
         return $total;
+    }
+
+    public function getEcole(): ?Ecole
+    {
+        return $this->ecole;
+    }
+
+    public function setEcole(?Ecole $ecole): static
+    {
+        $this->ecole = $ecole;
+
+        return $this;
     }
 }

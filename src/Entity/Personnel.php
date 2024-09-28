@@ -55,9 +55,16 @@ class Personnel
     #[ORM\OneToMany(targetEntity: TrancheHoraire::class, mappedBy: 'professeur')]
     private Collection $tranchesHoraires;
 
+    /**
+     * @var Collection<int, Ecole>
+     */
+    #[ORM\ManyToMany(targetEntity: Ecole::class, mappedBy: 'personnel')]
+    private Collection $ecoles;
+
     public function __construct()
     {
         $this->tranchesHoraires = new ArrayCollection();
+        $this->ecoles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -230,6 +237,33 @@ class Personnel
     public function __toString(): string
     {
         return $this->nom.' '.$this->prenoms;
+    }
+
+    /**
+     * @return Collection<int, Ecole>
+     */
+    public function getEcoles(): Collection
+    {
+        return $this->ecoles;
+    }
+
+    public function addEcole(Ecole $ecole): static
+    {
+        if (!$this->ecoles->contains($ecole)) {
+            $this->ecoles->add($ecole);
+            $ecole->addPersonnel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEcole(Ecole $ecole): static
+    {
+        if ($this->ecoles->removeElement($ecole)) {
+            $ecole->removePersonnel($this);
+        }
+
+        return $this;
     }
 
 }

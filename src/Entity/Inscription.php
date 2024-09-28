@@ -35,6 +35,9 @@ class Inscription
     #[ORM\JoinColumn(nullable: false)]
     private ?Eleve $eleve = null;
 
+    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    private ?Ecole $ecole = null;
+
 
 
     public function __construct()
@@ -213,6 +216,18 @@ class Inscription
     public function setEleve(?Eleve $eleve): static
     {
         $this->eleve = $eleve;
+
+        return $this;
+    }
+
+    public function getEcole(): ?Ecole
+    {
+        return $this->ecole;
+    }
+
+    public function setEcole(?Ecole $ecole): static
+    {
+        $this->ecole = $ecole;
 
         return $this;
     }

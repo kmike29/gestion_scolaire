@@ -47,6 +47,9 @@ class Classe
     #[ORM\Column]
     private ?int $fraisInscriptionDeBase = null;
 
+    #[ORM\ManyToOne(inversedBy: 'classesDeBase')]
+    private ?Ecole $ecole = null;
+
 
     public function __construct()
     {
@@ -155,6 +158,18 @@ class Classe
     public function setFraisInscriptionDeBase(int $fraisInscriptionDeBase): static
     {
         $this->fraisInscriptionDeBase = $fraisInscriptionDeBase;
+
+        return $this;
+    }
+
+    public function getEcole(): ?Ecole
+    {
+        return $this->ecole;
+    }
+
+    public function setEcole(?Ecole $ecole): static
+    {
+        $this->ecole = $ecole;
 
         return $this;
     }
