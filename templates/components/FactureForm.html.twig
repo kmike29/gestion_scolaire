@@ -5,62 +5,61 @@
             'data-action': 'live#action:prevent',
             'data-live-action-param': 'save'
         }
-    }) }}       
-     <div class="row">
-            <div class="col-4">
-                {{ form_row(form.reference, {
-                    label: false,
-                    attr: {
-                        placeholder: 'Référence de la facture'
-                    }
-                }) }}
-            </div>
-        </div>
-
-        <table class="table table-borderless form-no-mb">
-            <thead>
-                <tr>
-                    <th scope="col">classe</th>
-                    <th scope="col">inscrit</th>
-                    <th scope="col">Montant payé</th>
-                    <th scope="col">Reste à payer</th>
-                    <th scope="col">Seuil pour une remise paiement unique</th>
-                    <th scope="col">Montant à verser</th>
-                    <th scope="col">Actions</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                {% for item_form in form.paiements %}
-                    <tr>
-                        <td>{{ form_row(item_form.classe) }}</td>
-                        <td>{{ form_row(item_form.inscription) }}</td>
-                        <td>{{ form_row(item_form.montantVerse) }}</td>
-                        <td>{{ form_row(item_form.montantRestant) }}</td>
-                        <td>        
-                            {% if item_form.montantUnique is defined %}
-                              {{ form_row(item_form.montantUnique) }}
-                            {% endif %}
-                        </td>
-                        <td>{{ form_row(item_form.montant) }}</td>
-                        <td>
-                            {{ form_row(item_form.vars.button_delete,
-                                 {label: 'X', attr:
-                                  {class: 'btn btn-outline-danger'}
-                                })
-                            }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        {{ form_widget(form.paiements.vars.button_add,
-             {
-                label: '+ Ajouter un élève', attr: {class: 'btn btn-outline-primary'}
+    }) }}
+    <div class="row">
+        <div class="col-4">
+            {{ form_row(form.reference, {
+                label: false,
+                attr: {
+                    placeholder: 'Référence de la facture'
                 }
-                )}}
+            }) }}
+        </div>
+    </div>
 
-        <button type="submit" class="btn btn-success" formnovalidate>Valider</button>
+    <table class="table table-borderless form-no-mb">
+        <thead>
+        <tr>
+            <th scope="col">classe</th>
+            <th scope="col">inscrit</th>
+            <th scope="col">Montant payé</th>
+            <th scope="col">Reste à payer</th>
+            <th scope="col">Seuil pour une remise paiement unique</th>
+            <th scope="col">Montant à verser</th>
+            <th scope="col">Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for item_form in form.paiements %}
+            <tr>
+                <td>{{ form_row(item_form.classe) }}</td>
+                <td>{{ form_row(item_form.inscription) }}</td>
+                <td>{{ form_row(item_form.montantVerse) }}</td>
+                <td>{{ form_row(item_form.montantRestant) }}</td>
+                <td>
+                    {% if item_form.montantUnique is defined %}
+                        {{ form_row(item_form.montantUnique) }}
+                    {% endif %}
+                </td>
+                <td>{{ form_row(item_form.montant) }}</td>
+                <td>
+                    {{ form_row(item_form.vars.button_delete,
+                        {label: 'X', attr:
+                            {class: 'btn btn-outline-danger'}
+                        }) }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ form_widget(form.paiements.vars.button_add,
+        {
+            label: '+ Ajouter un élève', attr: {class: 'btn btn-outline-primary'}
+        }
+    ) }}
+
+    <button type="submit" class="btn btn-success" formnovalidate>Valider</button>
     {{ form_end(form) }}
 </div>

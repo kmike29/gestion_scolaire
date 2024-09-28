@@ -7,22 +7,22 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ utilisateur.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ utilisateur.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ utilisateur.password }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ utilisateur.id }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ utilisateur.username }}</td>
+        </tr>
+        <tr>
+            <th>Roles</th>
+            <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>{{ utilisateur.password }}</td>
+        </tr>
         </tbody>
     </table>
 

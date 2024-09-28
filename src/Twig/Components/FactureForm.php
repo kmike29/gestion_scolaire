@@ -4,10 +4,12 @@ namespace App\Twig\Components;
 
 use App\Entity\AnneeScolaire;
 use App\Entity\Facture;
+use App\Entity\Inscription;
 use App\Entity\Paiement;
 use App\Form\CollectionFactureType;
 use App\Form\DynamicPaiementType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -33,46 +35,61 @@ class FactureForm extends AbstractController
     }
 
     #[LiveAction]
-    public function save(EntityManagerInterface $entityManager)
+    public function save(EntityManagerInterface $entityManager): Response
     {
-        $anneeRepository =  $entityManager->getRepository(AnneeScolaire::class);
-        $anneeScolaire =  $anneeRepository->findActiveYear(true);
-
-
+        $anneeScolaire = $this->getActiveAnneeScolaire($entityManager);
         $this->submitForm();
 
         /** @var Facture $facture */
         $facture = $this->getForm()->getData();
-
-        if ($facture->getReference() == '' || $facture->getReference() == null) {
-            $facture->setReference($this->generateRandomString());
-        }
-        $facture->setDateFacture(new \DateTime());
-        $facture->setAnneeScolaire($anneeScolaire);
+        $this->prepareFacture($facture, $anneeScolaire);
 
         foreach ($facture->getPaiements() as $paiement) {
-            $paiement->setDateDeTransaction(new \DateTime());
-
-            $inscription = $paiement->getInscription();
-            $paiement->setType('scolarité');
-
-            if ($inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique() <= $paiement->getMontant()) {
-                $inscription->setPaiementUnique(true);
-                $entityManager->persist($inscription);
-                $this->addFlash('notice', 'Paiement unique');
-            }
+            $this->preparePaiement($paiement, $entityManager);
         }
 
         $entityManager->persist($facture);
         $entityManager->flush();
 
         $this->addFlash('success', 'Paiement effectué!');
-
-        //return $this->redirectToRoute('admin');
         return $this->redirectToRoute('admin', [
             'crudControllerFqcn' => 'App\Controller\Admin\PaiementCrudController',
             'crudAction' => 'index',
         ]);
+    }
+
+    private function getActiveAnneeScolaire(EntityManagerInterface $entityManager): ?AnneeScolaire
+    {
+        $anneeRepository = $entityManager->getRepository(AnneeScolaire::class);
+        return $anneeRepository->findActiveYear(true);
+    }
+
+    private function prepareFacture(Facture $facture, AnneeScolaire $anneeScolaire): void
+    {
+        if (empty($facture->getReference())) {
+            $facture->setReference($this->generateRandomString());
+        }
+
+        $facture->setDateFacture(new \DateTime());
+        $facture->setAnneeScolaire($anneeScolaire);
+    }
+
+    private function preparePaiement(Paiement $paiement, EntityManagerInterface $entityManager): void
+    {
+        $paiement->setDateDeTransaction(new \DateTime());
+        $inscription = $paiement->getInscription();
+        $paiement->setType('scolarité');
+
+        if ($this->isEligibleForUniquePayment($inscription, $paiement)) {
+            $inscription->setPaiementUnique(true);
+            $entityManager->persist($inscription);
+            $this->addFlash('notice', 'Paiement unique');
+        }
+    }
+
+    private function isEligibleForUniquePayment(Inscription$inscription, Paiement $paiement): bool
+    {
+        return $inscription->getPaiements()->isEmpty() && $inscription->getMontantPourRemiseUnique() <= $paiement->getMontant();
     }
 
     public function generateRandomString($length = 7)

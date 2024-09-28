@@ -1,8 +1,8 @@
-<div style= "background-color: white;" {{ attributes }}>
+<div style="background-color: white;" {{ attributes }}>
 
     <div style="text-align:center">
-        <h1 > COMPLEXE SCOLAIRE ETOILE DE L’EXCELLENCE  </h1>
-        <h2 > Tél : 90 64 67 72 / 92 21 67 69 <h2>
+        <h1> COMPLEXE SCOLAIRE ETOILE DE L’EXCELLENCE </h1>
+        <h2> Tél : 90 64 67 72 / 92 21 67 69 <h2>
     </div>
 
     <div style="text-align:right">
@@ -10,36 +10,36 @@
     </div>
 
     <div style="text-align:center">
-        <h4>  <b> Année scolaire : </b> {{ facture.anneeScolaire}} <h4>
+        <h4><b> Année scolaire : </b> {{ facture.anneeScolaire }} <h4>
     </div>
 
     <table class="table table-borderless form-no-mb">
         <thead>
-            <tr>
-                <th scope="col">Nom et Prénoms</th>
-                <th scope="col">Classe</th>
-                <th scope="col">Montant payé</th>
-                <th scope="col">Total à payer</th>
-                <th scope="col">Reste à payer</th>
-            </tr>
+        <tr>
+            <th scope="col">Nom et Prénoms</th>
+            <th scope="col">Classe</th>
+            <th scope="col">Montant payé</th>
+            <th scope="col">Total à payer</th>
+            <th scope="col">Reste à payer</th>
+        </tr>
         </thead>
 
         <tbody>
-            {% for item_form in facture.paiements %}
-                {{ component('PaiementLigne', { paiement: item_form })}}
-            {% endfor %}
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>{{ facture.totalRemis}} </td>
-            <td>{{ facture.montantRestant}} </td>
+        {% for item_form in facture.paiements %}
+            {{ component('PaiementLigne', { paiement: item_form }) }}
+        {% endfor %}
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ facture.totalRemis }} </td>
+        <td>{{ facture.montantRestant }} </td>
         </tbody>
 
         <br>
-        
+
         <div style="text-align:">
-            <h5 style="text-align:right">  <b>Mission Tové, le  </b>   {{ facture.dateFacture |date("d/m/Y")  }}  </h5>
-    
+            <h5 style="text-align:right"><b>Mission Tové, le </b> {{ facture.dateFacture |date("d/m/Y") }}  </h5>
+
         </div>
-    
+
 </div>

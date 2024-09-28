@@ -1,33 +1,33 @@
 <div {{ attributes }}>
 
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">classe</th>
-        <th scope="col">inscrit</th>
-        <th scope="col">Montant payé</th>
-        <th scope="col">Reste à payer</th>
-        <th scope="col">Montant à verser</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-      {% for paiement in paiements %}
-             {{ component('EncaisseurLigne',{
-              dataModel: 'paiement',
-              error: _errors.get('paiement'),
-             }) }}
-     {% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">classe</th>
+            <th scope="col">inscrit</th>
+            <th scope="col">Montant payé</th>
+            <th scope="col">Reste à payer</th>
+            <th scope="col">Montant à verser</th>
+        </tr>
+        </thead>
 
-    </tbody>
-  </table>
-  <li> taille paiements {{ paiements|length }}</li>
-  <li> taille eleves {{ eleves|length }}</li>
+        <tbody>
+        {% for paiement in paiements %}
+            {{ component('EncaisseurLigne',{
+                dataModel: 'paiement',
+                error: _errors.get('paiement'),
+            }) }}
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <li> taille paiements {{ paiements|length }}</li>
+    <li> taille eleves {{ eleves|length }}</li>
 
 
-  {{ component('RechercheEleve', {
-    dataModel: 'eleves:value',
-  }) }}
+    {{ component('RechercheEleve', {
+        dataModel: 'eleves:value',
+    }) }}
 
 
 </div>
