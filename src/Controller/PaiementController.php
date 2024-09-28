@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Inscription;
 use App\Entity\Paiement;
 use App\Form\CollectionFactureType;
-use App\Form\DynamicPaiementType;
 use App\Form\PaiementType;
 use App\Repository\PaiementRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +25,7 @@ class PaiementController extends AbstractController
     }
 
     #[Route('/new', name: 'app_paiement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(): Response
     {
         return $this->render('paiement/new.html.twig');
     }
